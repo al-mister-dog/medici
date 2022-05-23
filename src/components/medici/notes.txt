@@ -1,0 +1,6 @@
+exchange rates are arranged into a hierarchy
+
+
+the bill is a payment order for a sum
+this sum is always drawn in the exchange money of only one of the cities 
+in this case Lyons

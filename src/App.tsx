@@ -1,58 +1,71 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useAppSelector, useAppDispatch } from './app/hooks';
+import {
+//   decrement,
+//   increment,
+//   incrementByAmount,
+//   incrementAsync,
+//   incrementIfOdd,
+  selectState,
+} from './features/counter/counterSlice';
+import { Box } from "@mui/material";
+import { useState } from "react";
+import "./App.css";
+import AllActors from "./components/medici/AllActors";
+import Actor from "./components/ui/Actor";
+import DataGrid from "./components/ui/DataGrid";
 
+interface Bill {
+  id: string;
+  dueTo: string;
+  dueFrom: string;
+  city: string;
+  amount: number;
+  status: boolean;
+}
 function App() {
+  
+const dispatch = useAppDispatch();
+  const [selected, setSelected] = useState(null);
+  const [bills, setBills] = useState<Bill[]>([]);
+
+  function selectActor(actor: any) {
+    setSelected(actor);
+  }
+  function addToBills(bill: any) {
+    setBills([...bills, bill]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Box className="App" style={{background: "#F3F6F9", height: "100vh"}}>
+      <Box style={{ display: "flex" }}>
+        <Box style={{ width: "60%" }}>
+          <AllActors selectActor={selectActor} addToBills={addToBills} />
+        </Box>
+        <Box
+          sx={{
+            width: "40%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flexStart",
+            background: "white"
+          }}
+        >
+          {bills.length > 0 && (
+            <Box style={{ width: "95%", margin: "auto" }}>
+              <DataGrid bills={bills}/>
+            </Box>
+          )}
+
+          {selected !== null && (
+            <Box style={{ width: "95%", margin: "auto" }}>
+              <Actor selected={selected}/>
+            </Box>
+          )}
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
 export default App;
+
+
