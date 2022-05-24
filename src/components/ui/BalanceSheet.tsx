@@ -24,7 +24,10 @@ const BalanceSheetTrader: React.FunctionComponent<{
         "&:active": {
           border: "1px solid blue",
         },
+        cursor: "pointer"
+        
       }}
+      
       onClick={() => selectActor(bank)}
     >
       <CardContent>
