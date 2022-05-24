@@ -120,6 +120,10 @@ export const actorsSlice = createSlice({
         category: keyof Category,
         bill: any
       ) {
+        partyConcerned[category] = partyConcerned[category].filter(
+          (b: { id: any }) => b.id !== bill.id
+        );
+        partyConcerned[category] = [...partyConcerned[category], bill];
         let partyConcernedId;
         let pCopy = { ...partyConcerned };
         if (partyConcerned.type === "banker") {
@@ -176,36 +180,52 @@ export const actorsSlice = createSlice({
         const localCurrency = bill.amount * exchangeRates[bill.city];
         const cityQuotesCertain = certaintyQuotes[drawee.city];
 
-        let pCopy = JSON.parse(JSON.stringify(payee))
-        let dCopy = JSON.parse(JSON.stringify(drawee))
-        
         if (cityQuotesCertain) {
-          dCopy.coins[currencies[dCopy.city]] = dCopy.coins[currencies[dCopy.city]] - unitOfAccount;
-          pCopy.coins[currencies[dCopy.city]] = pCopy.coins[currencies[dCopy.city]] + unitOfAccount;
+          drawee.coins[currencies[drawee.city]] =
+            drawee.coins[currencies[drawee.city]] - unitOfAccount;
+          payee.coins[currencies[drawee.city]] =
+            payee.coins[currencies[drawee.city]] + unitOfAccount;
         } else {
-          dCopy.coins[currencies[dCopy.city]] = dCopy.coins[currencies[dCopy.city]] - localCurrency;
-          pCopy.coins[currencies[dCopy.city]] = pCopy.coins[currencies[dCopy.city]] + localCurrency;
+          drawee.coins[currencies[drawee.city]] =
+            drawee.coins[currencies[drawee.city]] - localCurrency;
+          payee.coins[currencies[drawee.city]] =
+            payee.coins[currencies[drawee.city]] + localCurrency;
         }
         let payeeId;
         let draweeId;
         if (payee.type === "banker") {
           payeeId = payee.id as BankersObjectKey;
           draweeId = payee.id as TradersObjectKey;
-          state.bankers[payeeId] = pCopy;
-          state.traders[draweeId] = dCopy;
+          state.bankers[payeeId] = payee;
+          state.traders[draweeId] = drawee;
         } else {
           payeeId = payee.id as TradersObjectKey;
           draweeId = payee.id as BankersObjectKey;
-          state.traders[payeeId] = pCopy;
-          state.bankers[draweeId] = dCopy;
+          state.traders[payeeId] = payee;
+          state.bankers[draweeId] = drawee;
         }
       }
 
       const { payee, drawee, bill } = payload;
+      let payeeCopy = JSON.parse(JSON.stringify(payee));
+      let draweeCopy = JSON.parse(JSON.stringify(drawee));
       drawee.id === bill.dueFrom
-        ? finaliseBill(payee, drawee, bill)
-        : exchangeBill(payee, drawee, bill);
-      exchangeMoney(payee, drawee, bill);
+        ? finaliseBill(payeeCopy, draweeCopy, bill)
+        : exchangeBill(payeeCopy, draweeCopy, bill);
+      exchangeMoney(payeeCopy, draweeCopy, bill);
+      // let payeeId;
+      //   let draweeId;
+      //   if (payee.type === "banker") {
+      //     payeeId = payee.id as BankersObjectKey;
+      //     draweeId = payee.id as TradersObjectKey;
+      //     state.bankers[payeeId] = payeeCopy;
+      //     state.traders[draweeId] = draweeCopy;
+      //   } else {
+      //     payeeId = payee.id as TradersObjectKey;
+      //     draweeId = payee.id as BankersObjectKey;
+      //     state.traders[payeeId] = payeeCopy;
+      //     state.bankers[draweeId] = draweeCopy;
+      //   }
     },
     decrement: (state) => {
       // state.value -= 1;
