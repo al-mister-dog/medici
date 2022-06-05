@@ -1,47 +1,8 @@
 import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PendingIcon from "@mui/icons-material/Pending";
-
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useState } from "react";
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-const columns: GridColDef[] = [
+import { Box, Typography } from "@mui/material";
+const columnsAssets: GridColDef[] = [
   // { field: "dueTo", headerName: "Due To", width: 100 },
   { field: "dueFrom", headerName: "Due From", width: 100 },
   { field: "city", headerName: "City", width: 100 },
@@ -59,50 +20,68 @@ const columns: GridColDef[] = [
   },
 ];
 
-const Balances = ({selected}: {selected: any}) => {
-  const [value, setValue] = useState(0);
+const columnsLiabilities: GridColDef[] = [
+  { field: "dueTo", headerName: "Due To", width: 100 },
+  // { field: "dueFrom", headerName: "Due From", width: 100 },
+  { field: "city", headerName: "City", width: 100 },
+  {
+    field: "amount",
+    headerName: "Amount: Marcs",
+    width: 130,
+  },
+  {
+    field: "paid",
+    headerName: "Paid",
+    width: 100,
+    renderCell: (params: GridCellParams<boolean>) =>
+      params.value ? <CheckCircleIcon /> : <PendingIcon />,
+  },
+];
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
+const Balances = ({ selected }: { selected: any }) => {
   return (
-    <>
-    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            centered
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab sx={{}} label="Assets" {...a11yProps(0)} />
-            <Tab sx={{}} label="Liabilities" {...a11yProps(1)} />
-          </Tabs>
-        </Box>
-
-        <TabPanel value={value} index={0}>
-          <div style={{ height: 250, width: "100%" }}>
-            <div style={{ display: "flex", height: "100%" }}>
-              <div style={{ flexGrow: 1 }}>
-                <DataGrid rows={selected.assets} columns={columns} />
-              </div>
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Box sx={{ marginBottom: 5 }}>
+        <Typography
+          align="left"
+          sx={{ letterSpacing: "0.5px" }}
+        >
+          Assets
+        </Typography>
+        <div style={{ height: 200, width: "100%" }}>
+          <div style={{ display: "flex", height: "100%" }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid
+                rows={selected.assets}
+                columns={columnsAssets}
+                hideFooter
+              />
             </div>
           </div>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <div style={{ height: 250, width: "100%" }}>
-            <div style={{ display: "flex", height: "100%" }}>
-              <div style={{ flexGrow: 1 }}>
-                <DataGrid rows={selected.liabilities} columns={columns} />
-              </div>
+        </div>
+      </Box>
+      <Box>
+        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>Liabilities</Typography>
+        <div style={{ height: 200, width: "100%" }}>
+          <div style={{ display: "flex", height: "100%" }}>
+            <div style={{ flexGrow: 1 }}>
+              <DataGrid
+                rows={selected.liabilities}
+                columns={columnsLiabilities}
+                hideFooter
+              />
             </div>
           </div>
-        </TabPanel>
-      
+        </div>
+      </Box>
+    </Box>
+  );
+};
 
-    </>
-    
-  )
-}
-
-export default Balances
+export default Balances;

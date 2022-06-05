@@ -2,10 +2,11 @@ import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import {
   trade,
   drawBill,
+  remitBill,
   selectTraders,
   selectBankers,
 } from "../../features/actors/actorsSlice";
-import { remitBill } from "./functions";
+
 import { Box } from "@mui/material";
 import { useState } from "react";
 import "../../App.css";
@@ -65,32 +66,24 @@ function App() {
   }
   function f2() {
     dispatch(drawBill({payee:me, drawee:you, bill: me.assets[0]}));
-    setStateCounter(stateCounter + 1);
   }
   function f3() {
-    remitBill(you, tomasso, you.assets[0]);
-    setStateCounter(stateCounter + 1);
+    dispatch(remitBill({presenter: you, presentee: tomasso, bill: you.assets[0]}))
   }
   function f4() {
-    // drawBill(tomasso, salviati, tomasso.assets[0]);
-    setStateCounter(stateCounter + 1);
+    dispatch(drawBill({payee:tomasso, drawee:salviati, bill: tomasso.assets[0]}));
   }
   function f5() {
     dispatch(trade({ importer: federigo, exporter: piero, amount: 1 }));
-    addBill(federigo, piero, 1);
-    setStateCounter(stateCounter + 1);
   }
   function f6() {
-    // drawBill(piero, tomasso, piero.assets[0]);
-    setStateCounter(stateCounter + 1);
+    dispatch(drawBill({payee:piero, drawee:tomasso, bill: piero.assets[0]}));
   }
   function f7() {
-    remitBill(tomasso, you, tomasso.assets[1]);
-    setStateCounter(stateCounter + 1);
+    dispatch(remitBill({presenter: tomasso, presentee: you, bill: tomasso.assets[1]}));
   }
   function f8() {
-    // drawBill(you, federigo, you.assets[0]);
-    setStateCounter(stateCounter + 1);
+    dispatch(drawBill({payee:you, drawee:federigo, bill: you.assets[0]}));
   }
 
   return (
@@ -102,9 +95,11 @@ function App() {
         <Box
           sx={{
             width: "40%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flexStart",
+            height: "100vh",
+            
+            // display: "flex",
+            // flexDirection: "column",
+            // justifyContent: "flexStart",
             background: "white",
           }}
         >

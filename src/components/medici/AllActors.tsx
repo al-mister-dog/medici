@@ -23,7 +23,6 @@ const Medici: React.FunctionComponent<{
             justifyContent: "center",
           }}
         >
-          <h3>Florence</h3>
           <BalanceSheet bank={me} selectActor={selectActor} />
           <BalanceSheet bank={you} selectActor={selectActor} />
           <BalanceSheet bank={federigo} selectActor={selectActor} />
@@ -36,7 +35,6 @@ const Medici: React.FunctionComponent<{
             justifyContent: "center",
           }}
         >
-          <h3>Lyons</h3>
           <BalanceSheet bank={salviati} selectActor={selectActor} />
           <BalanceSheet bank={tomasso} selectActor={selectActor} />
           <BalanceSheet bank={piero} selectActor={selectActor} />

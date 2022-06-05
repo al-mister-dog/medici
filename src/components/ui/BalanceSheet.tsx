@@ -1,13 +1,13 @@
 import { Box, Card, CardContent, Divider } from "@mui/material";
-
-type Account = {
-  [index: string]: any;
-};
+import SideBalance from "./SideBalance";
 
 const BalanceSheetTrader: React.FunctionComponent<{
   bank: any;
   selectActor: (b: any) => void;
 }> = ({ bank, selectActor }) => {
+  const capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
   return (
     <Card
       style={{
@@ -15,7 +15,6 @@ const BalanceSheetTrader: React.FunctionComponent<{
         minWidth: 300,
         textAlign: "center",
         margin: 25,
-        
       }}
       sx={{
         "&:hover": {
@@ -24,10 +23,8 @@ const BalanceSheetTrader: React.FunctionComponent<{
         "&:active": {
           border: "1px solid blue",
         },
-        cursor: "pointer"
-        
+        cursor: "pointer",
       }}
-      
       onClick={() => selectActor(bank)}
     >
       <CardContent>
@@ -40,7 +37,7 @@ const BalanceSheetTrader: React.FunctionComponent<{
             marginBottom: 0,
           }}
         >
-          {bank.id}
+          {capitalize(bank.id)}
         </h3>
         <span
           style={{
@@ -49,103 +46,17 @@ const BalanceSheetTrader: React.FunctionComponent<{
             marginBottom: "0.875em",
           }}
         >
-          {bank.city}
+          {capitalize(bank.city)}
         </span>
       </CardContent>
       <Divider light />
       <Box display={"flex"}>
-        <Box
-          p={1}
-          flex={"auto"}
-          style={{
-            borderColor: "rgba(0, 0, 0, 0.08)",
-            height: "50%",
-            width: "50%",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 12,
-              color: "gray",
-              fontWeight: 500,
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-              margin: 0,
-            }}
-          >
-            Assets
-          </p>
-          {bank.assets.map((account: Account, i: number) => {
-            return (
-              <div
-                key={i}
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  textAlign: "left",
-                  fontSize: 12,
-                  color: "gray",
-                  fontWeight: 500,
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                }}
-              >
-                <p style={{ margin: 0, padding: 0 }}>Bills</p>
-                <p key={account.id} style={{ margin: 0, padding: 0 }}>
-                  <span>Due from {account.dueFrom}: </span>
-                  <span>{account.amount}</span>
-                </p>
-              </div>
-            );
-          })}
-        </Box>
-        <Box
-          p={1}
-          flex={"auto"}
-          style={{
-            borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
-            borderColor: "rgba(0, 0, 0, 0.08)",
-            height: "50%",
-            width: "50%",
-          }}
-        >
-          <p
-            style={{
-              fontSize: 12,
-              color: "gray",
-              fontWeight: 500,
-              fontFamily:
-                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-              margin: 0,
-            }}
-          >
-            Liabilities
-          </p>
-          {bank.liabilities.map((account: Account, i: number) => {
-            return (
-              <div
-                key={i}
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  textAlign: "left",
-                  fontSize: 12,
-                  color: "gray",
-                  fontWeight: 500,
-                  fontFamily:
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-                }}
-              >
-                <p style={{ margin: 0, padding: 0 }}>Bills</p>
-
-                <p key={account.id} style={{ margin: 0, padding: 0 }}>
-                  <span>Due to {account.dueTo}: </span>
-                  <span>{account.amount}</span>
-                </p>
-              </div>
-            );
-          })}
-        </Box>
+        <SideBalance side="assets" bills={bank.assets} coins={bank.coinAsset} />
+        <SideBalance
+          side="liabilities"
+          bills={bank.liabilities}
+          coins={bank.coinLiability}
+        />
       </Box>
     </Card>
   );

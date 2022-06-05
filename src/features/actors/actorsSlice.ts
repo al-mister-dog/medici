@@ -5,6 +5,7 @@
  */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
+import helpers from "./helpers";
 // import { fetchCount } from "./ API";
 import { Quotes, Rates, Currencies } from "../../types";
 import {
@@ -27,6 +28,8 @@ interface Trader {
   liabilities: any;
   coins: any;
   goods: number;
+  coinAsset: any;
+  coinLiability: any
 }
 interface Banker {
   id: string;
@@ -36,6 +39,8 @@ interface Banker {
   liabilities: any;
   coins: any;
   goods: number;
+  coinAsset: any;
+  coinLiability: any
 }
 export interface ActorsState {
   conditions: {
@@ -115,117 +120,41 @@ export const actorsSlice = createSlice({
       state.traders[exporterId].assets = [...payload.exporter.assets, bill];
     },
     drawBill: (state, { payload }) => {
-      function replaceBill(
-        partyConcerned: Banker | Trader,
-        category: keyof Category,
-        bill: any
-      ) {
-        partyConcerned[category] = partyConcerned[category].filter(
-          (b: { id: any }) => b.id !== bill.id
-        );
-        partyConcerned[category] = [...partyConcerned[category], bill];
-        let partyConcernedId;
-        let pCopy = { ...partyConcerned };
-        if (partyConcerned.type === "banker") {
-          partyConcernedId = payee.id as BankersObjectKey;
-          pCopy[category] = pCopy[category].filter(
-            (b: { id: any }) => b.id !== bill.id
-          );
-          pCopy[category] = [...pCopy[category], bill];
-          state.bankers[partyConcernedId] = pCopy;
-        } else {
-          partyConcernedId = payee.id as TradersObjectKey;
-          pCopy[category] = pCopy[category].filter(
-            (b: { id: any }) => b.id !== bill.id
-          );
-          pCopy[category] = [...pCopy[category], bill];
-          state.traders[partyConcernedId] = pCopy;
-        }
-      }
-
-      function finaliseBill(holder: any, recipient: any, bill: any) {
-        const recipientCopy = { ...bill };
-        const holderCopy = { ...bill };
-        recipientCopy.paid = true;
-        holderCopy.paid = true;
-        replaceBill(holder, "assets", holderCopy);
-        replaceBill(recipient, "liabilities", recipientCopy);
-      }
-
-      function exchangeBill(
-        holder: any,
-        recipient: Banker | Trader,
-        presentedBill: any
-      ) {
-        const bill = holder.assets.find(
-          (b: { id: any }) => b.id === presentedBill.id
-        );
-        const recipientCopy = { ...bill };
-        const holderCopy = { ...bill };
-        holderCopy.paid = true;
-        let rCopy = { ...recipient };
-        rCopy.assets = [...rCopy.assets, recipientCopy];
-        if (recipient.type === "banker") {
-          const recipientId = recipient.id as BankersObjectKey;
-          state.bankers[recipientId] = rCopy;
-        } else {
-          const recipientId = recipient.id as TradersObjectKey;
-          state.traders[recipientId] = rCopy;
-        }
-        replaceBill(holder, "assets", holderCopy);
-      }
-
-      function exchangeMoney(payee: any, drawee: any, bill: any) {
-        const unitOfAccount = bill.amount;
-        const localCurrency = bill.amount * exchangeRates[bill.city];
-        const cityQuotesCertain = certaintyQuotes[drawee.city];
-
-        if (cityQuotesCertain) {
-          drawee.coins[currencies[drawee.city]] =
-            drawee.coins[currencies[drawee.city]] - unitOfAccount;
-          payee.coins[currencies[drawee.city]] =
-            payee.coins[currencies[drawee.city]] + unitOfAccount;
-        } else {
-          drawee.coins[currencies[drawee.city]] =
-            drawee.coins[currencies[drawee.city]] - localCurrency;
-          payee.coins[currencies[drawee.city]] =
-            payee.coins[currencies[drawee.city]] + localCurrency;
-        }
-        let payeeId;
-        let draweeId;
-        if (payee.type === "banker") {
-          payeeId = payee.id as BankersObjectKey;
-          draweeId = payee.id as TradersObjectKey;
-          state.bankers[payeeId] = payee;
-          state.traders[draweeId] = drawee;
-        } else {
-          payeeId = payee.id as TradersObjectKey;
-          draweeId = payee.id as BankersObjectKey;
-          state.traders[payeeId] = payee;
-          state.bankers[draweeId] = drawee;
-        }
-      }
-
       const { payee, drawee, bill } = payload;
       let payeeCopy = JSON.parse(JSON.stringify(payee));
       let draweeCopy = JSON.parse(JSON.stringify(drawee));
+
       drawee.id === bill.dueFrom
-        ? finaliseBill(payeeCopy, draweeCopy, bill)
-        : exchangeBill(payeeCopy, draweeCopy, bill);
-      exchangeMoney(payeeCopy, draweeCopy, bill);
-      // let payeeId;
-      //   let draweeId;
-      //   if (payee.type === "banker") {
-      //     payeeId = payee.id as BankersObjectKey;
-      //     draweeId = payee.id as TradersObjectKey;
-      //     state.bankers[payeeId] = payeeCopy;
-      //     state.traders[draweeId] = draweeCopy;
-      //   } else {
-      //     payeeId = payee.id as TradersObjectKey;
-      //     draweeId = payee.id as BankersObjectKey;
-      //     state.traders[payeeId] = payeeCopy;
-      //     state.bankers[draweeId] = draweeCopy;
-      //   }
+        ? helpers.finaliseBill(payeeCopy, draweeCopy, bill)
+        : helpers.exchangeBill(payeeCopy, draweeCopy, bill);
+      helpers.exchangeMoney(payeeCopy, draweeCopy, bill);
+      let payeeId;
+      let draweeId;
+      if (payee.type === "banker") {
+        payeeId = payee.id as BankersObjectKey;
+        draweeId = drawee.id as TradersObjectKey;
+        state.bankers[payeeId] = payeeCopy;
+        state.traders[draweeId] = draweeCopy;
+      } else {
+        payeeId = payee.id as TradersObjectKey;
+        draweeId = drawee.id as BankersObjectKey;
+        state.traders[payeeId] = payeeCopy;
+        state.bankers[draweeId] = draweeCopy;
+      }
+    },
+    remitBill: (state, { payload }) => {
+      const { presenter, presentee, bill } = payload;
+      const presenterId = presenter.id as BankersObjectKey;
+      const presenteeId = presentee.id as BankersObjectKey;
+      let presenterCopy = JSON.parse(JSON.stringify(presenter));
+      let presenteeCopy = JSON.parse(JSON.stringify(presentee));
+      presenterCopy.assets = presenterCopy.assets.filter(
+        (b: { id: any }) => b.id !== bill.id
+      );
+      presenteeCopy.assets = [...presenteeCopy.assets, bill];
+
+      state.bankers[presenterId] = presenterCopy;
+      state.bankers[presenteeId] = presenteeCopy;
     },
     decrement: (state) => {
       // state.value -= 1;
@@ -252,7 +181,7 @@ export const actorsSlice = createSlice({
   },
 });
 
-export const { drawBill, trade, decrement, incrementByAmount } =
+export const { trade, drawBill, remitBill, decrement, incrementByAmount } =
   actorsSlice.actions;
 
 // The function below is called a selector and allows us to select a value from

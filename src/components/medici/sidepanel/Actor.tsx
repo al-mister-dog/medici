@@ -1,19 +1,21 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button"
-import { useState } from "react";
+import { Box, Typography, Button } from "@mui/material";
+import Operations from "./Operations"
 import Balances from "./Balances";
-
+import BasicInfo from "./BasicInfo"
+import ActorTabs from "./ActorTabs"
 const Actor: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
   
+  const capitalize = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
-        <h4>{selected.id}: {selected.type}, {selected.city}</h4>
-        {selected.type === "exporter" && <Button variant="contained">Export</Button>}
-        {selected.type === "importer" && <Button variant="contained">Import</Button>}
-        <Button variant="contained">Draw Bill</Button>
-        {selected.type === "banker" && <Button variant="contained">Remit Bill</Button>}
-        <Balances selected={selected} />
+        <Typography variant="h6" align="left" sx={{marginTop: 4}}>
+          {capitalize(selected.id)}: {capitalize(selected.type)}, {capitalize(selected.city)}
+        </Typography>
+        <ActorTabs selected={selected}/>
       </Box>
     </>
   );
