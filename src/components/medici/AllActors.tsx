@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { useAppSelector } from "../../app/hooks";
 import {
   selectTraders,
   selectBankers,
@@ -7,11 +7,10 @@ import BalanceSheet from "../ui/BalanceSheet";
 
 const Medici: React.FunctionComponent<{
   selectActor: (a: any) => void;
-  addToBills: (bill: any) => void;
-}> = ({ selectActor, addToBills }) => {
+}> = ({ selectActor }) => {
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
-  
+
   return (
     <>
       <div style={{ display: "flex" }}>

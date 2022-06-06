@@ -9,7 +9,7 @@ import { useState } from "react";
 import "../../App.css";
 import AllActors from "./AllActors";
 import Actor from "./sidepanel/Actor";
-import Notifications from "./Notifications"
+import Notifications from "./Toolbar"
 
 interface Bill {
   id: string;
@@ -33,38 +33,18 @@ function App() {
   // const [stateCounter, setStateCounter] = useState(0);
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
-
   const [selected, setSelected] = useState<string>("");
-  const [bills, setBills] = useState<Bill[]>([]);
 
   function selectActor(actor: any) {
     setSelected(actor.id);
   }
-  function addToBills(bill: any) {
-    setBills([...bills, bill]);
-  }
-
   
-  function addBill(importer: any, exporter: any, amount: number) {
-    const date = new Date().toISOString();
-    const bill = {
-      id: date,
-      dueTo: exporter.id,
-      dueFrom: importer.id,
-      city: importer.city,
-      amount: amount,
-      status: false,
-    };
-    addToBills(bill);
-  }
-
-
   return (
     <Box className="App" style={{ background: "#F3F6F9", height: "100vh" }}>
       <Notifications />
       <Box style={{ display: "flex" }}>
         <Box style={{ width: "60%" }}>
-          <AllActors selectActor={selectActor} addToBills={addToBills} />
+          <AllActors selectActor={selectActor} />
         </Box>
         <Box
           sx={{

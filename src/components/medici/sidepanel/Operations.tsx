@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import ExportCard from "./operations/ExportCard";
-import ImportCard from "./operations/ImportCard";
-import DrawBillCard from "./operations/DrawBillCard";
-import RemitBillCard from "./operations/RemitBillCard";
+import ExportCard from "./operations-cards/ExportCard";
+import ImportCard from "./operations-cards/ImportCard";
+import DrawBillCard from "./operations-cards/DrawBillCard";
+import RemitBillCard from "./operations-cards/RemitBillCard";
 
 const Operations: React.FunctionComponent<{ selected: any }> = ({
   selected,

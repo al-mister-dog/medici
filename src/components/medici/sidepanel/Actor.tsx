@@ -1,10 +1,8 @@
-import { Box, Typography, Button } from "@mui/material";
-import Operations from "./Operations"
-import Balances from "./Balances";
-import BasicInfo from "./BasicInfo"
+import { Box, Typography } from "@mui/material";
+
 import ActorTabs from "./ActorTabs"
-import florenceFlag from "./florence-flag.png"
-import lyonsFlag from "./lyons-flag.png"
+import florenceFlag from "../assets/florence-flag.png"
+import lyonsFlag from "../assets/lyons-flag.png"
 const Actor: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
   
   const capitalize = (str: string) => {

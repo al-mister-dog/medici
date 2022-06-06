@@ -1,15 +1,8 @@
-import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
-import Operations from "./Operations"
+import Operations from "./Operations";
 import Balances from "./Balances";
-import BasicInfo from "./BasicInfo"
 
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PendingIcon from "@mui/icons-material/Pending";
+import { Tabs, Tab, Typography, Box } from "@mui/material";
 
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { useState } from "react";
 
 interface TabPanelProps {
@@ -45,25 +38,7 @@ function a11yProps(index: number) {
   };
 }
 
-const columns: GridColDef[] = [
-  // { field: "dueTo", headerName: "Due To", width: 100 },
-  { field: "dueFrom", headerName: "Due From", width: 100 },
-  { field: "city", headerName: "City", width: 100 },
-  {
-    field: "amount",
-    headerName: "Amount: Marcs",
-    width: 130,
-  },
-  {
-    field: "paid",
-    headerName: "Paid",
-    width: 100,
-    renderCell: (params: GridCellParams<boolean>) =>
-      params.value ? <CheckCircleIcon /> : <PendingIcon />,
-  },
-];
-
-const ActorTabs = ({selected}: {selected: any}) => {
+const ActorTabs = ({ selected }: { selected: any }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -72,38 +47,34 @@ const ActorTabs = ({selected}: {selected: any}) => {
 
   return (
     <>
-    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            // centered
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab sx={{}} label="Operations" {...a11yProps(0)} />
-            <Tab sx={{}} label="Bills" {...a11yProps(1)} />
-            <Tab sx={{}} label="Records" {...a11yProps(2)} />
-          </Tabs>
-        </Box>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          // centered
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab sx={{}} label="Operations" {...a11yProps(0)} />
+          <Tab sx={{}} label="Bills" {...a11yProps(1)} />
+          <Tab sx={{}} label="Records" {...a11yProps(2)} />
+        </Tabs>
+      </Box>
 
-        <TabPanel value={value} index={0}>
-        <Box sx={{paddingLeft: "50px", paddingRight: "50px"}}>
-        <Operations selected={selected} />
+      <TabPanel value={value} index={0}>
+        <Box sx={{ paddingLeft: "50px", paddingRight: "50px" }}>
+          <Operations selected={selected} />
         </Box>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Balances selected={selected} />
-          
-        
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-        {selected.records.map((record: string, i: number) => (<p key={i}>{record}</p>))}
-        </TabPanel>
-        
-        
-
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Balances selected={selected} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        {selected.records.map((record: string, i: number) => (
+          <p key={i}>{record}</p>
+        ))}
+      </TabPanel>
     </>
-    
-  )
-}
+  );
+};
 
-export default ActorTabs
+export default ActorTabs;
