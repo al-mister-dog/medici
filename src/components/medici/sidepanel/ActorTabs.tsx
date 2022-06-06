@@ -86,10 +86,14 @@ const ActorTabs = ({selected}: {selected: any}) => {
         </Box>
 
         <TabPanel value={value} index={0}>
+        <Box sx={{paddingLeft: "50px", paddingRight: "50px"}}>
         <Operations selected={selected} />
+        </Box>
         </TabPanel>
         <TabPanel value={value} index={1}>
-        <Balances selected={selected} />
+          <Balances selected={selected} />
+          
+        
         </TabPanel>
         <TabPanel value={value} index={2}>
         <p>Operations</p>

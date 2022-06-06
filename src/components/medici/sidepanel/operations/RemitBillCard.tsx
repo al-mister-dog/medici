@@ -46,16 +46,24 @@ interface Banker {
   coinLiability: any;
 }
 
-const ExportCard: React.FunctionComponent<{ selected: any }> = ({
-  selected,
-}) => {
+interface Accordions {
+  export: boolean;
+  import: boolean;
+  drawBill: boolean;
+  remitBill: boolean;
+}
+
+const ExportCard: React.FunctionComponent<{
+  selected: any;
+  accordionExpanded: Accordions;
+  setAccordionExpanded: (v: Accordions) => void;
+}> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
   const dispatch = useAppDispatch();
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
   const bankersArray = [you, tomasso];
   const selectedBankers = bankersArray.filter(
-    (t) =>
-      selected.id !== t.id && t.type === "banker"
+    (t) => selected.id !== t.id && t.type === "banker"
   );
 
   const [selectedValueTo, setSelectedValueTo] = React.useState<Banker | null>(
@@ -87,6 +95,9 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
         bill: selectedBill,
       })
     );
+    setSelectedValueTo(null)
+    setSelectedBill(null)
+    setAccordionExpanded({ ...accordionExpanded, remitBill: false });
   };
 
   return (
@@ -147,8 +158,7 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
                   : ` `}
               </Typography>
               <Typography sx={{ margin: 0.75 }}>
-                {selectedValueTo ?
-                `${selectedValueTo.id}`: `_`}
+                {selectedValueTo ? `${selectedValueTo.id}` : `_`}
               </Typography>
             </div>
           </div>
@@ -209,6 +219,7 @@ function BillToRemitDialog(props: BillToRemitDialogProps) {
         (bill: any) => bill.id === selectedBillId
       );
       setSelectedBill(selectedBill);
+      handleClose()
     }
 
     return (
@@ -229,7 +240,7 @@ function BillToRemitDialog(props: BillToRemitDialogProps) {
                     setSelectionModel(selectedRow);
                   }}
                   selectionModel={selectionModel}
-                  rows={selected.assets}
+                  rows={selected.assets.filter((asset: { paid: boolean; }) => asset.paid === false)}
                   columns={columnsAssets}
                   hideFooter
                 />
@@ -300,7 +311,8 @@ function ToDialog(props: ToDialogProps) {
           Remit Bill
         </Typography>
         <Typography variant="subtitle1">
-          Pass a bill to another exchange banker so they can redeem it from the liable party
+          Pass a bill to another exchange banker so they can redeem it from the
+          liable party
         </Typography>
         <List sx={{ pt: 0 }}>
           {selectedBankers.map((banker, i) => (

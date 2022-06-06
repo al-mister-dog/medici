@@ -43,7 +43,7 @@ interface Accordions {
   remitBill: boolean;
 }
 
-const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Accordions, setAccordionExpanded: (v: Accordions) => void }> = ({
+const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Accordions, setAccordionExpanded: (v: Accordions) => void }> = ({
   selected, accordionExpanded, setAccordionExpanded
 }) => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
   const tradersArray = [me, salviati, federigo, piero];
   const selectedTraders = tradersArray.filter(
     (t) =>
-      selected.id !== t.id && selected.city !== t.city && t.type === "importer"
+      selected.id !== t.id && selected.city !== t.city && t.type === "exporter"
   );
 
   const [selectedValueTo, setSelectedValueTo] = React.useState<Trader | null>(
@@ -78,10 +78,10 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
 
 
   const onClickTrade = () => {
-    dispatch(trade({ importer: selectedValueTo, exporter: selected, amount: selectedValueAmount }));
-    setSelectedValueTo(null)
+    dispatch(trade({ importer: selected, exporter: selectedValueTo, amount: selectedValueAmount }));
     setSelectedValueAmount(0)
-    setAccordionExpanded({...accordionExpanded, export: false})
+    setSelectedValueTo(null)
+    setAccordionExpanded({...accordionExpanded, import: false})
   }
 
   return (
@@ -300,4 +300,4 @@ function AmountDialog(props: AmountDialogProps) {
     </Dialog>
   );
 }
-export default ExportCard;
+export default ImportCard;

@@ -2,19 +2,15 @@ import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
 import {
   selectTraders,
   selectBankers,
-  trade,
   drawBill,
 } from "../../../../features/actors/actorsSlice";
 import * as React from "react";
 import {
   DataGrid,
   GridColDef,
-  GridCellParams,
   GridSelectionModel,
-  GridRowId,
 } from "@mui/x-data-grid";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PendingIcon from "@mui/icons-material/Pending";
+
 import PersonIcon from "@mui/icons-material/Person";
 import { blue } from "@mui/material/colors";
 import {
@@ -26,9 +22,6 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Menu,
-  MenuItem,
-  TextField,
   Typography,
 } from "@mui/material";
 
@@ -45,34 +38,29 @@ interface Banker {
   coinAsset: any;
   coinLiability: any;
 }
+interface Accordions {
+  export: boolean;
+  import: boolean;
+  drawBill: boolean;
+  remitBill: boolean;
+}
 
-const ExportCard: React.FunctionComponent<{ selected: any }> = ({
-  selected,
-}) => {
+const DrawBillCard: React.FunctionComponent<{
+  selected: any;
+  accordionExpanded: Accordions;
+  setAccordionExpanded: (v: Accordions) => void;
+}> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
   const dispatch = useAppDispatch();
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
-  const bankersArray = [you, tomasso, salviati];
-  const selectedBankers = bankersArray.filter(
-    (t) =>
-      selected.id !== t.id && selected.city === t.city && t.type === "banker"
-  );
-  // const selectedBankers = bankersArray.filter(
-  //   (t) =>
-  //     (selected.id !== t.id && selected.city === t.city && t.type === "banker") || (selected.id !== t.id && selected.city === t.city && selectedBill.dueTo === t.id)
-  // );
-  /**
-   * 1 cant draw bill on yourself
-   * and
-   * 2 must be same city
-   * and m
-   * 3
-   */
-
-  const [selectedValueTo, setSelectedValueTo] = React.useState<Banker | null>(
+  
+  const [selectedBill, setSelectedBill] = useState<any>(null);
+  const [selectedValueTo, setSelectedValueTo] = useState<Banker | null>(
     null
   );
-  const [openTo, setOpenTo] = React.useState(false);
+
+  
+  const [openTo, setOpenTo] = useState(false);
   const handleClickOpenTo = () => {
     setOpenTo(true);
   };
@@ -80,15 +68,32 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
     setOpenTo(false);
   };
 
-  const [selectedBill, setSelectedBill] = React.useState<any>(null);
-  const [openAmount, setOpenAmount] = React.useState(false);
-
+  const [openAmount, setOpenAmount] = useState(false);
   const handleClickOpenAmount = () => {
     setOpenAmount(true);
   };
   const handleCloseAmount = () => {
     setOpenAmount(false);
   };
+
+
+  const bankersArray = [you, tomasso, salviati, me, federigo, piero];
+  const selectedBankers = bankersArray.filter((t) => {
+    if (selectedBill) {
+      return (
+        (selected.id !== t.id &&
+          selected.city === t.city &&
+          selectedBill.dueFrom === t.id) ||
+        (selected.id !== t.id &&
+          selected.city === t.city &&
+          t.type === "banker")
+      );
+    } else {
+      return (
+        selected.id !== t.id && selected.city === t.city && t.type === "banker"
+      );
+    }
+  });
 
   const onClickDrawBill = () => {
     dispatch(
@@ -98,6 +103,9 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
         bill: selectedBill,
       })
     );
+    setSelectedValueTo(null);
+    setSelectedBill(null);
+    setAccordionExpanded({ ...accordionExpanded, drawBill: false });
   };
 
   return (
@@ -132,7 +140,7 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
                 onClose={handleCloseAmount}
               />
               <Button
-              disabled={!selectedBill}
+                disabled={!selectedBill}
                 onClick={handleClickOpenTo}
                 sx={{ justifyContent: "flex-start" }}
               >
@@ -159,8 +167,7 @@ const ExportCard: React.FunctionComponent<{ selected: any }> = ({
                   : ` `}
               </Typography>
               <Typography sx={{ margin: 0.75 }}>
-                {selectedValueTo ?
-                `${selectedValueTo.id}`: `_`}
+                {selectedValueTo ? `${selectedValueTo.id}` : `_`}
               </Typography>
             </div>
           </div>
@@ -213,7 +220,7 @@ function BillToRedeemDialog(props: BillToRedeemDialogProps) {
 
   const Bills = ({ selected }: { selected: any }) => {
     const [selectionModel, setSelectionModel] =
-      React.useState<GridSelectionModel>([]);
+      useState<GridSelectionModel>([]);
 
     function handleClickChooseBill() {
       const selectedBillId = selectionModel[0];
@@ -221,6 +228,7 @@ function BillToRedeemDialog(props: BillToRedeemDialogProps) {
         (bill: any) => bill.id === selectedBillId
       );
       setSelectedBill(selectedBill);
+      handleClose();
     }
 
     return (
@@ -241,7 +249,7 @@ function BillToRedeemDialog(props: BillToRedeemDialogProps) {
                     setSelectionModel(selectedRow);
                   }}
                   selectionModel={selectionModel}
-                  rows={selected.assets}
+                  rows={selected.assets.filter((asset: { paid: boolean; }) => asset.paid === false)}
                   columns={columnsAssets}
                   hideFooter
                 />
@@ -334,4 +342,4 @@ function ToDialog(props: ToDialogProps) {
     </Dialog>
   );
 }
-export default ExportCard;
+export default DrawBillCard;

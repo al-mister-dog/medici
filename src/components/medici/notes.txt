@@ -4,3 +4,13 @@ exchange rates are arranged into a hierarchy
 the bill is a payment order for a sum
 this sum is always drawn in the exchange money of only one of the cities 
 in this case Lyons
+
+
+TODOS
+card OK button should be disabled after click //done
+accordion should collapse after OK click //done
+
+Find Bill dialog should close after OK click // done
+Same for Remit // done
+a bill that has been paid should not be in choose from bill list //
+
