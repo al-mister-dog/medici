@@ -17,7 +17,7 @@ export default function ButtonAppBar() {
             Florence: Quoting Certain, Lyons: Quoting Moveable
           </Typography>
           <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-            News: {records.length > 0 ? `${records[records.length -1]}`: `Trade to start`}
+            {records.length > 0 ? `${records[records.length -1]}`: `Trade to start`}
           </Typography>
         
         </Toolbar>
