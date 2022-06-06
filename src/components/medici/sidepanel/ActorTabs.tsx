@@ -96,7 +96,7 @@ const ActorTabs = ({selected}: {selected: any}) => {
         
         </TabPanel>
         <TabPanel value={value} index={2}>
-        <p>Operations</p>
+        {selected.records.map((record: string, i: number) => (<p key={i}>{record}</p>))}
         </TabPanel>
         
         

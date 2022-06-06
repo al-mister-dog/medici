@@ -29,7 +29,8 @@ interface Trader {
   coins: any;
   goods: number;
   coinAsset: any;
-  coinLiability: any
+  coinLiability: any;
+  records: any
 }
 interface Banker {
   id: string;
@@ -40,7 +41,8 @@ interface Banker {
   coins: any;
   goods: number;
   coinAsset: any;
-  coinLiability: any
+  coinLiability: any;
+  records: any
 }
 export interface ActorsState {
   conditions: {
@@ -58,6 +60,7 @@ export interface ActorsState {
     you: Banker;
     tomasso: Banker;
   };
+  records: string[]
 }
 type Category = Pick<Banker | Trader, "assets" | "liabilities">;
 
@@ -77,6 +80,7 @@ const initialState: ActorsState = {
     you,
     tomasso,
   },
+  records: []
 };
 type TradersObjectKey = keyof typeof initialState.traders;
 type BankersObjectKey = keyof typeof initialState.bankers;
@@ -118,6 +122,12 @@ export const actorsSlice = createSlice({
         bill,
       ];
       state.traders[exporterId].assets = [...payload.exporter.assets, bill];
+
+      const importRecord = `imported ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods from ${exporterId}`
+      const exportRecord = `exported ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods to ${importerId}`
+      state.traders[importerId].records = [...state.traders[importerId].records, importRecord]
+      state.traders[exporterId].records = [...state.traders[exporterId].records, exportRecord]
+      state.records = [...state.records, `${importerId} imports ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods from ${exporterId}`]
     },
     drawBill: (state, { payload }) => {
       const { payee, drawee, bill } = payload;
@@ -135,11 +145,17 @@ export const actorsSlice = createSlice({
         draweeId = drawee.id as TradersObjectKey;
         state.bankers[payeeId] = payeeCopy;
         state.traders[draweeId] = draweeCopy;
+        state.bankers[payeeId].records = [...state.bankers[payeeId].records, `received ${bill.amount} from ${draweeId}`]
+        state.traders[draweeId].records = [...state.traders[draweeId].records, `payed ${bill.amount} to ${payeeId}`]
+        state.records = [...state.records, `${payeeId} draws bill on ${draweeId} for ${bill.amount}`]
       } else {
         payeeId = payee.id as TradersObjectKey;
         draweeId = drawee.id as BankersObjectKey;
         state.traders[payeeId] = payeeCopy;
         state.bankers[draweeId] = draweeCopy;
+        state.traders[payeeId].records = [...state.traders[payeeId].records, `received ${bill.amount} from ${draweeId}`]
+        state.bankers[draweeId].records = [...state.bankers[draweeId].records, `payed ${bill.amount} to ${payeeId}`]
+        state.records = [...state.records, `${payeeId} draws bill on ${draweeId} for ${bill.amount} marc${bill.amount > 1 ? "s": ""}`]
       }
     },
     remitBill: (state, { payload }) => {
@@ -152,9 +168,11 @@ export const actorsSlice = createSlice({
         (b: { id: any }) => b.id !== bill.id
       );
       presenteeCopy.assets = [...presenteeCopy.assets, bill];
-
       state.bankers[presenterId] = presenterCopy;
       state.bankers[presenteeId] = presenteeCopy;
+      state.bankers[presenterId].records = [...state.bankers[presenterId].records, `presented remitance bill to ${presenteeId}`]
+      state.bankers[presenteeId].records = [...state.bankers[presenteeId].records, `received remitance bill from ${presenterId}`]
+      state.records = [...state.records, `${presenterId} remits bill to ${presenteeId}`] 
     },
     decrement: (state) => {
       // state.value -= 1;
@@ -190,6 +208,7 @@ export const { trade, drawBill, remitBill, decrement, incrementByAmount } =
 export const selectTraders = (state: RootState) => state.actors.traders;
 export const selectBankers = (state: RootState) => state.actors.bankers;
 export const selectState = (state: RootState) => state.actors;
+export const selectRecords = (state: RootState) => state.actors.records;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

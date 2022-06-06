@@ -104,6 +104,7 @@ export const salviati = {
   goods: 10,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
 export const me = {
   id: "me",
@@ -117,6 +118,7 @@ export const me = {
   goods: 10,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
 export const federigo = {
   id: "federigo",
@@ -130,6 +132,7 @@ export const federigo = {
   goods: 10,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
 export const piero = {
   id: "piero",
@@ -143,6 +146,7 @@ export const piero = {
   goods: 10,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
 export const you = {
   id: "you",
@@ -157,6 +161,7 @@ export const you = {
   goods: 0,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
 export const tomasso = {
   id: "tomasso",
@@ -171,4 +176,5 @@ export const tomasso = {
   goods: 0,
   coinAsset: [],
   coinLiability: [],
+  records: []
 };
