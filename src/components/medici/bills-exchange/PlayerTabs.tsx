@@ -61,7 +61,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
       </Box>
 
       <TabPanel value={value} index={0}>
-        <Box sx={{ paddingLeft: "50px", paddingRight: "50px" }}>
+        <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}>
           <Operations selected={selected} />
         </Box>
       </TabPanel>
