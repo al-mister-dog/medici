@@ -80,9 +80,9 @@ const text: All = {
 };
 
 
-export interface ChooseActorProps {
+export interface ChoosePlayerProps {
   open: boolean;
-  setSelectedValueActor: (v: Banker) => void;
+  setSelectedValuePlayer: (v: Banker) => void;
   onClose: () => void;
   selectedBankers: any[];
   info: Info;
@@ -90,15 +90,15 @@ export interface ChooseActorProps {
 
 
 
-export default function ChooseActor(props: ChooseActorProps) {
-  const { onClose, setSelectedValueActor, open, selectedBankers, info } = props;
+export default function ChoosePlayer(props: ChoosePlayerProps) {
+  const { onClose, setSelectedValuePlayer, open, selectedBankers, info } = props;
 
   const handleClose = () => {
     onClose();
   };
 
   const handleListItemClick = (value: Banker) => {
-    setSelectedValueActor(value);
+    setSelectedValuePlayer(value);
     onClose();
   };
 

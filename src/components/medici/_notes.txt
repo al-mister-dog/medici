@@ -15,7 +15,7 @@ Same for Remit // done
 a bill that has been paid should not be in choose from bill list // done
 
 there should be a panel that lets you know which city is quoting certain
-there should be a record of actions for each actor eg "exported goods to..." "remitted bill to"
+there should be a record of actions for each player eg "exported goods to..." "remitted bill to"
 
 THEORY
 Me sells bill: 1 marc to You for 64 ecus

@@ -3,8 +3,8 @@ import SideBalance from "./SideBalance";
 
 const BalanceSheetTrader: React.FunctionComponent<{
   bank: any;
-  selectActor: (b: any) => void;
-}> = ({ bank, selectActor }) => {
+  selectPlayer: (b: any) => void;
+}> = ({ bank, selectPlayer }) => {
   const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
@@ -25,7 +25,7 @@ const BalanceSheetTrader: React.FunctionComponent<{
         },
         cursor: "pointer",
       }}
-      onClick={() => selectActor(bank)}
+      onClick={() => selectPlayer(bank)}
     >
       <CardContent>
         <h3

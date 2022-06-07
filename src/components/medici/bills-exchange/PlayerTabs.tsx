@@ -38,7 +38,7 @@ function a11yProps(index: number) {
   };
 }
 
-const ActorTabs = ({ selected }: { selected: any }) => {
+const PlayerTabs = ({ selected }: { selected: any }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -77,4 +77,4 @@ const ActorTabs = ({ selected }: { selected: any }) => {
   );
 };
 
-export default ActorTabs;
+export default PlayerTabs;

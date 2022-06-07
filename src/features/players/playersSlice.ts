@@ -30,7 +30,7 @@ interface Trader {
   goods: number;
   coinAsset: any;
   coinLiability: any;
-  records: any
+  records: any;
 }
 interface Banker {
   id: string;
@@ -42,9 +42,9 @@ interface Banker {
   goods: number;
   coinAsset: any;
   coinLiability: any;
-  records: any
+  records: any;
 }
-export interface ActorsState {
+export interface PlayersState {
   conditions: {
     certaintyQuotes: Quotes;
     exchangeRates: Rates;
@@ -60,11 +60,11 @@ export interface ActorsState {
     you: Banker;
     tomasso: Banker;
   };
-  records: string[]
+  records: string[];
 }
 type Category = Pick<Banker | Trader, "assets" | "liabilities">;
 
-const initialState: ActorsState = {
+const initialState: PlayersState = {
   conditions: {
     certaintyQuotes,
     exchangeRates,
@@ -80,7 +80,7 @@ const initialState: ActorsState = {
     you,
     tomasso,
   },
-  records: []
+  records: [],
 };
 type TradersObjectKey = keyof typeof initialState.traders;
 type BankersObjectKey = keyof typeof initialState.bankers;
@@ -98,8 +98,8 @@ type BankersObjectKey = keyof typeof initialState.bankers;
 //   }
 // );
 
-export const actorsSlice = createSlice({
-  name: "actors",
+export const playersSlice = createSlice({
+  name: "players",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -123,11 +123,26 @@ export const actorsSlice = createSlice({
       ];
       state.traders[exporterId].assets = [...payload.exporter.assets, bill];
 
-      const importRecord = `imported ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods from ${exporterId}`
-      const exportRecord = `exported ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods to ${importerId}`
-      state.traders[importerId].records = [...state.traders[importerId].records, importRecord]
-      state.traders[exporterId].records = [...state.traders[exporterId].records, exportRecord]
-      state.records = [...state.records, `${importerId} imports ${amount} ${amount > 1 ? "marcs": "marc"} worth of goods from ${exporterId}`]
+      const importRecord = `imported ${amount} ${
+        amount > 1 ? "marcs" : "marc"
+      } worth of goods from ${exporterId}`;
+      const exportRecord = `exported ${amount} ${
+        amount > 1 ? "marcs" : "marc"
+      } worth of goods to ${importerId}`;
+      state.traders[importerId].records = [
+        ...state.traders[importerId].records,
+        importRecord,
+      ];
+      state.traders[exporterId].records = [
+        ...state.traders[exporterId].records,
+        exportRecord,
+      ];
+      state.records = [
+        ...state.records,
+        `${importerId} imports ${amount} ${
+          amount > 1 ? "marcs" : "marc"
+        } worth of goods from ${exporterId}`,
+      ];
     },
     drawBill: (state, { payload }) => {
       const { payee, drawee, bill } = payload;
@@ -145,17 +160,37 @@ export const actorsSlice = createSlice({
         draweeId = drawee.id as TradersObjectKey;
         state.bankers[payeeId] = payeeCopy;
         state.traders[draweeId] = draweeCopy;
-        state.bankers[payeeId].records = [...state.bankers[payeeId].records, `received ${bill.amount} from ${draweeId}`]
-        state.traders[draweeId].records = [...state.traders[draweeId].records, `payed ${bill.amount} to ${payeeId}`]
-        state.records = [...state.records, `${payeeId} draws bill on ${draweeId} for ${bill.amount}`]
+        state.bankers[payeeId].records = [
+          ...state.bankers[payeeId].records,
+          `received ${bill.amount} from ${draweeId}`,
+        ];
+        state.traders[draweeId].records = [
+          ...state.traders[draweeId].records,
+          `payed ${bill.amount} to ${payeeId}`,
+        ];
+        state.records = [
+          ...state.records,
+          `${payeeId} draws bill on ${draweeId} for ${bill.amount}`,
+        ];
       } else {
         payeeId = payee.id as TradersObjectKey;
         draweeId = drawee.id as BankersObjectKey;
         state.traders[payeeId] = payeeCopy;
         state.bankers[draweeId] = draweeCopy;
-        state.traders[payeeId].records = [...state.traders[payeeId].records, `received ${bill.amount} from ${draweeId}`]
-        state.bankers[draweeId].records = [...state.bankers[draweeId].records, `payed ${bill.amount} to ${payeeId}`]
-        state.records = [...state.records, `${payeeId} draws bill on ${draweeId} for ${bill.amount} marc${bill.amount > 1 ? "s": ""}`]
+        state.traders[payeeId].records = [
+          ...state.traders[payeeId].records,
+          `received ${bill.amount} from ${draweeId}`,
+        ];
+        state.bankers[draweeId].records = [
+          ...state.bankers[draweeId].records,
+          `payed ${bill.amount} to ${payeeId}`,
+        ];
+        state.records = [
+          ...state.records,
+          `${payeeId} draws bill on ${draweeId} for ${bill.amount} marc${
+            bill.amount > 1 ? "s" : ""
+          }`,
+        ];
       }
     },
     remitBill: (state, { payload }) => {
@@ -170,16 +205,33 @@ export const actorsSlice = createSlice({
       presenteeCopy.assets = [...presenteeCopy.assets, bill];
       state.bankers[presenterId] = presenterCopy;
       state.bankers[presenteeId] = presenteeCopy;
-      state.bankers[presenterId].records = [...state.bankers[presenterId].records, `presented remitance bill to ${presenteeId}`]
-      state.bankers[presenteeId].records = [...state.bankers[presenteeId].records, `received remitance bill from ${presenterId}`]
-      state.records = [...state.records, `${presenterId} remits bill to ${presenteeId}`] 
+      state.bankers[presenterId].records = [
+        ...state.bankers[presenterId].records,
+        `presented remitance bill to ${presenteeId}`,
+      ];
+      state.bankers[presenteeId].records = [
+        ...state.bankers[presenteeId].records,
+        `received remitance bill from ${presenterId}`,
+      ];
+      state.records = [
+        ...state.records,
+        `${presenterId} remits bill to ${presenteeId}`,
+      ];
     },
-    decrement: (state) => {
-      // state.value -= 1;
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      // state.value += action.payload;
+    reset: (state) => {
+      state.conditions.certaintyQuotes = certaintyQuotes;
+      state.conditions.exchangeRates = exchangeRates;
+      state.conditions.currencies = currencies;
+
+      state.traders.me = me;
+      state.traders.salviati = salviati;
+      state.traders.federigo = federigo;
+      state.traders.piero = piero;
+
+      state.bankers.you = you;
+      state.bankers.tomasso = tomasso;
+
+      state.records = [];
     },
   },
   // The `extraReducers` field lets the slice handle actions defined elsewhere,
@@ -199,17 +251,21 @@ export const actorsSlice = createSlice({
   },
 });
 
-export const { trade, drawBill, remitBill, decrement, incrementByAmount } =
-  actorsSlice.actions;
+export const {
+  trade,
+  drawBill,
+  remitBill,
+  reset,
+} = playersSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state. .value)`
-export const selectTraders = (state: RootState) => state.actors.traders;
-export const selectBankers = (state: RootState) => state.actors.bankers;
-export const selectState = (state: RootState) => state.actors;
-export const selectRecords = (state: RootState) => state.actors.records;
-export const selectConditions = (state: RootState) => state.actors.conditions;
+export const selectTraders = (state: RootState) => state.players.traders;
+export const selectBankers = (state: RootState) => state.players.bankers;
+export const selectState = (state: RootState) => state.players;
+export const selectRecords = (state: RootState) => state.players.records;
+export const selectConditions = (state: RootState) => state.players.conditions;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
@@ -222,4 +278,4 @@ export const selectConditions = (state: RootState) => state.actors.conditions;
 //     }
 //   };
 
-export default actorsSlice.reducer;
+export default playersSlice.reducer;

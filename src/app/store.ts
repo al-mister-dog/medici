@@ -1,9 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import  actorsReducer from '../features/actors/actorsSlice';
+import  playersReducer from '../features/players/playersSlice';
 
 export const store = configureStore({
   reducer: {
-     actors:  actorsReducer,
+     players:  playersReducer,
   },
 });
 

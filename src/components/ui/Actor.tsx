@@ -52,7 +52,7 @@ const columns: GridColDef[] = [
 ];
 
 
-const Actor: React.FunctionComponent<{ selected: any }> = ({selected}) => {
+const Player: React.FunctionComponent<{ selected: any }> = ({selected}) => {
   return (
     
     <div style={{ height: 250, width: "100%" }}>
@@ -64,4 +64,4 @@ const Actor: React.FunctionComponent<{ selected: any }> = ({selected}) => {
     </div>
   );
 };
-export default Actor
+export default Player

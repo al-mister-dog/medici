@@ -1,8 +1,7 @@
-import "./App.css";
-import Medici from "./components/medici/Index";
-
+import Medici from "./components/medici/playground/Index";
+import Stepper from "./components/medici/Stepper"
 function App() {
-  return <Medici />;
+  return <Stepper />;
 }
 
 export default App;

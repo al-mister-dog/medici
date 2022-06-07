@@ -1,9 +1,7 @@
 import counterReducer, {
-  ActorsState,
-  
-  decrement,
-  incrementByAmount,
-} from './actorsSlice';
+  PlayersState,
+  reset
+} from './playersSlice';
 
 // describe('counter reducer', () => {
 //   const initialState: CounterState = {

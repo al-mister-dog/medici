@@ -1,13 +1,13 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import {
   selectTraders,
   selectBankers,
-} from "../../features/actors/actorsSlice";
-import BalanceSheet from "../ui/BalanceSheet";
+} from "../../../features/players/playersSlice";
+import BalanceSheet from "../../ui/BalanceSheet";
 
 const Medici: React.FunctionComponent<{
-  selectActor: (a: any) => void;
-}> = ({ selectActor }) => {
+  selectPlayer: (a: any) => void;
+}> = ({ selectPlayer }) => {
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
 
@@ -22,9 +22,9 @@ const Medici: React.FunctionComponent<{
             justifyContent: "center",
           }}
         >
-          <BalanceSheet bank={me} selectActor={selectActor} />
-          <BalanceSheet bank={you} selectActor={selectActor} />
-          <BalanceSheet bank={federigo} selectActor={selectActor} />
+          <BalanceSheet bank={me} selectPlayer={selectPlayer} />
+          <BalanceSheet bank={you} selectPlayer={selectPlayer} />
+          <BalanceSheet bank={federigo} selectPlayer={selectPlayer} />
         </div>
         <div
           style={{
@@ -34,9 +34,9 @@ const Medici: React.FunctionComponent<{
             justifyContent: "center",
           }}
         >
-          <BalanceSheet bank={salviati} selectActor={selectActor} />
-          <BalanceSheet bank={tomasso} selectActor={selectActor} />
-          <BalanceSheet bank={piero} selectActor={selectActor} />
+          <BalanceSheet bank={salviati} selectPlayer={selectPlayer} />
+          <BalanceSheet bank={tomasso} selectPlayer={selectPlayer} />
+          <BalanceSheet bank={piero} selectPlayer={selectPlayer} />
         </div>
       </div>
     </>

@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 
-import ActorTabs from "./ActorTabs"
+import PlayerTabs from "./PlayerTabs"
 import florenceFlag from "../assets/florence-flag.png"
 import lyonsFlag from "../assets/lyons-flag.png"
-const Actor: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
+const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
   
   const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1)
@@ -19,9 +19,9 @@ const Actor: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
         <img src={selected.city === "florence" ? florenceFlag : lyonsFlag} alt="asas" style={{width: "150px"}}></img>
         </div>
         
-        <ActorTabs selected={selected}/>
+        <PlayerTabs selected={selected}/>
       </Box>
     </>
   );
 };
-export default Actor;
+export default Player;
