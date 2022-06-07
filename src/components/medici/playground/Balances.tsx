@@ -2,8 +2,8 @@ import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PendingIcon from "@mui/icons-material/Pending";
 import { Box, Typography } from "@mui/material";
+
 const columnsAssets: GridColDef[] = [
-  // { field: "dueTo", headerName: "Due To", width: 100 },
   { field: "dueFrom", headerName: "Due From", width: 100 },
   { field: "city", headerName: "City", width: 100 },
   {
@@ -22,7 +22,6 @@ const columnsAssets: GridColDef[] = [
 
 const columnsLiabilities: GridColDef[] = [
   { field: "dueTo", headerName: "Due To", width: 100 },
-  // { field: "dueFrom", headerName: "Due From", width: 100 },
   { field: "city", headerName: "City", width: 100 },
   {
     field: "amount",
@@ -48,37 +47,36 @@ const Balances = ({ selected }: { selected: any }) => {
       }}
     >
       <Box sx={{ marginBottom: 5 }}>
-        <Typography
-          align="left"
-          sx={{ letterSpacing: "0.5px" }}
-        >
+        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>
           Assets
         </Typography>
-        <div style={{ height: 200, width: "100%" }}>
-          <div style={{ display: "flex", height: "100%" }}>
-            <div style={{ flexGrow: 1 }}>
+        <Box sx={{ height: 200, width: "100%" }}>
+          <Box sx={{ display: "flex", height: "100%" }}>
+            <Box sx={{ flexGrow: 1 }}>
               <DataGrid
                 rows={selected.assets}
                 columns={columnsAssets}
                 hideFooter
               />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
       </Box>
       <Box>
-        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>Liabilities</Typography>
-        <div style={{ height: 200, width: "100%" }}>
-          <div style={{ display: "flex", height: "100%" }}>
-            <div style={{ flexGrow: 1 }}>
+        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>
+          Liabilities
+        </Typography>
+        <Box sx={{ height: 200, width: "100%" }}>
+          <Box sx={{ display: "flex", height: "100%" }}>
+            <Box sx={{ flexGrow: 1 }}>
               <DataGrid
                 rows={selected.liabilities}
                 columns={columnsLiabilities}
                 hideFooter
               />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

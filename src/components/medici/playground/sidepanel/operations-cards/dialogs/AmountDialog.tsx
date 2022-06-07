@@ -13,6 +13,8 @@ interface Trader {
   coinLiability: any;
 }
 
+
+
 export interface AmountDialogProps {
   open: boolean;
   selectedValueAmount: number;
@@ -70,8 +72,7 @@ export default function AmountDialog(props: AmountDialogProps) {
           Amount of Goods
         </Typography>
         <Typography variant="subtitle1">
-          Goods exported from a city quoting certain are expressed in units of
-          exchange account, eg 1 = 1 gold marc worth of goods.
+          Goods are expressed in units of account (marcs), eg. '1' = 1 gold marc worth of goods.
         </Typography>
         <div
           style={{

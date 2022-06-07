@@ -1,8 +1,8 @@
-import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectTraders,
   trade
-} from "../../../../features/actors/actorsSlice";
+} from "../../../../../features/actors/actorsSlice";
 
 import {
   Box,
@@ -100,6 +100,7 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
             open={openTo}
             onClose={handleCloseTo}
             selectedBankers={selectedTraders}
+            info={{type: selected.type, action: "trade"}}
           />
 
           <Button

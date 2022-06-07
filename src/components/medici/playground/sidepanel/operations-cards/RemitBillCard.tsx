@@ -1,8 +1,8 @@
-import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectBankers,
   remitBill,
-} from "../../../../features/actors/actorsSlice";
+} from "../../../../../features/actors/actorsSlice";
 
 import {
   Box,
@@ -121,6 +121,7 @@ const ExportCard: React.FunctionComponent<{
                 setSelectedValueActor={setSelectedValueActor}
                 open={openTo}
                 selectedBankers={selectedBankers}
+                info={{type: selected.type, action: "remitBill"}}
               />
             </div>
             <div

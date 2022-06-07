@@ -1,4 +1,4 @@
-import Operations from "./Operations";
+import Operations from "./sidepanel/Operations";
 import Balances from "./Balances";
 
 import { Tabs, Tab, Typography, Box } from "@mui/material";

@@ -209,6 +209,7 @@ export const selectTraders = (state: RootState) => state.actors.traders;
 export const selectBankers = (state: RootState) => state.actors.bankers;
 export const selectState = (state: RootState) => state.actors;
 export const selectRecords = (state: RootState) => state.actors.records;
+export const selectConditions = (state: RootState) => state.actors.conditions;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

@@ -2,11 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
-  Card,
-  CardContent,
-  Menu,
-  MenuItem,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -16,28 +11,16 @@ import ImportCard from "./operations-cards/ImportCard";
 import DrawBillCard from "./operations-cards/DrawBillCard";
 import RemitBillCard from "./operations-cards/RemitBillCard";
 
+interface Accordions {
+  export: boolean;
+  import: boolean;
+  drawBill: boolean;
+  remitBill: boolean;
+}
+
 const Operations: React.FunctionComponent<{ selected: any }> = ({
   selected,
 }) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // const [exportCardExpanded, setExportCardExpanded] = useState<boolean>(false);
-  // function toggleAccordionExport() {
-  //   setExportCardExpanded((prev) => !prev)
-  // }
-  interface Accordions {
-    export: boolean;
-    import: boolean;
-    drawBill: boolean;
-    remitBill: boolean;
-  }
   const [accordionExpanded, setAccordionExpanded] = useState<Accordions>({
     export: false,
     import: false,

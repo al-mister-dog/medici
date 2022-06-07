@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import "../../App.css";
 import AllActors from "./AllActors";
-import Actor from "./sidepanel/Actor";
+import Actor from "./playground/Actor";
 import Notifications from "./Toolbar"
 
 interface Bill {
@@ -40,9 +40,9 @@ function App() {
   }
   
   return (
-    <Box className="App" style={{ background: "#F3F6F9", height: "100vh" }}>
+    <Box style={{ background: "#F3F6F9" }}>
       <Notifications />
-      <Box style={{ display: "flex" }}>
+      <Box style={{ display: "flex", height: "100vh"}}>
         <Box style={{ width: "60%" }}>
           <AllActors selectActor={selectActor} />
         </Box>

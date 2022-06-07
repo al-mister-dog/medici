@@ -1,9 +1,9 @@
-import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectTraders,
   selectBankers,
   drawBill,
-} from "../../../../features/actors/actorsSlice";
+} from "../../../../../features/actors/actorsSlice";
 import * as React from "react";
 
 import {
@@ -136,6 +136,7 @@ const DrawBillCard: React.FunctionComponent<{
                 setSelectedValueActor={setSelectedValueActor}
                 open={openActor}
                 selectedBankers={selectedBankers}
+                info={{type: selected.type, action: "drawBill"}}
               />
             </div>
             <div

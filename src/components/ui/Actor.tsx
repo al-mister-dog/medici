@@ -51,17 +51,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-// export default function App({ bills }: { bills: GridRowsProp }) {
-//   return (
-//     <div style={{ height: 250, width: "100%" }}>
-//       <div style={{ display: "flex", height: "100%" }}>
-//         <div style={{ flexGrow: 1 }}>
-//           <DataGrid rows={bills} columns={columns} />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+
 const Actor: React.FunctionComponent<{ selected: any }> = ({selected}) => {
   return (
     
