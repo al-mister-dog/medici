@@ -8,29 +8,33 @@ import {
   Typography,
 } from "@mui/material";
 
-import BillsExchange from "./steps/1-bills";
-import RemitBills from "./steps/2-remit";
-import RechangeOne from "./steps/3-rechange1";
-import RechangeTwo from "./steps/4-rechange2";
-import Playground from "./steps/5-playground";
+import Introduction from "./steps/1-introduction"
+import BillsExchange from "./steps/2-bills";
+import RemitBills from "./steps/3-remit";
+import RechangeOne from "./steps/4-rechange1";
+import RechangeTwo from "./steps/5-rechange2";
+import Playground from "./steps/6-playground";
 
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <BillsExchange />;
+      return <Introduction />;
     case 1:
-      return <RemitBills />;
+      return <BillsExchange />;
     case 2:
-      return <RechangeOne />;
+      return <RemitBills />;
     case 3:
-      return <RechangeTwo />;
+      return <RechangeOne />;
     case 4:
+      return <RechangeTwo />;
+    case 5:
       return <Playground />;
     default:
       return "Unknown step";
   }
 }
 const steps = [
+  "Introduction",
   "Bills of Exchange",
   "Remitting Bills",
   "Rechange Part 1",
@@ -91,8 +95,21 @@ export default function HorizontalNonLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stepper nonLinear activeStep={activeStep}>
+    <Box
+      sx={{
+        width: "90%",
+        margin: "auto",
+        borderRadius: "15px",
+        background: "white",
+        marginTop: "50px",
+        paddingTop: "20px",
+      }}
+    >
+      <Stepper
+        nonLinear
+        activeStep={activeStep}
+        sx={{ width: "90%", margin: "auto" }}
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -115,7 +132,7 @@ export default function HorizontalNonLinearStepper() {
         ) : (
           <>
             <>{getStepContent(activeStep)}</>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2, width: "90%", margin: "auto", paddingBottom: "10px" }}>
               <Button
                 color="inherit"
                 disabled={activeStep === 0}

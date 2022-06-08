@@ -1,3 +1,31 @@
+export const textsIntro = {
+  title: `The Systematic Enrichment of Exchange Bankers`,
+  paragraphs: [
+    `This module explains how the exchange bankers of the 16th century 
+    were able to make profits from bills of exchange. A bill of exchange 
+    is a written order used primarily in international trade that binds 
+    one party to pay a fixed sum of money to another party on demand or at 
+    a predetermined date, similar to a cheque. Merchant traders importing 
+    and exporting goods abroad would use bills of exchange as a safe alternative 
+    to shipping payment in specie (coins or precious metal). They could simply 
+    hand over the bill of exchange to their local exchange banker and receive 
+    payment in return. The exchange banker would then draw the bill onto the 
+    party that owes the money, and the transaction is completed.`,
+    `Given the fact that bills of exchange appear to be simply cheques, as well
+    as the fact that in Catholic Europe a banker was not allowed to make a profit 
+    from the changing of money, what was the incentive for these exchange bankers 
+    to deal in bills of exchange? The truth is that the exchange bankers could indeed
+    profit from bills of exchange, but through a complex series of transactions, involving
+    associate bankers, other traders and a hierarchical system of exchange rates. 
+    The 16th century Italian economist Bernardo Davanziti details one such account in his book 
+    Notizia de Cambi, involving bankers and traders from Florence and Lyons.`,
+    `Lets go through step by step this series of transactions and learn how we could also 
+    side step usury laws and make a neat profit from the art of exchange banking...`,
+  ],
+  assignment: `Sources: Notizia de Cambi - Bernardo Davanzati, 
+  Private Money, Public Currencies - Xambeu et al, Medieval Monetary Theory - Colin Drumm`,
+};
+
 export const texts1 = {
   title: `Bills of Exchange and Units of Account`,
   paragraphs: [
@@ -27,7 +55,7 @@ export const texts1 = {
     and then sell my Bill to You for 64 ecus.`,
   ],
   assignment: `Assignment: Get Me to ship 1 marcs worth of goods to Salviati and
-  receive payment from You.`,
+  receive payment from You. Click refresh to reset the board`,
 };
 
 export const texts2 = {
@@ -90,15 +118,15 @@ export const texts3 = {
 export const texts4 = {
   title: `Rechange: Part 2`,
   paragraphs: [
-   `Tomasso now has a bill for 65.5 ecus in return for his gold marc. This is the first step of 
+    `Tomasso now has a bill for 65.5 ecus in return for his gold marc. This is the first step of 
    the rechange. To turn this bill into cash Tomasso must remit the bill to 'You' in Florence, 
    who will draw the bill on Federigo for 65.5 ecus. The result of this is that 'You' will have
    made back the 64 ecus from the bill bought from 'Me' as well as having made 1.5 ecus profit.`,
-   `In Catholic Europe, Usury laws prohibited making interest from loans. This also included 
+    `In Catholic Europe, Usury laws prohibited making interest from loans. This also included 
    selling money for more than its stated price. This transaction circumvates usury laws because 
    in Lyons, the ecus were bought for the price stated in the conto. It just so happens that a 
    gold marc in Lyons will fetch more ecus than a gold marc in Florence. The exchange bankers often
-   used this to their advantage using such transaction networks.`
+   used this to their advantage using such transaction networks.`,
   ],
   assignment: `Assignment: Get Tomasso to remit the bill to 'You' and have 'You' draw the bill on
   Federigo in return for 65.5 ecus. Previous steps should have been completed. If they have not been 
@@ -113,10 +141,9 @@ export const texts5 = {
     would be for 'You' and Tomasso to share their spoils, most likely through corresponding
     (nostro-vostro) accounts. Correspondent banking is explained in another module on this course.`,
     `However, this particular set of exchanges is not the only way to turn a profit. Can you
-    figure any other ways to make a profit through the art of sixteenth century exchange banking?`
+    figure any other ways to make a profit through the art of sixteenth century exchange banking?`,
   ],
   assignment: `Assignment: Go through Davanzati's example again or try some different exchanges out.
   You can toggle the certainty quotes (altering the network hierarchy) or alter the echange rates. 
-  Then move on to the next module in the course. Sources: Notizia de Cambi - Bernardo Davanzati, 
-  Private Money, Public Currencies - Xambeu et al, Medieval Monetary Theory - Colin Drumm`,
+  Then move on to the next module in the course.`,
 };

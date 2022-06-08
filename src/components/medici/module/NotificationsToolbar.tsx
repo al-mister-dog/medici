@@ -51,9 +51,9 @@ export default function ButtonAppBar() {
               ? `${records[records.length - 1]}`
               : `Trade to start`}
           </Typography>
-          <Tooltip title="reset">
+          <Tooltip title="refresh">
           <IconButton onClick={() => dispatch(reset())}>
-              <RefreshIcon sx={{color: "white"}}/>
+              <RefreshIcon/>
           </IconButton>
           </Tooltip>
           

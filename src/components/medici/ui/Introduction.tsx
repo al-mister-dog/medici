@@ -14,6 +14,8 @@ export default function Introduction({ texts }: { texts: Texts }) {
         paddingLeft: "75px",
         paddingRight: "75px",
         overflowX: "hidden",
+        borderTopLeftRadius: "15px",
+        borderTopRightRadius: "15px",
       }}
     >
       <Title>{texts.title}</Title>

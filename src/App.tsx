@@ -1,7 +1,14 @@
-import Medici from "./components/medici/steps/5-playground";
-import Stepper from "./components/medici/Stepper"
+import "./App.css"
+import { Box, AppBar, Toolbar } from "@mui/material";
+import Stepper from "./components/medici/Stepper";
 function App() {
-  return <Stepper />;
+  return (
+    
+      <Box sx={{ height: "200vh", backgroundColor: "#607D8B", position: "absolute" }}>
+        <Stepper />
+      </Box>
+    
+  );
 }
 
 export default App;
