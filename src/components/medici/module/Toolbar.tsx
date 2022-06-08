@@ -24,8 +24,8 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar sx={{ backgroundColor: "white", height: "50px" }}>
+      
+        <Toolbar sx={{ backgroundColor: "white", boxShadow: "0px 10px 13px -7px #F3F6F9" }}>
           <Box sx={{ display: "flex", flexGrow: 1 }}>
             <Typography variant="h6" component="div" sx={{color: "black"}}>
               Quotes:
@@ -58,7 +58,7 @@ export default function ButtonAppBar() {
           </Tooltip>
           
         </Toolbar>
-      </AppBar>
+      
     </Box>
   );
 }

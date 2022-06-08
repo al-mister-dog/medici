@@ -1,14 +1,18 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import BillsExchange from "./steps/1-bills"
-import RemitBills from "./steps/2-remit"
-import RechangeOne from "./steps/3-rechange1"
-import Playground from "./steps/5-playground"
+import { useState } from "react";
+import {
+  Box,
+  Stepper,
+  Step,
+  StepButton,
+  Button,
+  Typography,
+} from "@mui/material";
+
+import BillsExchange from "./steps/1-bills";
+import RemitBills from "./steps/2-remit";
+import RechangeOne from "./steps/3-rechange1";
+import RechangeTwo from "./steps/4-rechange2";
+import Playground from "./steps/5-playground";
 
 function getStepContent(step: number) {
   switch (step) {
@@ -16,19 +20,27 @@ function getStepContent(step: number) {
       return <BillsExchange />;
     case 1:
       return <RemitBills />;
-    case 2: 
+    case 2:
       return <RechangeOne />;
     case 3:
-      return <Playground />;    
+      return <RechangeTwo />;
+    case 4:
+      return <Playground />;
     default:
       return "Unknown step";
   }
 }
-const steps = ['Bills of Exchange', 'Remitting Bills', 'Rechange Part 1', 'Playground'];
+const steps = [
+  "Bills of Exchange",
+  "Remitting Bills",
+  "Rechange Part 1",
+  "Rechange Part 2",
+  "Playground",
+];
 
 export default function HorizontalNonLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState<{
+  const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
 
@@ -79,7 +91,7 @@ export default function HorizontalNonLinearStepper() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -91,19 +103,19 @@ export default function HorizontalNonLinearStepper() {
       </Stepper>
       <div>
         {allStepsCompleted() ? (
-          <React.Fragment>
+          <>
             <Typography sx={{ mt: 2, mb: 1 }}>
               All steps completed - you&apos;re finished
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Box sx={{ flex: '1 1 auto' }} />
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ flex: "1 1 auto" }} />
               <Button onClick={handleReset}>Reset</Button>
             </Box>
-          </React.Fragment>
+          </>
         ) : (
-          <React.Fragment>
+          <>
             <>{getStepContent(activeStep)}</>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
                 color="inherit"
                 disabled={activeStep === 0}
@@ -112,24 +124,27 @@ export default function HorizontalNonLinearStepper() {
               >
                 Back
               </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
+              <Box sx={{ flex: "1 1 auto" }} />
               <Button onClick={handleNext} sx={{ mr: 1 }}>
                 Next
               </Button>
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
-                  <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                  <Typography
+                    variant="caption"
+                    sx={{ display: "inline-block" }}
+                  >
                     Step {activeStep + 1} already completed
                   </Typography>
                 ) : (
                   <Button onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1
-                      ? 'Finish'
-                      : 'Complete Step'}
+                      ? "Finish"
+                      : "Complete Step"}
                   </Button>
                 ))}
             </Box>
-          </React.Fragment>
+          </>
         )}
       </div>
     </Box>

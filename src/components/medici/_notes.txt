@@ -47,3 +47,7 @@ step by step guide...
 add consignment letters (spaccios) and vostro nostro accounts (correspondent accounts)
 allow user to change the exchange numbers
 find out if moveable rate can be set by individual bankers or in the contos
+
+////////
+8th June
+

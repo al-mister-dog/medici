@@ -9,7 +9,7 @@ import { useState } from "react";
 import Player from "../module/Player";
 import BoardPlayers from "../module/BoardPlayers";
 import Notifications from "../module/Toolbar"
-import {texts3} from "../assets/texts"
+import {texts4} from "../assets/texts"
 
 const SelectedPlayer = ({ player }: { player: any }) => {
   return (
@@ -38,7 +38,7 @@ function App() {
         borderRadius: "15px",
       }}
     >
-      <Introduction texts={texts3} />
+      <Introduction texts={texts4} />
       <Notifications />
       <Box
         style={{
