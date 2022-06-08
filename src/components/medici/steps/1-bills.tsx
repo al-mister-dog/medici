@@ -6,13 +6,20 @@ import {
 import Introduction from "../ui/Introduction";
 import { Box } from "@mui/material";
 import { useState } from "react";
-import Player from "../modules/Player";
-import BoardPlayers from "../modules/BoardPlayers";
+import Player from "../module/Player";
+import BoardPlayers from "../module/BoardPlayers";
 
 const texts = {
   title: `Bills of Exchange and Units of Account`,
   paragraphs: [
-    `If a merchant ships goods abroad and wants a swift payment then a problem emerges. If they were to receive direct payment from the importer they would have to wait a long time to receive their payment, or even worse the payment could get lost in transport. Bills of exchange were a helpful tool for merchants in this case. The merchant could simply go to the exchange bank and redeem a bill with amount owed for a local or preferred currency. However the amount specified on the bill was not local currency but a special unit of account.`,
+    `If a merchant ships goods abroad and wants a swift payment then a problem emerges. 
+    If they were to receive direct payment from the importer they would have to wait a 
+    long time to receive their payment, or even worse the payment could get lost in 
+    transport. Bills of exchange were a helpful tool for merchants in this case. The 
+    merchant could simply write a bill with amount owed and who owes the amount, and then 
+    go to the exchange bank and redeem the bill with amount owed for a local or preferred 
+    currency. However the amount specified on the bill was not local currency but a special 
+    unit of account.`,
     `In Western Europe during the 16th century the unit of account in
     exchange banking was called the ecu de marc (gold marc). This unit
     would be used for all bills of exchange regardless of country, and was

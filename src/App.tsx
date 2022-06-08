@@ -1,4 +1,4 @@
-import Medici from "./components/medici/playground/Index";
+import Medici from "./components/medici/steps/5-playground";
 import Stepper from "./components/medici/Stepper"
 function App() {
   return <Stepper />;

@@ -5,9 +5,10 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import BillsExchange from "./bills-exchange/Index"
-import RemitBills from "./remit-bill/Index"
-import Playground from "./playground/Index"
+import BillsExchange from "./steps/1-bills"
+import RemitBills from "./steps/2-remit"
+import RechangeOne from "./steps/3-rechange1"
+import Playground from "./steps/5-playground"
 
 function getStepContent(step: number) {
   switch (step) {
@@ -15,13 +16,15 @@ function getStepContent(step: number) {
       return <BillsExchange />;
     case 1:
       return <RemitBills />;
-    case 2:
+    case 2: 
+      return <RechangeOne />;
+    case 3:
       return <Playground />;    
     default:
       return "Unknown step";
   }
 }
-const steps = ['Bills of Exchange', 'Remitting Bills', 'Playground'];
+const steps = ['Bills of Exchange', 'Remitting Bills', 'Rechange Part 1', 'Playground'];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);

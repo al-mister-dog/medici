@@ -25,28 +25,28 @@ export default function ButtonAppBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ backgroundColor: "black" }}>
+        <Toolbar sx={{ backgroundColor: "white", height: "50px" }}>
           <Box sx={{ display: "flex", flexGrow: 1 }}>
-            <Typography variant="h6" component="div">
+            <Typography variant="h6" component="div" sx={{color: "black"}}>
               Quotes:
             </Typography>
             {cities.map((city, i) => (
-              <Typography key={i} sx={{ margin: "5px" }}>
+              <Typography key={i} sx={{ margin: "5px", color: "black" }}>
                 {city.city}: {city.certain ? "Certain" : "Moveable"}
               </Typography>
             ))}
           </Box>
           <Box sx={{ display: "flex", flexGrow: 1 }}>
-            <Typography variant="h6" component="div">
+            <Typography variant="h6" component="div" sx={{color: "black"}}>
               Rates (Ecus to Marc):
             </Typography>
             {rates.map((city, i) => (
-              <Typography key={i} sx={{ margin: "5px" }}>
+              <Typography key={i} sx={{ margin: "5px", color: "black" }}>
                 {city.city}: {city.price}
               </Typography>
             ))}
           </Box>
-          <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="body1" component="div" sx={{ flexGrow: 1, color: "black" }}>
             {records.length > 0
               ? `${records[records.length - 1]}`
               : `Trade to start`}

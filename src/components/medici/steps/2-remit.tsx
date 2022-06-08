@@ -6,32 +6,31 @@ import {
 import Introduction from "../ui/Introduction";
 import { Box } from "@mui/material";
 import { useState } from "react";
-import Player from "../modules/Player";
-import BoardPlayers from "../modules/BoardPlayers";
+import Player from "../module/Player";
+import BoardPlayers from "../module/BoardPlayers";
 
 const texts = {
   title: `Remitting Bills`,
   paragraphs: [
-    `If a merchant ships goods abroad and wants a swift payment then a problem emerges. If they were to receive direct payment from the importer they would have to wait a long time to receive their payment, or even worse the payment could get lost in transport. Bills of exchange were a helpful tool for merchants in this case. The merchant could simply go to the exchange bank and redeem a bill with amount owed for a local or preferred currency. However the amount specified on the bill was not local currency but a special unit of account.`,
-    `In Western Europe during the 16th century the unit of account in
-    exchange banking was called the ecu de marc (gold marc). This unit
-    would be used for all bills of exchange regardless of country, and was
-    then redeemed in local or preferred currencies. The exchange rate of
-    the marc would depend on what was announced at the international
-    exchange fairs. The fair would take place in the dominant financial
-    center of the time. At the time of this exchange, the financial center
-    was Lyons (France). Lyons could dicate the price of the marc in any
-    currency being used in the network which covered much of Western
-    Europe. At the time of this exchange, one marc was worth 64 ecus,
-    another coin which would have been an ideal choice for a merchant in
-    Florence.`,
-    `Here we have three people; Me, a merchant from Florence, You, an
-    exchange banker in Florence, and Salviati, a merchant from Lyons. In
-    Davanzati's example I (me) ship 1 Marcs worth of goods to Salviati and
-    and then sell my Bill to You for 64 ecus.`,
+    `I (me) have now been paid after presenting the bill to the exchange banker 
+    (you) and receiving 64 ecus in return. However, this 64 ecus came out of 
+    the exchange banker's equity (from their own funds) which is not very good 
+    business. The exchange banker will need to make back these funds and preferably 
+    return a profit. To make back these funds the exchange banker needs to send the 
+    bill to Salviati using a process called remittance.`,
+    `The exchange banker in Florence (you) has an associate exchange banker in Lyons
+    (Tomasso), where Salviati lives. The bill will be sent (remitted) to Tomasso who 
+    can present the bill to Tomasso and receive the payment required, completing 
+    this particular transaction. How a profit is made will be explained in the next 
+    module.`,
+    `There are now four players on the board; 'Me' and 'You' in Florence, and Tomasso 
+    (exchange banker) and Salviati (importer) in Lyons. In Davanzati's example 
+    Tomasso receives from 'You' the bill due from Salviati and then presents it to Salviati,
+    receiving 1 gold marc (or its Lyonaise equivelant) in return`,
   ],
-  assignment: `Assignment: Get Me to ship 1 marcs worth of goods to Salviati and
-  receive payment from You.`,
+  assignment: `Assignment: Get 'You' to remit the bill to Tomasso and have Tomasso draw 
+  the bill on Salviati. Previous steps should have been completed. If they have not been 
+  completed then go back to the beginning of this module. Click refresh to reset the board.`,
 };
 
 const SelectedPlayer = ({ player }: { player: any }) => {
@@ -82,8 +81,8 @@ function App() {
             overflowX: "hidden",
           }}
         >
-          {(selected === "me" || !selected) && <SelectedPlayer player={me} />}
-          {selected === "you" && <SelectedPlayer player={you} />}
+          {selected === "me" && <SelectedPlayer player={me} />}
+          {(selected === "you" || !selected) && <SelectedPlayer player={you} />}
           {selected === "salviati" && <SelectedPlayer player={salviati} />}
           {selected === "tomasso" && <SelectedPlayer player={tomasso} />}
           {selected === "piero" && <SelectedPlayer player={piero} />}
