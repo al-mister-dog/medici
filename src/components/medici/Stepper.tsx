@@ -6,6 +6,7 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import BillsExchange from "./bills-exchange/Index"
+import RemitBills from "./remit-bill/Index"
 import Playground from "./playground/Index"
 
 function getStepContent(step: number) {
@@ -13,7 +14,7 @@ function getStepContent(step: number) {
     case 0:
       return <BillsExchange />;
     case 1:
-      return <div>2</div>;
+      return <RemitBills />;
     case 2:
       return <Playground />;    
     default:
