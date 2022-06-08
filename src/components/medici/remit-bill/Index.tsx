@@ -46,7 +46,8 @@ function App() {
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const { you, tomasso } = useAppSelector(selectBankers);
   const [selected, setSelected] = useState<string>("");
-
+  const florencePlayers = [me, you]
+  const lyonsPlayers = [salviati, tomasso]
   function selectPlayer(player: any) {
     setSelected(player.id);
   }
@@ -70,7 +71,7 @@ function App() {
         }}
       >
         <Box style={{ width: "60%" }}>
-          <BoardPlayers selectPlayer={selectPlayer} />
+          <BoardPlayers florencePlayers={florencePlayers} lyonsPlayers={lyonsPlayers} selectPlayer={selectPlayer} />
         </Box>
         <Box
           sx={{
