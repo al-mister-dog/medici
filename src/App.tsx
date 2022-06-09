@@ -1,14 +1,8 @@
-import "./App.css"
-import { Box, AppBar, Toolbar } from "@mui/material";
-import Stepper from "./components/medici/Stepper";
+// import Stepper from "./components/medici/Stepper";
+import StepperMob from "./components/medici/StepperMobile";
+
 function App() {
-  return (
-    
-      <Box sx={{ height: "200vh", backgroundColor: "#607D8B", position: "absolute" }}>
-        <Stepper />
-      </Box>
-    
-  );
+  return <StepperMob />;
 }
 
 export default App;

@@ -4,7 +4,7 @@ import {
   selectBankers,
 } from "../../../features/players/playersSlice";
 import { useState } from "react";
-import Index from "../module/Index";
+import Index from "../mobile/Index";
 import { texts4 } from "../assets/texts";
 
 function App() {
