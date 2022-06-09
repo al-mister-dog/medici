@@ -1,8 +1,6 @@
-// import Stepper from "./components/medici/Stepper";
-import StepperMob from "./components/medici/StepperMobile";
-import StepperIndex from "./components/medici/StepperIndex"
+import Medici from "./components/medici/steps/Stepper";
 function App() {
-  return <StepperIndex />;
+  return <Medici />;
 }
 
 export default App;

@@ -1,4 +1,4 @@
-import BalanceSheet from "../../ui/BalanceSheet";
+import BalanceSheet from "../ui/desktop/BalanceSheet";
 
 const Board: React.FunctionComponent<{
   florencePlayers: any;

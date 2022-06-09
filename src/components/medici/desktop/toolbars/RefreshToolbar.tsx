@@ -1,7 +1,7 @@
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch } from "../../../../app/hooks";
 import {
   reset,
-} from "../../../features/players/playersSlice";
+} from "../../../../features/players/playersSlice";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   IconButton,

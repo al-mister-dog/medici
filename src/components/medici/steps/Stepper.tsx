@@ -15,12 +15,12 @@ import MobileStepper from "@mui/material/MobileStepper";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-import Introduction from "./steps/1-introduction";
-import BillsExchange from "./steps/2-bills";
-import RemitBills from "./steps/3-remit";
-import RechangeOne from "./steps/4-rechange1";
-import RechangeTwo from "./steps/5-rechange2";
-import Playground from "./steps/6-playground";
+import Introduction from "./1-introduction";
+import BillsExchange from "./2-bills";
+import RemitBills from "./3-remit";
+import RechangeOne from "./4-rechange1";
+import RechangeTwo from "./5-rechange2";
+import Playground from "./6-playground";
 
 function getStepContent(step: number) {
   switch (step) {

@@ -1,5 +1,4 @@
-import BalanceSheet from "../../ui-mobile/BalanceSheet";
-import Grid from "@mui/material/Grid";
+import BalanceSheet from "../ui/mobile/BalanceSheet";
 const Board: React.FunctionComponent<{
   florencePlayers: any;
   lyonsPlayers: any;

@@ -5,10 +5,10 @@ import {
 } from "../../../features/players/playersSlice";
 import Introduction from "../ui/Introduction";
 import { Box } from "@mui/material";
-import Player from "./Player";
-import BoardPlayers from "./BoardPlayers";
-import Notifications from "./NotificationsToolbar";
-import Refresh from "./RefreshToolbar";
+import Player from "./sidepanel/Player";
+import Board from "./Board";
+import Notifications from "./toolbars/NotificationsToolbar";
+import Refresh from "./toolbars/RefreshToolbar";
 
 const SelectedPlayer = ({ player }: { player: any }) => {
   return (
@@ -48,7 +48,7 @@ const Index: React.FunctionComponent<{
         }}
       >
         <Box>
-          <BoardPlayers
+          <Board
             florencePlayers={florencePlayers}
             lyonsPlayers={lyonsPlayers}
             selectPlayer={selectPlayer}

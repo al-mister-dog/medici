@@ -5,7 +5,7 @@ import {
 } from "../../../features/players/playersSlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
-import IndexDesktop from "../module/Index";
+import IndexDesktop from "../desktop/Index";
 import { texts1 } from "../assets/texts";
 
 function App() {

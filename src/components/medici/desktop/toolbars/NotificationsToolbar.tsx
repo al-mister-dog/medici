@@ -62,12 +62,12 @@
 //     </Box>
 //   );
 // }
-import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
 import {
   selectRecords,
   selectConditions,
   reset,
-} from "../../../features/players/playersSlice";
+} from "../../../../features/players/playersSlice";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   IconButton,

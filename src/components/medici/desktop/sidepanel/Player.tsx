@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 
 import PlayerTabs from "./PlayerTabs"
-import florenceFlag from "../assets/florence-flag.png"
-import lyonsFlag from "../assets/lyons-flag.png"
+import florenceFlag from "../../assets/florence-flag.png"
+import lyonsFlag from "../../assets/lyons-flag.png"
 const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
   
   const capitalize = (str: string) => {

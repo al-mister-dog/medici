@@ -1,4 +1,4 @@
-import Operations from "./sidepanel/Operations";
+import Operations from "./Operations";
 import Balances from "./Balances";
 
 import { Tabs, Tab, Box } from "@mui/material";
@@ -13,7 +13,6 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       style={{ overflowX: "hidden" }}
@@ -23,11 +22,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -41,7 +36,6 @@ function a11yProps(index: number) {
 
 const PlayerTabs = ({ selected }: { selected: any }) => {
   const [value, setValue] = useState(0);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
@@ -68,9 +62,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
       </Box>
 
       <TabPanel value={value} index={0}>
-        {/* <Box> */}
-          <Operations selected={selected} />
-        {/* </Box> */}
+        <Operations selected={selected} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Balances selected={selected} />

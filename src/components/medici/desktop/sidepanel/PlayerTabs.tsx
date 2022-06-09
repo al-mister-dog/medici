@@ -1,4 +1,4 @@
-import Operations from "./sidepanel/Operations";
+import Operations from "./Operations";
 import Balances from "./Balances";
 
 import { Tabs, Tab, Box } from "@mui/material";
@@ -16,18 +16,14 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      style={{overflowX: "hidden"}}
+      style={{ overflowX: "hidden" }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   );
 }
@@ -63,7 +59,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
 
       <TabPanel value={value} index={0}>
         {/* <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}> */}
-          <Operations selected={selected} />
+        <Operations selected={selected} />
         {/* </Box> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
