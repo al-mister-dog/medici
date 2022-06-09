@@ -1,13 +1,11 @@
 import { Box, Card, CardContent, Divider } from "@mui/material";
 import SideBalance from "./SideBalance";
+import { capitalize } from "../../helpers";
 
 const BalanceSheetTrader: React.FunctionComponent<{
   bank: any;
   selectPlayer: (b: any) => void;
 }> = ({ bank, selectPlayer }) => {
-  const capitalize = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
   return (
     <Card
       style={{

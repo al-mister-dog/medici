@@ -1,16 +1,21 @@
 import { Box, Typography } from "@mui/material";
-
 import PlayerTabs from "./PlayerTabs";
 import florenceFlag from "../../assets/florence-flag.png";
 import lyonsFlag from "../../assets/lyons-flag.png";
+import { capitalize } from "../../helpers";
+
 const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
-  const capitalize = (str: string) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", height: "40vh", paddingBottom: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "40vh",
+          paddingBottom: "20px",
+        }}
+      >
         <div
           style={{
             display: "flex",

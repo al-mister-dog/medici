@@ -31,10 +31,9 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
 
   function toggleAccordion(key: keyof Accordions) {
     const bool = accordionExpanded[key];
-
     setAccordionExpanded({ ...accordionExpanded, [key]: !bool });
-    console.log(accordionExpanded);
   }
+  
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {selected.type === "exporter" && (

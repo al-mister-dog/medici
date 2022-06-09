@@ -16,14 +16,16 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      style={{ overflowX: "hidden" }}
+      // style={{ overflowX: "hidden" }}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && (
+        <Box sx={{ p: 3 }}>{children}</Box>
+      )}
     </div>
   );
 }

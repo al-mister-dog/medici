@@ -97,7 +97,7 @@ export default function ButtonAppBar() {
       <Toolbar
         sx={{
           backgroundColor: "white",
-          boxShadow: "0px 10px 13px -7px #F3F6F9",
+          // boxShadow: "0px 10px 13px -7px #F3F6F9",
           padding: "5px",
         }}
       >
