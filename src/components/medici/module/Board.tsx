@@ -1,8 +1,8 @@
 import BalanceSheet from "../../ui/BalanceSheet";
 
 const Board: React.FunctionComponent<{
-  florencePlayers: any,
-  lyonsPlayers: any,
+  florencePlayers: any;
+  lyonsPlayers: any;
   selectPlayer: (a: any) => void;
 }> = ({ florencePlayers, lyonsPlayers, selectPlayer }) => {
   return (
@@ -17,7 +17,7 @@ const Board: React.FunctionComponent<{
           }}
         >
           {florencePlayers.map((player: any, i: any) => (
-            <BalanceSheet bank={player} selectPlayer={selectPlayer} />
+            <BalanceSheet key={i} bank={player} selectPlayer={selectPlayer} />
           ))}
         </div>
         <div
@@ -29,7 +29,7 @@ const Board: React.FunctionComponent<{
           }}
         >
           {lyonsPlayers.map((player: any, i: any) => (
-            <BalanceSheet bank={player} selectPlayer={selectPlayer} />
+            <BalanceSheet key={i} bank={player} selectPlayer={selectPlayer} />
           ))}
         </div>
       </div>

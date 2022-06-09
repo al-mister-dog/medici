@@ -30,15 +30,14 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
   });
 
   function toggleAccordion(key: keyof Accordions) {
-    const bool = accordionExpanded[key]
-    
-    setAccordionExpanded({...accordionExpanded, [key]: !bool});
-    console.log(accordionExpanded)
+    const bool = accordionExpanded[key];
+
+    setAccordionExpanded({ ...accordionExpanded, [key]: !bool });
+    console.log(accordionExpanded);
   }
   return (
-    
-    <Box sx={{display: "flex", flexDirection: "column"}}>
-    {selected.type === "exporter" && (
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      {selected.type === "exporter" && (
         <Accordion expanded={accordionExpanded.export}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -48,8 +47,7 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
           >
             <Typography>Export</Typography>
           </AccordionSummary>
-          <AccordionDetails
-          sx={{padding: 0.5, paddingRight: 1}}>
+          <AccordionDetails sx={{ padding: 0.5, paddingRight: 1 }}>
             <ExportCard
               selected={selected}
               accordionExpanded={accordionExpanded}
@@ -69,8 +67,11 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
             <Typography>Import</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ImportCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+            <ImportCard
+              selected={selected}
+              accordionExpanded={accordionExpanded}
+              setAccordionExpanded={setAccordionExpanded}
+            />
           </AccordionDetails>
         </Accordion>
       )}
@@ -84,8 +85,11 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
           <Typography>Draw Bill</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <DrawBillCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+          <DrawBillCard
+            selected={selected}
+            accordionExpanded={accordionExpanded}
+            setAccordionExpanded={setAccordionExpanded}
+          />
         </AccordionDetails>
       </Accordion>
       {selected.type === "banker" && (
@@ -99,14 +103,15 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
             <Typography>Remit Bill</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <RemitBillCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+            <RemitBillCard
+              selected={selected}
+              accordionExpanded={accordionExpanded}
+              setAccordionExpanded={setAccordionExpanded}
+            />
           </AccordionDetails>
         </Accordion>
       )}
     </Box>
-      
-
   );
 };
 

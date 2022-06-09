@@ -4,8 +4,11 @@ import {
   selectBankers,
 } from "../../../features/players/playersSlice";
 import { useState } from "react";
-import Index from "../mobile/Index";
+import IndexMobile from "../mobile/Index";
+import IndexDesktop from "../module/Index";
+import { useEffect } from "react";
 import { texts3 } from "../assets/texts";
+
 
 function App() {
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
@@ -17,8 +20,31 @@ function App() {
     setSelected(player.id);
   }
 
+  const [width, setWidth] = useState(window.innerWidth);
+  const breakpoint = 700;
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    // subscribe to window resize event "onComponentDidMount"
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+  }, []);
+  if (width > breakpoint) {
+    return (
+      <IndexDesktop
+        texts={texts3}
+        florencePlayers={florencePlayers}
+        lyonsPlayers={lyonsPlayers}
+        selected={selected}
+        selectPlayer={selectPlayer}
+        notifications={true}
+      />
+    );
+  }
+
   return (
-    <Index
+    <IndexMobile
       texts={texts3}
       florencePlayers={florencePlayers}
       lyonsPlayers={lyonsPlayers}

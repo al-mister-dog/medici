@@ -6,7 +6,7 @@ import {
 import Introduction from "../ui/Introduction";
 import { Box } from "@mui/material";
 import Player from "../module/Player";
-import BoardPlayers from "../module/BoardPlayers";
+import Board from "../module/Board";
 import Notifications from "./NotificationsToolbar";
 import Refresh from "./RefreshToolbar";
 
@@ -38,16 +38,20 @@ const Index: React.FunctionComponent<{
 
   return (
     <>
-      <Introduction texts={texts} />
+      <Box sx={{ paddingLeft: "75px", paddingRight: "75px", marginTop: "50px" }}>
+        <Introduction texts={texts} />
+      </Box>
+
       {notifications ? <Notifications /> : <Refresh />}
       <Box
         style={{
           display: "flex",
           background: "#F3F6F9",
+          height: "60vh",
         }}
       >
-        <Box style={{ width: "60%" }}>
-          <BoardPlayers
+        <Box style={{ width: "60%", overflowX: "hidden" }}>
+          <Board
             florencePlayers={florencePlayers}
             lyonsPlayers={lyonsPlayers}
             selectPlayer={selectPlayer}

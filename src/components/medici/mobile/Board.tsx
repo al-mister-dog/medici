@@ -18,7 +18,7 @@ const Board: React.FunctionComponent<{
           }}
         >
           {florencePlayers.map((player: any, i: any) => (
-            <BalanceSheet bank={player} selectPlayer={selectPlayer} />
+            <BalanceSheet key={i} bank={player} selectPlayer={selectPlayer} />
           ))}
         </div>
         <div
@@ -31,9 +31,9 @@ const Board: React.FunctionComponent<{
           }}
         >
           {lyonsPlayers.map((player: any, i: any) => (
-            <BalanceSheet bank={player} selectPlayer={selectPlayer} />
+            <BalanceSheet key={i} bank={player} selectPlayer={selectPlayer} />
           ))}
-        </div> 
+        </div>
       </div>
     </>
   );

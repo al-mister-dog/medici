@@ -1,7 +1,7 @@
 import Operations from "./sidepanel/Operations";
 import Balances from "./Balances";
 
-import { Tabs, Tab, Typography, Box } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 
 import { useState } from "react";
 
@@ -16,6 +16,7 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
+      style={{overflowX: "hidden"}}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -24,7 +25,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -61,9 +62,9 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
       </Box>
 
       <TabPanel value={value} index={0}>
-        <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}>
+        {/* <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}> */}
           <Operations selected={selected} />
-        </Box>
+        {/* </Box> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Balances selected={selected} />

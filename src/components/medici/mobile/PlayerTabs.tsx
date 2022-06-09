@@ -25,7 +25,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -68,9 +68,9 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
       </Box>
 
       <TabPanel value={value} index={0}>
-        <Box>
+        {/* <Box> */}
           <Operations selected={selected} />
-        </Box>
+        {/* </Box> */}
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Balances selected={selected} />

@@ -47,12 +47,12 @@ interface Action {
   trade?: string;
 }
 interface Type {
-  exporter: string
-  banker: string,
+  exporter: string;
+  banker: string;
 }
 interface Info {
-  type: keyof Type,
-  action: keyof Action,
+  type: keyof Type;
+  action: keyof Action;
 }
 
 const text: All = {
@@ -79,7 +79,6 @@ const text: All = {
   },
 };
 
-
 export interface ChoosePlayerProps {
   open: boolean;
   setSelectedValuePlayer: (v: Banker) => void;
@@ -88,10 +87,9 @@ export interface ChoosePlayerProps {
   info: Info;
 }
 
-
-
 export default function ChoosePlayer(props: ChoosePlayerProps) {
-  const { onClose, setSelectedValuePlayer, open, selectedBankers, info } = props;
+  const { onClose, setSelectedValuePlayer, open, selectedBankers, info } =
+    props;
 
   const handleClose = () => {
     onClose();
@@ -114,9 +112,9 @@ export default function ChoosePlayer(props: ChoosePlayerProps) {
         <List sx={{ pt: 0 }}>
           {selectedBankers.map((banker, i) => (
             <ListItem
+              key={i}
               button
               onClick={() => handleListItemClick(banker)}
-              key={i}
             >
               <ListItemAvatar>
                 <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>

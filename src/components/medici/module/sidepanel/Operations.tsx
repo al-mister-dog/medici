@@ -29,10 +29,9 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
   });
 
   function toggleAccordion(key: keyof Accordions) {
-    const bool = accordionExpanded[key]
-    
-    setAccordionExpanded({...accordionExpanded, [key]: !bool});
-    
+    const bool = accordionExpanded[key];
+
+    setAccordionExpanded({ ...accordionExpanded, [key]: !bool });
   }
   return (
     <>
@@ -66,8 +65,11 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
             <Typography>Import</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ImportCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+            <ImportCard
+              selected={selected}
+              accordionExpanded={accordionExpanded}
+              setAccordionExpanded={setAccordionExpanded}
+            />
           </AccordionDetails>
         </Accordion>
       )}
@@ -81,8 +83,11 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
           <Typography>Draw Bill</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <DrawBillCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+          <DrawBillCard
+            selected={selected}
+            accordionExpanded={accordionExpanded}
+            setAccordionExpanded={setAccordionExpanded}
+          />
         </AccordionDetails>
       </Accordion>
       {selected.type === "banker" && (
@@ -96,8 +101,11 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
             <Typography>Remit Bill</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <RemitBillCard selected={selected} accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}/>
+            <RemitBillCard
+              selected={selected}
+              accordionExpanded={accordionExpanded}
+              setAccordionExpanded={setAccordionExpanded}
+            />
           </AccordionDetails>
         </Accordion>
       )}

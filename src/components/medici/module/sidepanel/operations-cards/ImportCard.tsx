@@ -93,7 +93,7 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
             onClick={handleClickOpenTo}
             sx={{ justifyContent: "flex-start" }}
           >
-            Export To
+            Import From
           </Button>
           <ChoosePlayer
             setSelectedValuePlayer={setSelectedValuePlayer}

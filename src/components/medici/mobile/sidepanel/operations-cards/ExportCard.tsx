@@ -6,24 +6,13 @@ import {
 } from "../../../../../features/players/playersSlice";
 import * as React from "react";
 
-import PersonIcon from "@mui/icons-material/Person";
-import { blue } from "@mui/material/colors";
 import {
-  Avatar,
   Box,
   Button,
-  Dialog,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Menu,
-  MenuItem,
-  TextField,
   Typography,
 } from "@mui/material";
 
-import { useState } from "react";
+
 import ChoosePlayerDialog from "./dialogs/ChoosePlayerDialog";
 import AmountDialog from "./dialogs/AmountDialog"
 

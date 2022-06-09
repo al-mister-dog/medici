@@ -15,18 +15,19 @@ export default function Introduction({ texts }: { texts: Texts }) {
   }
   return (
     <div
-    // style={{
+    style={{
     //   background: "white",
-    //   paddingLeft: "75px",
-    //   paddingRight: "75px",
+      // paddingLeft: "75px",
+      // paddingRight: "75px",
     //   overflowX: "hidden",
     //   borderTopLeftRadius: "15px",
     //   borderTopRightRadius: "15px",
-    // }}
+    marginBottom: "25px"
+    }}
     >
       <Title>{texts.title}</Title>
       {expanded ? (
-        texts.paragraphs.map((paragraph, i) => <Text>{paragraph}</Text>)
+        texts.paragraphs.map((paragraph, i) => <Text key={i}>{paragraph}</Text>)
       ) : (
         <Text>{texts.paragraphs[0]}</Text>
       )}
