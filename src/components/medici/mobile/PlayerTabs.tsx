@@ -1,7 +1,7 @@
 import Operations from "./sidepanel/Operations";
 import Balances from "./Balances";
 
-import { Tabs, Tab, Typography, Box } from "@mui/material";
+import { Tabs, Tab, Box } from "@mui/material";
 
 import { useState } from "react";
 
