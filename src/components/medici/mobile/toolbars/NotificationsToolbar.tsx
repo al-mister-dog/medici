@@ -12,6 +12,7 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
+import { capitalize } from "../../helpers";
 
 export default function ButtonAppBar() {
   const dispatch = useAppDispatch();
@@ -52,7 +53,7 @@ export default function ButtonAppBar() {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 {cities.map((city, i) => (
                   <Typography key={i} sx={{ color: "black", fontSize: 12 }}>
-                    {city.city}: {city.certain ? "Certain" : "Moveable"}
+                    {capitalize(city.city)}: {city.certain ? "Certain" : "Moveable"}
                   </Typography>
                 ))}
               </Box>
@@ -71,7 +72,7 @@ export default function ButtonAppBar() {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 {rates.map((city, i) => (
                   <Typography key={i} sx={{ color: "black", fontSize: 12 }}>
-                    {city.city}: {city.price}
+                    {capitalize(city.city)}: {city.price}
                   </Typography>
                 ))}
               </Box>
