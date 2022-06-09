@@ -93,6 +93,7 @@ export default function TextMobileStepper() {
         }
       />
       <Box>{getStepContent(activeStep)}</Box>
+      
     </Box>
   );
 }
