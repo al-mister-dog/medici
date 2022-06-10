@@ -33,7 +33,7 @@ export default function ButtonAppBar() {
     <Box>
       <Toolbar
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "#735c51",
           boxShadow: "0px 10px 13px -7px #F3F6F9",
         }}
       >
@@ -46,13 +46,13 @@ export default function ButtonAppBar() {
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ color: "black", fontSize: 15, fontWeight: "bold" }}
+                sx={{ color: "white", fontSize: 15, fontWeight: "bold" }}
               >
                 Quotes
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 {cities.map((city, i) => (
-                  <Typography key={i} sx={{ color: "black", fontSize: 12 }}>
+                  <Typography key={i} sx={{ color: "white", fontSize: 12 }}>
                     {capitalize(city.city)}: {city.certain ? "Certain" : "Moveable"}
                   </Typography>
                 ))}
@@ -65,13 +65,13 @@ export default function ButtonAppBar() {
               <Typography
                 variant="h6"
                 component="div"
-                sx={{ color: "black", fontSize: 15, fontWeight: "bold" }}
+                sx={{ color: "white", fontSize: 15, fontWeight: "bold" }}
               >
                 Rates (Ecus to Marc)
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 {rates.map((city, i) => (
-                  <Typography key={i} sx={{ color: "black", fontSize: 12 }}>
+                  <Typography key={i} sx={{ color: "white", fontSize: 12 }}>
                     {capitalize(city.city)}: {city.price}
                   </Typography>
                 ))}
@@ -89,7 +89,7 @@ export default function ButtonAppBar() {
             <Typography
               variant="body1"
               component="div"
-              sx={{ alignSelf: "flex-end", color: "gray", fontSize: 10 }}
+              sx={{ alignSelf: "flex-end", color: "white", fontSize: 10 }}
             >
               {records.length > 0
                 ? `${records[records.length - 1]}`

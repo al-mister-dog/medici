@@ -23,7 +23,7 @@ const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
           <img
             src={selected.city === "florence" ? florenceFlag : lyonsFlag}
             alt="asas"
-            style={{ width: "150px" }}
+            style={{ width: "150px", filter: "sepia(50%)" }}
           ></img>
         </Box>
 

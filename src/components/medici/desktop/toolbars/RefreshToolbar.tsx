@@ -16,13 +16,13 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <Toolbar
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "#735c51",
           // boxShadow: "0px 10px 13px -7px #F3F6F9",
         }}
       >
         <Tooltip title="refresh">
           <IconButton onClick={() => dispatch(reset())}>
-            <RefreshIcon />
+            <RefreshIcon sx={{color: "white"}}/>
           </IconButton>
         </Tooltip>
       </Toolbar>
