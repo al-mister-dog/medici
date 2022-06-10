@@ -51,3 +51,5 @@ find out if moveable rate can be set by individual bankers or in the contos
 ////////
 8th June
 
+TODOS
+swipeable balance sheets in mobile mode. overflowY flex. could be a spinning wheel
