@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-
+import { Box, Typography } from "@mui/material";
+const toolbarTextColor = '#f2eecb'
 type Account = {
   [index: string]: any;
 };
@@ -20,10 +20,10 @@ const Side: React.FunctionComponent<{
         width: "50%",
       }}
     >
-      <p
+      <Typography
         style={{
           fontSize: 12,
-          color: "gray",
+          color: toolbarTextColor,
           fontWeight: 500,
           fontFamily:
             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
@@ -31,7 +31,7 @@ const Side: React.FunctionComponent<{
         }}
       >
         {side}
-      </p>
+      </Typography>
 
       {bills.length > 0 && (
         <div
@@ -40,16 +40,16 @@ const Side: React.FunctionComponent<{
             padding: 0,
             textAlign: "left",
             fontSize: 12,
-            color: "gray",
+            color: toolbarTextColor,
             fontWeight: 500,
             fontFamily:
               '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
           }}
         >
-          <p style={{ margin: 0, padding: 0 }}>Bills</p>
+          <Typography style={{ margin: 0, padding: 0 }}>Bills</Typography>
           {bills.map((account: Account, i: number) => {
             return account.paid ? (
-              <p key={account.id} style={{ margin: 0, padding: 0 }}>
+              <Typography key={account.id} style={{ margin: 0, padding: 0 }}>
                 <s>
                   <span>
                     {side === "liabilities"
@@ -59,16 +59,16 @@ const Side: React.FunctionComponent<{
 
                   <span>{account.amount}</span>
                 </s>
-              </p>
+              </Typography>
             ) : (
-              <p key={account.id} style={{ margin: 0, padding: 0 }}>
+              <Typography key={account.id} style={{ margin: 0, padding: 0 }}>
                 <span>
                   {side === "liabilities"
                     ? `Due to ${account.dueTo}: `
                     : `Due from ${account.dueFrom}: `}
                 </span>
                 <span>{account.amount}</span>
-              </p>
+              </Typography>
             );
           })}
         </div>
@@ -80,20 +80,20 @@ const Side: React.FunctionComponent<{
             padding: 0,
             textAlign: "left",
             fontSize: 12,
-            color: "gray",
+            color: toolbarTextColor,
             fontWeight: 500,
             fontFamily:
               '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
           }}
         >
-          <p style={{ margin: 0, padding: 0 }}>Coins</p>
+          <Typography style={{ margin: 0, padding: 0 }}>Coins</Typography>
 
           {coins.map((account: Account, i: number) => {
             return (
-              <p key={i} style={{ margin: 0, padding: 0 }}>
+              <Typography key={i} style={{ margin: 0, padding: 0 }}>
                 <span>{account.coinType}: </span>
                 <span>{account.amount}</span>
-              </p>
+              </Typography>
             );
           })}
         </div>

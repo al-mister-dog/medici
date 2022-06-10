@@ -6,14 +6,17 @@ const Board: React.FunctionComponent<{
 }> = ({ florencePlayers, lyonsPlayers, selectPlayer }) => {
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",          
+        }}
+      >
         <div
           style={{
-            width: "50%",
-            // margin: "auto",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
+            flexWrap: "nowrap",
+            overflowX: "auto",
           }}
         >
           {florencePlayers.map((player: any, i: any) => (
@@ -22,11 +25,9 @@ const Board: React.FunctionComponent<{
         </div>
         <div
           style={{
-            width: "50%",
-            // margin: "auto",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
+            flexWrap: "nowrap",
+            overflowX: "auto",
           }}
         >
           {lyonsPlayers.map((player: any, i: any) => (

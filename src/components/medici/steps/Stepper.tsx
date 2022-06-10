@@ -99,7 +99,7 @@ const StepperIndex: React.FunctionComponent = () => {
       handleBack={handleBack}
     />
   );
-}
+};
 
 const StepperDeskTop: React.FunctionComponent<{
   activeStep: number;
@@ -168,7 +168,7 @@ const StepperDeskTop: React.FunctionComponent<{
         width: "90%",
         margin: "auto",
         borderRadius: "15px",
-        background: "white",
+        background: "#F2EECB",
         marginTop: "50px",
         paddingTop: "20px",
       }}
@@ -260,12 +260,13 @@ const StepperMobile: React.FunctionComponent<{
       sx={{
         margin: "auto",
         borderRadius: "15px",
-        background: "white",
+        background: "#F2EECB",
         marginTop: "50px",
         padding: "20px 5px",
       }}
     >
       <MobileStepper
+        sx={{ background: "#F2EECB" }}
         variant="text"
         steps={maxSteps}
         position="static"
@@ -297,6 +298,7 @@ const StepperMobile: React.FunctionComponent<{
       />
       <Box>{getStepContent(activeStep)}</Box>
       <MobileStepper
+        sx={{ background: "#F2EECB" }}
         variant="text"
         steps={maxSteps}
         position="static"
@@ -330,4 +332,4 @@ const StepperMobile: React.FunctionComponent<{
   );
 };
 
-export default StepperIndex
+export default StepperIndex;

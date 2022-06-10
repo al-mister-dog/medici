@@ -46,11 +46,12 @@ const Index: React.FunctionComponent<{
       <Box
         style={{
           display: "flex",
-          background: "#F3F6F9",
+          background: "#F2EECB",
+          padding: "1px",
           height: "60vh",
         }}
       >
-        <Box style={{ width: "60%", overflowX: "hidden" }}>
+        <Box style={{ width: "60%",  background: "#757575",overflowX: "hidden" }}>
           <Board
             florencePlayers={florencePlayers}
             lyonsPlayers={lyonsPlayers}
@@ -60,7 +61,7 @@ const Index: React.FunctionComponent<{
         <Box
           sx={{
             width: "40%",
-            background: "white",
+            background: "#F2EECB",
             overflowX: "hidden",
           }}
         >

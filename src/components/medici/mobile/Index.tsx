@@ -39,24 +39,16 @@ const Index: React.FunctionComponent<{
   return (
     <>
       <Introduction texts={texts} />
-      {notifications ? <Notifications /> : <Refresh />}
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column-reverse",
-          background: "#F3F6F9",
+          flexDirection: "column",
+          background: "#757575",
         }}
       >
-        <Box>
-          <Board
-            florencePlayers={florencePlayers}
-            lyonsPlayers={lyonsPlayers}
-            selectPlayer={selectPlayer}
-          />
-        </Box>
         <Box
           sx={{
-            background: "white",
+            background: "#F2EECB",
           }}
         >
           {selected === "me" && <SelectedPlayer player={me} />}
@@ -66,6 +58,14 @@ const Index: React.FunctionComponent<{
           {selected === "piero" && <SelectedPlayer player={piero} />}
           {selected === "federigo" && <SelectedPlayer player={federigo} />}
         </Box>
+        {notifications ? <Notifications /> : <Refresh />}
+        {/* <Box> */}
+          <Board
+            florencePlayers={florencePlayers}
+            lyonsPlayers={lyonsPlayers}
+            selectPlayer={selectPlayer}
+          />
+        {/* </Box> */}
       </Box>
     </>
   );

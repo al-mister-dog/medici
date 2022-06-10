@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import { capitalize } from "../../helpers";
 
+// const toolbarTextColor = '#f2eecb'
+const toolbarTextColor = "black"
 export default function ButtonAppBar() {
   const dispatch = useAppDispatch();
   const records = useAppSelector(selectRecords);
@@ -33,8 +35,10 @@ export default function ButtonAppBar() {
     <Box>
       <Toolbar
         sx={{
-          backgroundColor: "#735c51",
-          // boxShadow: "0px 10px 13px -7px #F3F6F9",
+          // backgroundColor: "#735c51",
+          // backgroundColor: "#62120E",
+          backgroundColor: "#F2EECB",
+          // boxShadow: "0px 6px 10px -7px gray",
           padding: "5px",
         }}
       >
@@ -51,13 +55,13 @@ export default function ButtonAppBar() {
             <Typography
               variant="h6"
               component="div"
-              sx={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
             >
               Quotes
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               {cities.map((city, i) => (
-                <Typography key={i} sx={{ color: "white", fontSize: 12 }}>
+                <Typography key={i} sx={{ color: toolbarTextColor, fontSize: 12 }}>
                   {capitalize(city.city)}: {city.certain ? "Certain" : "Moveable"}
                 </Typography>
               ))}
@@ -68,13 +72,13 @@ export default function ButtonAppBar() {
             <Typography
               variant="h6"
               component="div"
-              sx={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
             >
               Rates (Ecus to Marc)
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "column" }}>
               {rates.map((city, i) => (
-                <Typography key={i} sx={{ color: "white", fontSize: 12 }}>
+                <Typography key={i} sx={{ color: toolbarTextColor, fontSize: 12 }}>
                   {capitalize(city.city)}: {city.price}
                 </Typography>
               ))}
@@ -90,7 +94,7 @@ export default function ButtonAppBar() {
             <Typography
               variant="h6"
               component="div"
-              sx={{ color: "white", fontSize: 15, fontWeight: "bold" }}
+              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
             >
               Records
             </Typography>
@@ -100,7 +104,7 @@ export default function ButtonAppBar() {
                   <Typography
                     variant="body1"
                     component="div"
-                    sx={{ color: "gray", fontSize: 12 }}
+                    sx={{ color: toolbarTextColor, fontSize: 12 }}
                     key={i}
                   >
                     {record}
@@ -110,7 +114,7 @@ export default function ButtonAppBar() {
                 <Typography
                   variant="body1"
                   component="div"
-                  sx={{ color: "white", fontSize: 12 }}
+                  sx={{ color: toolbarTextColor, fontSize: 12 }}
                 >
                   Trade to start
                 </Typography>
@@ -119,7 +123,7 @@ export default function ButtonAppBar() {
           </Box>
           <Tooltip title="refresh">
             <IconButton onClick={() => dispatch(reset())}>
-              <RefreshIcon sx={{color: "white"}}/>
+              <RefreshIcon/>
             </IconButton>
           </Tooltip>
         </Box>

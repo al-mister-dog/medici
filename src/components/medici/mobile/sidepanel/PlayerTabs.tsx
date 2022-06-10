@@ -44,9 +44,8 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
     <>
       <Box
         sx={{
-          borderBottom: 1,
-          borderColor: "divider",
-          boxShadow: "0px 10px 13px -7px #F3F6F9",
+          // borderBottom: 1,
+          // borderColor: "divider",
         }}
       >
         <Tabs

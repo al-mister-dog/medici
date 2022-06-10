@@ -1,3 +1,4 @@
+import {Typography} from "@mui/material"
 import {
   JSXElementConstructor,
   ReactElement,
@@ -17,8 +18,8 @@ export default function Title(props: {
     | undefined;
 }) {
   return (
-    <h3 style={{ letterSpacing: "1px", textAlign: "justify" }}>
+    <Typography variant="h4" sx={{ letterSpacing: "1px", textAlign: "justify" }}>
       {props.children}
-    </h3>
+    </Typography>
   );
 }

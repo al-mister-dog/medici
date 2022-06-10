@@ -1,7 +1,7 @@
-import { Box, Card, CardContent, Divider } from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import SideBalance from "./SideBalance";
 import { capitalize } from "../../helpers";
-
+const toolbarTextColor = '#f2eecb'
 const BalanceSheetTrader: React.FunctionComponent<{
   bank: any;
   selectPlayer: (b: any) => void;
@@ -13,6 +13,7 @@ const BalanceSheetTrader: React.FunctionComponent<{
         minWidth: 300,
         textAlign: "center",
         margin: 25,
+        backgroundColor: "#62120E"
       }}
       sx={{
         "&:hover": {
@@ -26,26 +27,26 @@ const BalanceSheetTrader: React.FunctionComponent<{
       onClick={() => selectPlayer(bank)}
     >
       <CardContent>
-        <h3
-          style={{
+        <Typography
+          sx={{
             fontSize: 18,
             fontWeight: "bold",
             letterSpacing: "0.5px",
-            marginTop: 8,
-            marginBottom: 0,
+            color: toolbarTextColor,
+            // marginTop: 8,
+            // marginBottom: 0,
           }}
         >
           {capitalize(bank.id)}
-        </h3>
-        <span
+        </Typography>
+        <Typography
           style={{
             fontSize: 14,
-            color: "gray",
-            marginBottom: "0.875em",
+            color: toolbarTextColor,
           }}
         >
           {capitalize(bank.city)}
-        </span>
+        </Typography>
       </CardContent>
       <Divider light />
       <Box display={"flex"}>
