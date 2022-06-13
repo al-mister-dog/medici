@@ -37,9 +37,9 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {selected.type === "exporter" && (
-        <Accordion expanded={accordionExpanded.export}>
+        <Accordion expanded={accordionExpanded.export} sx={{background: "#62120E", color: "#f2eecb"}}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
             onClick={() => toggleAccordion("export")}
@@ -56,9 +56,9 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
         </Accordion>
       )}
       {selected.type === "importer" && (
-        <Accordion expanded={accordionExpanded.import}>
+        <Accordion expanded={accordionExpanded.import} sx={{background: "#62120E", color: "#f2eecb"}}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
             onClick={() => toggleAccordion("import")}
@@ -74,9 +74,9 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
           </AccordionDetails>
         </Accordion>
       )}
-      <Accordion expanded={accordionExpanded.drawBill}>
+      <Accordion expanded={accordionExpanded.drawBill} sx={{background: "#62120E", color: "#f2eecb"}}>
         <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
           onClick={() => toggleAccordion("drawBill")}
@@ -89,12 +89,13 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
             accordionExpanded={accordionExpanded}
             setAccordionExpanded={setAccordionExpanded}
           />
+          
         </AccordionDetails>
       </Accordion>
       {selected.type === "banker" && (
-        <Accordion expanded={accordionExpanded.remitBill}>
+        <Accordion expanded={accordionExpanded.remitBill} sx={{background: "#62120E", color: "#f2eecb"}}>
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
             aria-controls="panel1a-content"
             id="panel1a-header"
             onClick={() => toggleAccordion("remitBill")}

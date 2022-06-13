@@ -33,25 +33,21 @@ const BalanceSheetTrader: React.FunctionComponent<{
           style={{
             fontSize: 15,
             fontWeight: "bold",
-            letterSpacing: "0.5px",
-            margin: 0,
             color: toolbarTextColor,
           }}
         >
           {capitalize(bank.id)}
         </Typography>
-        <span
+        <Typography
           style={{
             fontSize: 12,
             color: toolbarTextColor,
-            marginBottom: "0.875em",
           }}
         >
           {capitalize(bank.city)}
-        </span>
+        </Typography>
       </CardContent>
-      <Divider light />
-      <Box display={"flex"}>
+      <Box display={"flex"} sx={{borderTop: `1px solid ${toolbarTextColor}`}}>
         <SideBalance side="assets" bills={bank.assets} coins={bank.coinAsset} />
         <SideBalance
           side="liabilities"

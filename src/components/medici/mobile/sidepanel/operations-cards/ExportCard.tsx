@@ -2,19 +2,14 @@ import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectTraders,
   selectBankers,
-  trade
+  trade,
 } from "../../../../../features/players/playersSlice";
 import * as React from "react";
 
-import {
-  Box,
-  Button,
-  Typography,
-} from "@mui/material";
-
+import { Box, Button, Typography } from "@mui/material";
 
 import ChoosePlayerDialog from "./dialogs/ChoosePlayerDialog";
-import AmountDialog from "./dialogs/AmountDialog"
+import AmountDialog from "./dialogs/AmountDialog";
 
 interface Trader {
   id: string;
@@ -34,9 +29,11 @@ interface Accordions {
   remitBill: boolean;
 }
 
-const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Accordions, setAccordionExpanded: (v: Accordions) => void }> = ({
-  selected, accordionExpanded, setAccordionExpanded
-}) => {
+const ExportCard: React.FunctionComponent<{
+  selected: any;
+  accordionExpanded: Accordions;
+  setAccordionExpanded: (v: Accordions) => void;
+}> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
   const dispatch = useAppDispatch();
   const { me, salviati, federigo, piero } = useAppSelector(selectTraders);
   const tradersArray = [me, salviati, federigo, piero];
@@ -45,9 +42,8 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
       selected.id !== t.id && selected.city !== t.city && t.type === "importer"
   );
 
-  const [selectedValueTo, setSelectedValuePlayer] = React.useState<Trader | null>(
-    null
-  );
+  const [selectedValueTo, setSelectedValuePlayer] =
+    React.useState<Trader | null>(null);
   const [openTo, setOpenTo] = React.useState(false);
   const handleClickOpenTo = () => {
     setOpenTo(true);
@@ -67,13 +63,18 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
     setOpenAmount(false);
   };
 
-
   const onClickTrade = () => {
-    dispatch(trade({ importer: selectedValueTo, exporter: selected, amount: selectedValueAmount }));
-    setSelectedValuePlayer(null)
-    setSelectedValueAmount(0)
-    setAccordionExpanded({...accordionExpanded, export: false})
-  }
+    dispatch(
+      trade({
+        importer: selectedValueTo,
+        exporter: selected,
+        amount: selectedValueAmount,
+      })
+    );
+    setSelectedValuePlayer(null);
+    setSelectedValueAmount(0);
+    setAccordionExpanded({ ...accordionExpanded, export: false });
+  };
   interface Text {
     export: string;
   }
@@ -81,8 +82,8 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
     [key: string]: keyof Text;
   }
   const info: Info = {
-    type: "export"
-  }
+    type: "export",
+  };
 
   return (
     <Box>
@@ -101,8 +102,9 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           }}
         >
           <Button
+            variant="contained"
             onClick={handleClickOpenTo}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px", marginBottom: "5px" }}
           >
             Export To
           </Button>
@@ -111,13 +113,14 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
             open={openTo}
             onClose={handleCloseTo}
             selectedBankers={selectedTraders}
-            info={{type: selected.type, action: "trade"}}
+            info={{ type: selected.type, action: "trade" }}
           />
 
           <Button
+            variant="contained"
             disabled={selectedValueTo === null}
             onClick={handleClickOpenAmount}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px" }}
           >
             Amount
           </Button>
@@ -137,10 +140,12 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
             alignItems: "flex-start",
           }}
         >
-          <Typography sx={{ margin: 0.75, marginRight: 2, fontWeight: "bold", letterSpacing: 0.8 }}>
+          <Typography sx={{ margin: 0.75, marginRight: 2, fontWeight: "bold" }}>
             {selectedValueTo ? `${selectedValueTo.id}` : ` `}
           </Typography>
-          <Typography sx={{ margin: 0.75, marginRight: 2, fontWeight: "bold", letterSpacing: 0.8 }}>{isNaN(selectedValueAmount) ? `_` : `${selectedValueAmount}`}</Typography>
+          <Typography sx={{ margin: 0.75, marginRight: 2, fontWeight: "bold" }}>
+            {isNaN(selectedValueAmount) ? `_` : `${selectedValueAmount}`}
+          </Typography>
         </div>
       </div>
       <div
@@ -150,14 +155,16 @@ const ExportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           justifyContent: "flex-end",
         }}
       >
-        <Button variant="contained"
-        disabled={isNaN(selectedValueAmount) || selectedValueAmount <= 0}
-        onClick={onClickTrade}
-        >Ok</Button>
+        <Button
+          variant="contained"
+          disabled={isNaN(selectedValueAmount) || selectedValueAmount <= 0}
+          onClick={onClickTrade}
+        >
+          Ok
+        </Button>
       </div>
     </Box>
   );
 };
-
 
 export default ExportCard;

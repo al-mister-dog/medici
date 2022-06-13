@@ -47,7 +47,7 @@ const Balances = ({ selected }: { selected: any }) => {
       }}
     >
       <Box sx={{ marginBottom: 5 }}>
-        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>
+        <Typography align="left">
           Assets
         </Typography>
         <Box sx={{ height: 200, width: "100%" }}>
@@ -63,7 +63,7 @@ const Balances = ({ selected }: { selected: any }) => {
         </Box>
       </Box>
       <Box>
-        <Typography align="left" sx={{ letterSpacing: "0.5px" }}>
+        <Typography align="left" >
           Liabilities
         </Typography>
         <Box sx={{ height: 200, width: "100%" }}>

@@ -1,7 +1,7 @@
 import Operations from "./Operations";
 import Balances from "./Balances";
 
-import { Tabs, Tab, Box } from "@mui/material";
+import { Tabs, Tab, Box, Typography } from "@mui/material";
 
 import { useState } from "react";
 
@@ -63,7 +63,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
       </TabPanel>
       <TabPanel value={value} index={2}>
         {selected.records.map((record: string, i: number) => (
-          <p key={i}>{record}</p>
+          <Typography key={i} sx={{fontSize: 12}}>{i + 1}: {record}</Typography>
         ))}
       </TabPanel>
     </>

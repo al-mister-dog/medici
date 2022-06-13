@@ -45,9 +45,7 @@ const Index: React.FunctionComponent<{
         style={{
           display: "flex",
           height: "60vh",
-          margin: "5px",
-          border: "1px solid #BDBDBD",
-          borderRadius: "5px",
+          
         }}
       >
         <Box

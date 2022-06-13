@@ -14,7 +14,7 @@ const Side: React.FunctionComponent<{
       p={1}
       flex={"auto"}
       style={{
-        borderLeft: "1px solid rgba(0, 0, 0, 0.08)",
+        borderLeft: `1px solid ${toolbarTextColor}`,
         borderColor: "rgba(0, 0, 0, 0.08)",
         height: "50%",
         width: "50%",
@@ -25,8 +25,6 @@ const Side: React.FunctionComponent<{
           fontSize: 12,
           color: toolbarTextColor,
           fontWeight: 500,
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
           margin: 0,
         }}
       >
@@ -42,8 +40,6 @@ const Side: React.FunctionComponent<{
             fontSize: 12,
             color: toolbarTextColor,
             fontWeight: 500,
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
           }}
         >
           <Typography style={{ margin: 0, padding: 0 }}>Bills</Typography>

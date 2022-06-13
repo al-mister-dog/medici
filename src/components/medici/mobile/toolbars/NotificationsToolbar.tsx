@@ -5,20 +5,13 @@ import {
   reset,
 } from "../../../../features/players/playersSlice";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-  IconButton,
-  Box,
-  Toolbar,
-  Typography,
-  Tooltip,
-} from "@mui/material";
+import { IconButton, Box, Toolbar, Typography, Tooltip } from "@mui/material";
 import { capitalize } from "../../helpers";
 
 export default function ButtonAppBar() {
   const dispatch = useAppDispatch();
   const records = useAppSelector(selectRecords);
-  const { certaintyQuotes, exchangeRates } =
-    useAppSelector(selectConditions);
+  const { certaintyQuotes, exchangeRates } = useAppSelector(selectConditions);
 
   const cities = Object.keys(certaintyQuotes).map((c) => ({
     city: c,
@@ -31,19 +24,16 @@ export default function ButtonAppBar() {
 
   return (
     <Box>
-      <Toolbar
-        sx={{
-          // backgroundColor: "#735c51",
-          backgroundColor: "#F2EECB",
-          boxShadow: "0px 6px 10px -7px gray",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column"}}>
-          <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-            
-            <Box
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
+      <Toolbar>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Typography
                 variant="h6"
                 component="div"
@@ -54,14 +44,19 @@ export default function ButtonAppBar() {
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 {cities.map((city, i) => (
                   <Typography key={i} sx={{ color: "black", fontSize: 12 }}>
-                    {capitalize(city.city)}: {city.certain ? "Certain" : "Moveable"}
+                    {capitalize(city.city)}:{" "}
+                    {city.certain ? "Certain" : "Moveable"}
                   </Typography>
                 ))}
               </Box>
             </Box>
 
             <Box
-              sx={{ display: "flex", flexDirection: "column", marginLeft: "50px" }}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "50px",
+              }}
             >
               <Typography
                 variant="h6"
@@ -78,7 +73,6 @@ export default function ButtonAppBar() {
                 ))}
               </Box>
             </Box>
-
           </Box>
           <Box
             sx={{

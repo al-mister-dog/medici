@@ -23,7 +23,6 @@ export default function Text(props: {
       variant="body1"
       sx={{
         fontSize: ".9rem",
-        letterSpacing: "0.7px",
         textAlign: "justify",
         marginBottom: "10px",
         fontWeight: props.bold ? "bold" : "",

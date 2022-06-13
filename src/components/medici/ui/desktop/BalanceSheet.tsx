@@ -31,7 +31,6 @@ const BalanceSheetTrader: React.FunctionComponent<{
           sx={{
             fontSize: 18,
             fontWeight: "bold",
-            letterSpacing: "0.5px",
             color: toolbarTextColor,
             // marginTop: 8,
             // marginBottom: 0,
