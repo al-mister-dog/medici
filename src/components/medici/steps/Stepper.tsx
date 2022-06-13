@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
+import { selectRecords } from "../../../features/players/playersSlice";
+import { useEffect, useState } from "react";
 import {
   Box,
   Stepper,
@@ -50,7 +52,52 @@ const steps = [
 ];
 
 const StepperIndex: React.FunctionComponent = () => {
+  const records = useAppSelector(selectRecords);
   const [activeStep, setActiveStep] = useState(0);
+  useEffect(() => {
+    console.log(records);
+    const record1 = "salviati imports 1 marc worth of goods from me";
+    const record2 = "me draws bill on you for 1 marc";
+    const record3 = "you remits bill to tomasso";
+    const record4 = "tomasso draws bill on salviati for 1";
+    const record5 = "federigo imports 1 marc worth of goods from piero";
+    const record6 = "piero draws bill on tomasso for 1 marc";
+    const record7 = "tomasso remits bill to you";
+    const record8 = "you draws bill on federigo for 1";
+
+    const step1Complete = () => {
+      return records[0] === record1 && records[1] === record2;
+    };
+    const step2Complete = () => {
+      return records[2] === record3 && records[3] === record4;
+    };
+    const step3Complete = () => {
+      return records[4] === record5 && records[5] === record6;
+    };
+    const step4Complete = () => {
+      return records[6] === record7 && records[7] === record8;
+    };
+    if (step1Complete()) {
+      const newCompleted = completed;
+      newCompleted[1] = true;
+      handleSetCompleted(newCompleted);
+    }
+    if (step1Complete() && step2Complete()) {
+      const newCompleted = completed;
+      newCompleted[2] = true;
+      handleSetCompleted(newCompleted);
+    }
+    if (step1Complete() && step2Complete() && step3Complete()) {
+      const newCompleted = completed;
+      newCompleted[3] = true;
+      handleSetCompleted(newCompleted);
+    }
+    if (step1Complete() && step2Complete() && step3Complete() && step4Complete()) {
+      const newCompleted = completed;
+      newCompleted[4] = true;
+      handleSetCompleted(newCompleted);
+    }
+  }, [records]);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
