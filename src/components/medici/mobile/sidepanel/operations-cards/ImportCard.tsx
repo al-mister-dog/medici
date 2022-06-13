@@ -90,8 +90,9 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           }}
         >
           <Button
+            variant="contained"
             onClick={handleClickOpenTo}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px", marginBottom: "5px" }}
           >
             Import From
           </Button>
@@ -104,9 +105,10 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           />
 
           <Button
+            variant="contained"
             disabled={selectedValueTo === null}
             onClick={handleClickOpenAmount}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px" }}
           >
             Amount
           </Button>

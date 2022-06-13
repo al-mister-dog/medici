@@ -98,9 +98,9 @@ const ExportCard: React.FunctionComponent<{
               }}
             >
               <Button
-                // disabled={selectedValueTo === null}
+                variant="contained"
                 onClick={handleClickOpenAmount}
-                sx={{ justifyContent: "flex-start" }}
+                sx={{ width: "150px", marginBottom: "5px" }}
               >
                 Bill To Remit
               </Button>
@@ -112,7 +112,7 @@ const ExportCard: React.FunctionComponent<{
               />
               <Button
                 onClick={handleClickOpenTo}
-                sx={{ justifyContent: "flex-start" }}
+                sx={{ width: "150px" }}
               >
                 Remit Bill To
               </Button>
