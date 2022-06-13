@@ -60,11 +60,11 @@ const Index: React.FunctionComponent<{
         </Box>
         {notifications ? <Notifications /> : <Refresh />}
         {/* <Box> */}
-          <Board
-            florencePlayers={florencePlayers}
-            lyonsPlayers={lyonsPlayers}
-            selectPlayer={selectPlayer}
-          />
+        <Board
+          florencePlayers={florencePlayers}
+          lyonsPlayers={lyonsPlayers}
+          selectPlayer={selectPlayer}
+        />
         {/* </Box> */}
       </Box>
     </>

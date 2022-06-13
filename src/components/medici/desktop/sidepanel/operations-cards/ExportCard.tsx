@@ -10,6 +10,8 @@ import { Box, Button, Typography } from "@mui/material";
 import ChoosePlayerDialog from "./dialogs/ChoosePlayerDialog";
 import AmountDialog from "./dialogs/AmountDialog";
 
+const textColor = "#f2eecb";
+
 interface Trader {
   id: string;
   city: string;
@@ -78,23 +80,24 @@ const ExportCard: React.FunctionComponent<{
 
   return (
     <Box>
-      <div
-        style={{
+      <Box
+        sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <div
-          style={{
+        <Box
+          sx={{
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
           }}
         >
           <Button
+            variant="contained"
             onClick={handleClickOpenTo}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px", marginBottom: "5px" }}
           >
             Export To
           </Button>
@@ -107,9 +110,10 @@ const ExportCard: React.FunctionComponent<{
           />
 
           <Button
+            variant="contained"
             disabled={selectedValueTo === null}
             onClick={handleClickOpenAmount}
-            sx={{ justifyContent: "flex-start" }}
+            sx={{ width: "130px" }}
           >
             Amount
           </Button>
@@ -120,9 +124,9 @@ const ExportCard: React.FunctionComponent<{
             onClose={handleCloseAmount}
             selectedTrader={selectedValueTo}
           />
-        </div>
-        <div
-          style={{
+        </Box>
+        <Box
+          sx={{
             alignSelf: "flex-end",
             display: "flex",
             flexDirection: "column",
@@ -135,10 +139,10 @@ const ExportCard: React.FunctionComponent<{
           <Typography sx={{ margin: 0.75 }}>
             {isNaN(selectedValueAmount) ? `_` : `${selectedValueAmount}`}
           </Typography>
-        </div>
-      </div>
-      <div
-        style={{
+        </Box>
+      </Box>
+      <Box
+        sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "flex-end",
@@ -151,7 +155,7 @@ const ExportCard: React.FunctionComponent<{
         >
           Ok
         </Button>
-      </div>
+      </Box>
     </Box>
   );
 };

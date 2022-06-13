@@ -16,7 +16,7 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      // style={{ overflowX: "hidden" }}
+    style={{overflowX: "hidden"}}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -48,7 +48,6 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
     <>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
-          // centered
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"

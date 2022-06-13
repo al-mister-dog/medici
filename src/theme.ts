@@ -4,6 +4,10 @@ const theme = createTheme({
     primary: {
       // main: "#607D8B"
       main: "#0e5e62"
+    },
+    action: {
+      disabledBackground: '#6E3C2B',
+      disabled: '#f2eecb'
     }
   },
   typography: {

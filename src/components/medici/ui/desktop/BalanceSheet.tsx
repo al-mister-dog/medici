@@ -48,8 +48,7 @@ const BalanceSheetTrader: React.FunctionComponent<{
           {capitalize(bank.city)}
         </Typography>
       </CardContent>
-      <Divider light />
-      <Box display={"flex"}>
+      <Box display={"flex"} sx={{borderTop: `1px solid ${toolbarTextColor}`}}>
         <SideBalance side="assets" bills={bank.assets} coins={bank.coinAsset} />
         <SideBalance
           side="liabilities"

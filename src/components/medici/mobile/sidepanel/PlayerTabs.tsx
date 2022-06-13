@@ -42,12 +42,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
 
   return (
     <>
-      <Box
-        sx={{
-          // borderBottom: 1,
-          // borderColor: "divider",
-        }}
-      >
+      <Box>
         <Tabs
           centered
           value={value}

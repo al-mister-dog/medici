@@ -113,8 +113,9 @@ const DrawBillCard: React.FunctionComponent<{
             >
               <Button
                 // disabled={selectedValuePlayer === null}
+                variant="contained"
                 onClick={handleClickOpenAmount}
-                sx={{ justifyContent: "flex-start" }}
+                sx={{ width: "150px", marginBottom: "5px" }}
               >
                 Bill To Redeem
               </Button>
@@ -125,9 +126,10 @@ const DrawBillCard: React.FunctionComponent<{
                 onClose={handleCloseAmount}
               />
               <Button
+              variant="contained"
                 disabled={!selectedBill}
                 onClick={handleClickOpenPlayer}
-                sx={{ justifyContent: "flex-start" }}
+                sx={{ width: "150px" }}
               >
                 Draw Bill On
               </Button>

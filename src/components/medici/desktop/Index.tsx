@@ -11,11 +11,7 @@ import Notifications from "./toolbars/NotificationsToolbar";
 import Refresh from "./toolbars/RefreshToolbar";
 
 const SelectedPlayer = ({ player }: { player: any }) => {
-  return (
-    <Box style={{ width: "95%", margin: "auto" }}>
-      <Player selected={player} />
-    </Box>
-  );
+  return <Player selected={player} />;
 };
 
 const Index: React.FunctionComponent<{
@@ -38,7 +34,9 @@ const Index: React.FunctionComponent<{
 
   return (
     <>
-      <Box sx={{ paddingLeft: "75px", paddingRight: "75px", marginTop: "50px" }}>
+      <Box
+        sx={{ paddingLeft: "75px", paddingRight: "75px", marginTop: "50px" }}
+      >
         <Introduction texts={texts} />
       </Box>
 
@@ -46,25 +44,24 @@ const Index: React.FunctionComponent<{
       <Box
         style={{
           display: "flex",
-          background: "#F2EECB",
-          padding: "1px",
           height: "60vh",
+          margin: "5px",
+          border: "1px solid #BDBDBD",
+          borderRadius: "5px",
         }}
       >
-        <Box style={{ width: "60%",  background: "#757575",overflowX: "hidden" }}>
+        <Box
+          style={{
+            overflowX: "hidden",
+          }}
+        >
           <Board
             florencePlayers={florencePlayers}
             lyonsPlayers={lyonsPlayers}
             selectPlayer={selectPlayer}
           />
         </Box>
-        <Box
-          sx={{
-            width: "40%",
-            background: "#F2EECB",
-            overflowX: "hidden",
-          }}
-        >
+        <Box sx={{ width: "40%", margin: "auto" }}>
           {selected === "me" && <SelectedPlayer player={me} />}
           {selected === "you" && <SelectedPlayer player={you} />}
           {selected === "salviati" && <SelectedPlayer player={salviati} />}
