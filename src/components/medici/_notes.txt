@@ -56,3 +56,5 @@ swipeable balance sheets in mobile mode. overflowY flex. DONE
 could be a spinning wheel
 press Enter function on number enter dialog
 change focus onStepperChange
+finish step complete functionality
+create alerts for step completion
