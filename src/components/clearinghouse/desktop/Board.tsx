@@ -1,4 +1,3 @@
-import { PartyModeOutlined } from "@mui/icons-material";
 import BalanceSheet from "../ui/desktop/BalanceSheet";
 
 const Board: React.FunctionComponent<{

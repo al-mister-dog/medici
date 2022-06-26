@@ -10,7 +10,7 @@ export const textsIntro = {
     to each other, and progressively finding ways to solve their problems through innovations 
     in accounting. These innovations occured throughout the 19th century, culminating in the 
     New York Clearing House Association: an early prototype of the Federal Reserve which came 
-    to be dominated by Goldman Sachs, in 1853, and onwards to the Federal Reserve Act of 
+    to be dominated by JP Morgan, in 1853, and onwards to the Federal Reserve Act of 
     1913.`
   ],
   assignment: `Sources: CF Dunbar - Chapters on the Theory and History of Banking, 

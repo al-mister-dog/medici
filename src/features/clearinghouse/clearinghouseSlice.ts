@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { bankLookup, customerLookup } from "./program/lookupTables";
+import { IBank } from "./program/types";
 import {
   customer1,
   customer2,
@@ -10,25 +11,48 @@ import {
   clearinghouse,
 } from "./initialState";
 import { CustomerService } from "./program/services";
+import { customerAssets, customerBalances, customerLiabilities } from "./program/fixtures";
 
-const initialState = {
+interface BankState {
+  [index:string]: IBank
+}
+
+const initialState: BankState = {
   customer1,
   customer2,
   bank1,
   bank2,
   clearinghouse,
 };
-type StateKey = keyof typeof initialState;
-// type BankersObjectKey = keyof typeof initialState.bankers;
+
+type BankStateKey = keyof typeof initialState;
+
+let customerCount = 3
+let bankCount = 3
+
+function createCustomer() {
+  const newCustomer: IBank = {
+    id: `customer${customerCount}`,
+    assets: { ...customerAssets },
+    liabilities: { ...customerLiabilities },
+    balances: { ...customerBalances },
+    reserves: 0,
+    records: [],
+  };
+  customerCount = customerCount + 1
+  customerLookup[newCustomer.id] = JSON.parse(JSON.stringify(newCustomer));
+  return newCustomer
+}
 
 function copyPayload(payload: { p1: any; p2: any; amt: number }) {
   const { p1, p2, amt } = payload;
-  const key1 = p1.id as StateKey;
-  const key2 = p2.id as StateKey;
+  const key1 = p1.id as BankStateKey;
+  const key2 = p2.id as BankStateKey;
   const copy1 = JSON.parse(JSON.stringify(p1));
   const copy2 = JSON.parse(JSON.stringify(p2));
   return { copy1, copy2, key1, key2, amt };
 }
+
 export const clearinghouseSlice = createSlice({
   name: "parties",
   initialState,
@@ -49,6 +73,10 @@ export const clearinghouseSlice = createSlice({
       state.bank2 = bankLookup[bank2.id];
       state.clearinghouse = bankLookup[clearinghouse.id];
       clearinghouseSlice.caseReducers.updateLookupState(state);
+    },
+    createNewCustomer: (state) => {
+      const newCustomer = createCustomer()
+      state[newCustomer.id] = newCustomer
     },
     reset: (state) => {
       state.customer1 = customer1;
@@ -73,7 +101,7 @@ export const clearinghouseSlice = createSlice({
   },
 });
 
-export const { deposit, transfer, reset } = clearinghouseSlice.actions;
+export const { deposit, transfer, createNewCustomer, reset } = clearinghouseSlice.actions;
 
 export const selectParties = (state: RootState) => state.parties;
 

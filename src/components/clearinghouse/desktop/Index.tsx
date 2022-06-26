@@ -1,9 +1,10 @@
-import { useAppSelector } from "../../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
-  selectParties
+  selectParties, createNewCustomer
 } from "../../../features/clearinghouse/clearinghouseSlice";
 import Introduction from "../ui/Introduction";
-import { Box } from "@mui/material";
+
+import { Box, Button } from "@mui/material";
 import Player from "./sidepanel/Player";
 import Board from "./Board";
 import Notifications from "./toolbars/NotificationsToolbar";
@@ -12,6 +13,7 @@ import Refresh from "./toolbars/RefreshToolbar";
 const SelectedPlayer = ({ player }: { player: any }) => {
   return <Player selected={player} />;
 };
+
 
 const Index: React.FunctionComponent<{
   texts: any;
@@ -28,9 +30,8 @@ const Index: React.FunctionComponent<{
   selectParty,
   notifications,
 }) => {
-  const { customer1, customer2, bank1, bank2, clearinghouse } = useAppSelector(selectParties);
-  
-
+  const parties = useAppSelector(selectParties);
+  const dispatch = useAppDispatch()
   return (
     <>
       <Box
@@ -61,12 +62,12 @@ const Index: React.FunctionComponent<{
           />
         </Box>
         <Box sx={{ width: "40%", margin: "auto" }}>
-          {selected === "customer1" && <SelectedPlayer player={customer1} />}
-          {selected === "customer2" && <SelectedPlayer player={customer2} />}
-          {selected === "bank1" && <SelectedPlayer player={bank1} />}
-          {selected === "bank2" && <SelectedPlayer player={bank2} />}
-          {selected === "clearinghouse" && <SelectedPlayer player={clearinghouse} />}
+          <SelectedPlayer player={parties[selected]} />
         </Box>
+
+        <Button onClick={() => dispatch(createNewCustomer())}>
+        Create Customer
+      </Button>
       </Box>
     </>
   );

@@ -1,17 +1,22 @@
 import { useAppSelector } from "../../../app/hooks";
-import {
-  selectParties
-} from "../../../features/clearinghouse/clearinghouseSlice";
+import { selectParties } from "../../../features/clearinghouse/clearinghouseSlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
 import { texts1 } from "../assets/texts";
+import { IBank } from "../../../features/clearinghouse/program/types";
 
 function App() {
-  const { customer1, customer2, bank1, bank2, clearinghouse } = useAppSelector(selectParties);
+  const parties = useAppSelector(selectParties);
   const [selected, setSelected] = useState<string>("customer1");
-  const customerParties = [customer1, customer2];
-  const bankParties = [bank1, bank2, clearinghouse];
+
+  let partiesArray: IBank[] = [];
+  for (const key in parties) {
+    partiesArray = [...partiesArray, parties[key]];
+  }
+  const customerParties = partiesArray.filter((party) => party.id.includes('customer'));
+  const bankParties = partiesArray.filter((party) => party.id.includes('bank') || party.id.includes('clearinghouse'));
+  
   function selectParty(player: any) {
     setSelected(player.id);
   }
