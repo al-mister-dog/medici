@@ -31,11 +31,12 @@ const Side: React.FunctionComponent<{
         {side}
       </Typography>
 
-      {Object.entries(instruments).map(([k, v]) => {
+      {Object.entries(instruments).map(([k, v], i) => {
         return (
           Array.isArray(v) &&
           v.length > 0 && (
             <div
+              key={i}
               style={{
                 margin: 0,
                 padding: 0,

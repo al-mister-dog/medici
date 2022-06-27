@@ -64,6 +64,13 @@ export const clearinghouseSlice = createSlice({
       state[key2] = copy2;
       clearinghouseSlice.caseReducers.updateLookupState(state);
     },
+    withdraw: (state, {payload}) => {
+      const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
+      CustomerService.withdraw(copy1, copy2, amt);
+      state[key1] = copy1;
+      state[key2] = copy2;
+      clearinghouseSlice.caseReducers.updateLookupState(state);
+    },
     transfer: (state, { payload }) => {
       const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
       CustomerService.transfer(copy1, copy2, amt);
@@ -101,7 +108,7 @@ export const clearinghouseSlice = createSlice({
   },
 });
 
-export const { deposit, transfer, createNewCustomer, reset } = clearinghouseSlice.actions;
+export const { deposit, withdraw, transfer, createNewCustomer, reset } = clearinghouseSlice.actions;
 
 export const selectParties = (state: RootState) => state.parties;
 

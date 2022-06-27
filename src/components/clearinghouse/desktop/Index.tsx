@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
-  selectParties, createNewCustomer
+  selectParties,
+  createNewCustomer,
 } from "../../../features/clearinghouse/clearinghouseSlice";
 import Introduction from "../ui/Introduction";
 
@@ -13,7 +14,6 @@ import Refresh from "./toolbars/RefreshToolbar";
 const SelectedPlayer = ({ player }: { player: any }) => {
   return <Player selected={player} />;
 };
-
 
 const Index: React.FunctionComponent<{
   texts: any;
@@ -31,7 +31,7 @@ const Index: React.FunctionComponent<{
   notifications,
 }) => {
   const parties = useAppSelector(selectParties);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   return (
     <>
       <Box
@@ -64,11 +64,10 @@ const Index: React.FunctionComponent<{
         <Box sx={{ width: "40%", margin: "auto" }}>
           <SelectedPlayer player={parties[selected]} />
         </Box>
-
-        <Button onClick={() => dispatch(createNewCustomer())}>
+      </Box>
+      <Button onClick={() => dispatch(createNewCustomer())}>
         Create Customer
       </Button>
-      </Box>
     </>
   );
 };

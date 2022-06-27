@@ -22,9 +22,13 @@ const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
       >
         <Typography variant="h6" align="left" sx={{ marginTop: 4 }}>
           {deCamelize(selected.id)}
-          {/* : {capitalize(selected.type)},{" "}
-          {capitalize(selected.city)} */}
-        </Typography>        
+        </Typography>
+        <Typography variant="body1" align="left" sx={{ marginTop: 4 }}>
+          Balance: ${selected.balances.customerDeposits[0].amount}
+        </Typography>             
+        <Typography variant="body1" align="left" sx={{ marginTop: 4 }}>
+          Cash: ${selected.reserves}
+        </Typography>                
       </Box>
         <PlayerTabs selected={selected} />
     </Box>

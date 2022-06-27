@@ -84,11 +84,10 @@ export interface ChoosePlayerProps {
   setSelectedValuePlayer: (v: any) => void;
   onClose: () => void;
   selectedBankers: any[];
-  info: Info;
 }
 
 export default function ChoosePlayer(props: ChoosePlayerProps) {
-  const { onClose, setSelectedValuePlayer, open, selectedBankers, info } =
+  const { onClose, setSelectedValuePlayer, open, selectedBankers } =
     props;
 
   const handleClose = () => {

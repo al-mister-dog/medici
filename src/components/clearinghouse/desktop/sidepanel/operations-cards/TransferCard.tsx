@@ -1,62 +1,46 @@
 import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectParties,
-  transfer
+  transfer,
 } from "../../../../../features/clearinghouse/clearinghouseSlice";
 
-import {
-  Box,
-  Button,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { useState } from "react";
-import AmountDialog from "./dialogs/AmountDialog"
+import AmountDialog from "./dialogs/AmountDialog";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
-import { IBank } from "../../../../../program/clearinghouse/types";
 
-interface Trader {
-  id: string;
-  city: string;
-  type: string;
-  assets: any;
-  liabilities: any;
-  coins: any;
-  goods: number;
-  coinAsset: any;
-  coinLiability: any;
-}
-interface Accordions {
-  deposit: boolean;
-  transfer: boolean;
-}
+import { findByCustomersAccounts } from "./__filters";
+import { Accordions } from "../../../../types";
+import { IBank } from "../../../../../features/clearinghouse/program/types";
 
-const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Accordions, setAccordionExpanded: (v: Accordions) => void }> = ({
-  selected, accordionExpanded, setAccordionExpanded
-}) => {
+const TransferCard: React.FunctionComponent<{
+  selected: any;
+  accordionExpanded: Accordions;
+  setAccordionExpanded: (v: Accordions) => void;
+}> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
   const dispatch = useAppDispatch();
-  const { customer1, customer2 } = useAppSelector(selectParties);
-  const selectedBanks = [customer1, customer2]
-  // const selectedTraders = tradersArray.filter(
-  //   (t) =>
-  //     selected.id !== t.id && selected.city !== t.city && t.type === "exporter"
-  // );
+  const parties = useAppSelector(selectParties);
+
+  let partiesArray: IBank[] = [];
+  for (const key in parties) {
+    partiesArray = [...partiesArray, parties[key]];
+  }
+  const selectedBanks = findByCustomersAccounts(selected, partiesArray);
 
   const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
     null
   );
   const [openTo, setOpenTo] = useState(false);
+  const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
+  const [openAmount, setOpenAmount] = useState(false);
+
   const handleClickOpenTo = () => {
     setOpenTo(true);
   };
   const handleCloseTo = () => {
     setOpenTo(false);
   };
-
-  const [selectedValueAmount, setSelectedValueAmount] =
-    useState<number>(0);
-  const [openAmount, setOpenAmount] = useState(false);
-
   const handleClickOpenAmount = () => {
     setOpenAmount(true);
   };
@@ -64,13 +48,14 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
     setOpenAmount(false);
   };
 
-
   const onClickTrade = () => {
-    dispatch(transfer({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount }));
-    setSelectedValueAmount(0)
-    setSelectedValuePlayer(null)
-    setAccordionExpanded({...accordionExpanded, transfer: false})
-  }
+    dispatch(
+      transfer({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
+    );
+    setSelectedValueAmount(0);
+    setSelectedValuePlayer(null);
+    setAccordionExpanded({ ...accordionExpanded, transfer: false });
+  };
 
   return (
     <Box>
@@ -100,7 +85,6 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
             open={openTo}
             onClose={handleCloseTo}
             selectedBankers={selectedBanks}
-            info={{type: selected.type, action: "trade"}}
           />
 
           <Button
@@ -130,7 +114,9 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           <Typography sx={{ margin: 0.75 }}>
             {selectedValueTo ? `${selectedValueTo.id}` : ` `}
           </Typography>
-          <Typography sx={{ margin: 0.75 }}>{isNaN(selectedValueAmount) ? `_` : `${selectedValueAmount}`}</Typography>
+          <Typography sx={{ margin: 0.75 }}>
+            {isNaN(selectedValueAmount) ? `_` : `${selectedValueAmount}`}
+          </Typography>
         </div>
       </div>
       <div
@@ -140,13 +126,16 @@ const ImportCard: React.FunctionComponent<{ selected: any, accordionExpanded: Ac
           justifyContent: "flex-end",
         }}
       >
-        <Button variant="contained"
-        disabled={isNaN(selectedValueAmount) || selectedValueAmount <= 0}
-        onClick={onClickTrade}
-        >Ok</Button>
+        <Button
+          variant="contained"
+          disabled={isNaN(selectedValueAmount) || selectedValueAmount <= 0}
+          onClick={onClickTrade}
+        >
+          Ok
+        </Button>
       </div>
     </Box>
   );
 };
 
-export default ImportCard;
+export default TransferCard;

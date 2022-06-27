@@ -8,16 +8,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
 import DepositCard from "./operations-cards/DepositCard";
 import TransferCard from "./operations-cards/TransferCard";
-// import DrawBillCard from "./operations-cards/DrawBillCard";
+import WithdrawCard from "./operations-cards/WithdrawCard";
+import OpenAccountCard from "./operations-cards/OpenAccountCard";
+import NetDuesCard from "./operations-cards/NetDuesCard";
+import SettleDuesCard from "./operations-cards/SettleDuesCard";
+import { Accordions } from "../../../types";
 // import RemitBillCard from "./operations-cards/RemitBillCard";
-
-
-interface Accordions {
-  deposit: boolean;
-  transfer: boolean;
-  // drawBill: boolean;
-  // remitBill: boolean;
-}
 
 const Operations: React.FunctionComponent<{ selected: any }> = ({
   selected,
@@ -25,6 +21,10 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
   const [accordionExpanded, setAccordionExpanded] = useState<Accordions>({
     deposit: false,
     transfer: false,
+    withdraw: false,
+    openAccount: false,
+    netDues: false,
+    settleDues: false,
   });
 
   function toggleAccordion(key: keyof Accordions) {
@@ -32,100 +32,68 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
 
     setAccordionExpanded({ ...accordionExpanded, [key]: !bool });
   }
-  return (
-    <>
-      
-        <Accordion expanded={accordionExpanded.deposit} sx={{background: "#62120E", color: "#f2eecb"}}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            onClick={() => toggleAccordion("deposit")}
-          >
-            <Typography>Deposit</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <DepositCard
-              selected={selected}
-              accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}
-            />
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion expanded={accordionExpanded.transfer} sx={{background: "#62120E", color: "#f2eecb"}}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            onClick={() => toggleAccordion("transfer")}
-          >
-            <Typography>Transfer</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <TransferCard
-              selected={selected}
-              accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}
-            />
-          </AccordionDetails>
-        </Accordion>
-      
-      {/* {selected.type === "importer" && (
-        <Accordion expanded={accordionExpanded.import} sx={{background: "#62120E", color: "#f2eecb"}}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            onClick={() => toggleAccordion("import")}
-          >
-            <Typography>Import</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ImportCard
-              selected={selected}
-              accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}
-            />
-          </AccordionDetails>
-        </Accordion>
-      )}
-      <Accordion expanded={accordionExpanded.drawBill} sx={{background: "#62120E", color: "#f2eecb"}}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          onClick={() => toggleAccordion("drawBill")}
-        >
-          <Typography>Draw Bill</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <DrawBillCard
+  const cardz = {
+    customer: [
+      {
+        accordionKey: "deposit",
+        accordionTitle: "Deposit",
+        component: (
+          <DepositCard
             selected={selected}
             accordionExpanded={accordionExpanded}
             setAccordionExpanded={setAccordionExpanded}
           />
-        </AccordionDetails>
-      </Accordion>
-      {selected.type === "banker" && (
-        <Accordion expanded={accordionExpanded.remitBill} sx={{background: "#62120E", color: "#f2eecb"}}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon sx={{color: "#f2eecb"}}/>}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            onClick={() => toggleAccordion("remitBill")}
+        ),
+      },
+      {
+        accordionKey: "transfer",
+        accordionTitle: "Transfer",
+        component: (
+          <TransferCard
+            selected={selected}
+            accordionExpanded={accordionExpanded}
+            setAccordionExpanded={setAccordionExpanded}
+          />
+        ),
+      },
+      {
+        accordionKey: "withdraw",
+        accordionTitle: "Withdraw",
+        component: (
+          <TransferCard
+            selected={selected}
+            accordionExpanded={accordionExpanded}
+            setAccordionExpanded={setAccordionExpanded}
+          />
+        ),
+      },
+    ],
+    bank: {},
+    clearinghouse: {},
+  };
+
+  return (
+    <>
+      {selected.id.includes("customer") &&
+        cardz.customer.map((party, i) => (
+          <Accordion
+            key={i}
+            expanded={accordionExpanded[party.accordionKey as keyof Accordions]}
+            sx={{ background: "#62120E", color: "#f2eecb" }}
           >
-            <Typography>Remit Bill</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <RemitBillCard
-              selected={selected}
-              accordionExpanded={accordionExpanded}
-              setAccordionExpanded={setAccordionExpanded}
-            />
-          </AccordionDetails>
-        </Accordion>
-      )} */}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon sx={{ color: "#f2eecb" }} />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              onClick={() => toggleAccordion("deposit")}
+            >
+              <Typography>{party.accordionTitle}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {party.component}
+            </AccordionDetails>
+          </Accordion>
+        ))}
     </>
   );
 };

@@ -82,8 +82,6 @@ export default function AmountDialog(props: AmountDialogProps) {
           }}
         >
           <TextField
-            // error={error ? true : false}
-            // helperText={errorMessage}
             sx={{ padding: 1 }}
             id="standard-number"
             label="marcs"
