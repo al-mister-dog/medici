@@ -29,6 +29,7 @@ export interface InstrumentTypes {
 }
 export interface IBank {
   id: string;
+  type: string;
   assets: Category;
   liabilities: Category;
   balances: Category;

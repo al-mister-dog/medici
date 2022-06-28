@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Accordions, PartyOps } from "../../../types";
 import {
   Accordion,
   AccordionDetails,
@@ -5,97 +7,91 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useState } from "react";
-import DepositCard from "./operations-cards/DepositCard";
-import TransferCard from "./operations-cards/TransferCard";
-import WithdrawCard from "./operations-cards/WithdrawCard";
-import OpenAccountCard from "./operations-cards/OpenAccountCard";
-import NetDuesCard from "./operations-cards/NetDuesCard";
-import SettleDuesCard from "./operations-cards/SettleDuesCard";
-import { Accordions } from "../../../types";
-// import RemitBillCard from "./operations-cards/RemitBillCard";
+import cardData from "./cardData";
+
+const resetAccordions = {
+  deposit: false,
+  transfer: false,
+  withdraw: false,
+  openAccount: false,
+  netDues: false,
+  settleDues: false,
+};
 
 const Operations: React.FunctionComponent<{ selected: any }> = ({
   selected,
 }) => {
   const [accordionExpanded, setAccordionExpanded] = useState<Accordions>({
-    deposit: false,
-    transfer: false,
-    withdraw: false,
-    openAccount: false,
-    netDues: false,
-    settleDues: false,
+    ...resetAccordions,
   });
 
   function toggleAccordion(key: keyof Accordions) {
     const bool = accordionExpanded[key];
-
-    setAccordionExpanded({ ...accordionExpanded, [key]: !bool });
+    setAccordionExpanded({ ...resetAccordions, [key]: !bool });
   }
-  const cardz = {
+
+  const partyOperations: PartyOps = {
     customer: [
       {
         accordionKey: "deposit",
         accordionTitle: "Deposit",
-        component: (
-          <DepositCard
-            selected={selected}
-            accordionExpanded={accordionExpanded}
-            setAccordionExpanded={setAccordionExpanded}
-          />
-        ),
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .deposit,
       },
       {
         accordionKey: "transfer",
         accordionTitle: "Transfer",
-        component: (
-          <TransferCard
-            selected={selected}
-            accordionExpanded={accordionExpanded}
-            setAccordionExpanded={setAccordionExpanded}
-          />
-        ),
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .transfer,
       },
       {
         accordionKey: "withdraw",
         accordionTitle: "Withdraw",
-        component: (
-          <TransferCard
-            selected={selected}
-            accordionExpanded={accordionExpanded}
-            setAccordionExpanded={setAccordionExpanded}
-          />
-        ),
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .withdraw,
       },
     ],
-    bank: {},
-    clearinghouse: {},
+    bank: [
+      {
+        accordionKey: "netDues",
+        accordionTitle: "Net Dues",
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .netDues,
+      },
+    ],
+    clearinghouse: [
+      {
+        accordionKey: "settleDues",
+        accordionTitle: "Settle Dues",
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .settleDues,
+      },
+    ],
   };
 
-  return (
-    <>
-      {selected.id.includes("customer") &&
-        cardz.customer.map((party, i) => (
-          <Accordion
-            key={i}
-            expanded={accordionExpanded[party.accordionKey as keyof Accordions]}
-            sx={{ background: "#62120E", color: "#f2eecb" }}
+  const partyAccordions = (str: keyof PartyOps) => {
+    return partyOperations[str].map((party, i) => {
+      return (
+        <Accordion
+          key={i}
+          expanded={accordionExpanded[party.accordionKey as keyof Accordions]}
+          sx={{ background: "#62120E", color: "#f2eecb" }}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon sx={{ color: "#f2eecb" }} />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            onClick={() => toggleAccordion(party.accordionKey)}
           >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon sx={{ color: "#f2eecb" }} />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              onClick={() => toggleAccordion("deposit")}
-            >
-              <Typography>{party.accordionTitle}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {party.component}
-            </AccordionDetails>
-          </Accordion>
-        ))}
-    </>
-  );
+            <Typography>{party.accordionTitle}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>{party.component}</AccordionDetails>
+        </Accordion>
+      );
+    });
+  };
+
+  return <>{partyAccordions(selected.type)}</>;
 };
 
 export default Operations;

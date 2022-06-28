@@ -6,3 +6,9 @@ export interface Accordions {
   netDues: boolean;
   settleDues: boolean;
 }
+
+export interface PartyOps {
+  customer: any[];
+  bank: any[];
+  clearinghouse: any[];
+}

@@ -1,8 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
-import {
-  selectParties,
-  withdraw,
-} from "../../../../../features/clearinghouse/clearinghouseSlice";
+import { netDues } from "../../../../../features/clearinghouse/clearinghouseSlice";
 import { findByCustomersAccounts } from "./__filters";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 
@@ -12,77 +9,78 @@ import { IBank } from "../../../../../program/clearinghouse/types";
 import DoneIcon from "@mui/icons-material/Done";
 import { Accordions } from "../../../../types";
 
-
-
 const ImportCard: React.FunctionComponent<{
   selected: any;
   accordionExpanded: Accordions;
   setAccordionExpanded: (v: Accordions) => void;
 }> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
   const dispatch = useAppDispatch();
-  const parties = useAppSelector(selectParties);
-  let partiesArray: IBank[] = [];
-  for (const key in parties) {
-    partiesArray = [...partiesArray, parties[key]];
+  // const parties = useAppSelector(selectParties);
+  // let partiesArray: IBank[] = [];
+  // for (const key in parties) {
+  //   partiesArray = [...partiesArray, parties[key]];
+  // }
+  // const bankParties = findByCustomersAccounts(selected, partiesArray);
+  // const [selectAmount, setSelectAmount] = useState(false);
+  // const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
+  //   null
+  // );
+  // const [openTo, setOpenTo] = useState(false);
+  // const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
+  // const [amountInputOpen, setAmountInputOpen] = useState(false);
+
+  // const handleClickOpenTo = () => {
+  //   setOpenTo(true);
+  // };
+  // const handleCloseTo = () => {
+  //   setOpenTo(false);
+  // };
+
+  // const onClickWithdraw = () => {
+  //   dispatch(
+  //     withdraw({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
+  //   );
+  //   setSelectedValueAmount(0);
+  //   setSelectedValuePlayer(null);
+  //   setAccordionExpanded({ ...accordionExpanded, deposit: false });
+  // };
+
+  // const [errorMessage, setErrorMessage] = useState(``);
+  // const [provisionalAmount, setProvisionalAmount] = useState<number>(0);
+
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const amount = parseInt(event.target.value);
+  //   // if (selectedTrader !== null) {
+  //   //   if (amount === 0) {
+  //   //     setError(true);
+  //   //     setErrorMessage(`number can't be zero`);
+  //   //   } else if (amount < 0 || amount > selectedTrader.goods) {
+  //   //     setError(true);
+  //   //     setErrorMessage(
+  //   //       `${selectedTrader.id} does not have that amount of goods`
+  //   //     );
+  //   //   } else {
+  //   //     setError(false);
+  //   //     setErrorMessage(
+  //   //       ``
+  //   //     );
+  //   //   }
+  //   // }
+
+  //   setProvisionalAmount(amount);
+  // };
+
+  // function handleClick() {
+  //   setSelectedValueAmount(provisionalAmount);
+  //   setSelectAmount(!selectAmount);
+  // }
+  function onClickNetDues() {
+    dispatch(netDues({p1: selected}))
   }
-  const bankParties = findByCustomersAccounts(selected, partiesArray);
-  const [selectAmount, setSelectAmount] = useState(false);
-  const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
-    null
-  );
-  const [openTo, setOpenTo] = useState(false);
-  const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
-  const [amountInputOpen, setAmountInputOpen] = useState(false);
-
-  const handleClickOpenTo = () => {
-    setOpenTo(true);
-  };
-  const handleCloseTo = () => {
-    setOpenTo(false);
-  };
-
-  const onClickWithdraw = () => {
-    dispatch(
-      withdraw({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
-    );
-    setSelectedValueAmount(0);
-    setSelectedValuePlayer(null);
-    setAccordionExpanded({ ...accordionExpanded, deposit: false });
-  };
-
-  const [errorMessage, setErrorMessage] = useState(``);
-  const [provisionalAmount, setProvisionalAmount] = useState<number>(0);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const amount = parseInt(event.target.value);
-    // if (selectedTrader !== null) {
-    //   if (amount === 0) {
-    //     setError(true);
-    //     setErrorMessage(`number can't be zero`);
-    //   } else if (amount < 0 || amount > selectedTrader.goods) {
-    //     setError(true);
-    //     setErrorMessage(
-    //       `${selectedTrader.id} does not have that amount of goods`
-    //     );
-    //   } else {
-    //     setError(false);
-    //     setErrorMessage(
-    //       ``
-    //     );
-    //   }
-    // }
-
-    setProvisionalAmount(amount);
-  };
-
-  function handleClick() {
-    setSelectedValueAmount(provisionalAmount);
-    setSelectAmount(!selectAmount);
-  }
-
   return (
     <Box>
-      <div
+      <Button onClick={onClickNetDues}>Net Dues</Button>
+      {/* <div
         style={{
           display: "flex",
           flexDirection: "row",
@@ -176,7 +174,7 @@ const ImportCard: React.FunctionComponent<{
         >
           Ok
         </Button>
-      </div>
+      </div> */}
     </Box>
   );
 };

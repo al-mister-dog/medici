@@ -23,9 +23,10 @@ const Player: React.FunctionComponent<{ selected: any }> = ({ selected }) => {
         <Typography variant="h6" align="left" sx={{ marginTop: 4 }}>
           {deCamelize(selected.id)}
         </Typography>
-        <Typography variant="body1" align="left" sx={{ marginTop: 4 }}>
+
+        {/* <Typography variant="body1" align="left" sx={{ marginTop: 4 }}>
           Balance: ${selected.balances.customerDeposits[0].amount}
-        </Typography>             
+        </Typography>              */}
         <Typography variant="body1" align="left" sx={{ marginTop: 4 }}>
           Cash: ${selected.reserves}
         </Typography>                

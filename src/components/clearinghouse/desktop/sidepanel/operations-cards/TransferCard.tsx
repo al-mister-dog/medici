@@ -10,7 +10,7 @@ import { useState } from "react";
 import AmountDialog from "./dialogs/AmountDialog";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
 
-import { findByCustomersAccounts } from "./__filters";
+import { findAllCustomers } from "./__filters";
 import { Accordions } from "../../../../types";
 import { IBank } from "../../../../../features/clearinghouse/program/types";
 
@@ -26,7 +26,7 @@ const TransferCard: React.FunctionComponent<{
   for (const key in parties) {
     partiesArray = [...partiesArray, parties[key]];
   }
-  const selectedBanks = findByCustomersAccounts(selected, partiesArray);
+  const selectedBanks = findAllCustomers(selected, partiesArray);
 
   const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
     null

@@ -20,6 +20,7 @@ import { System } from "./program/systemMethods";
 
 const bank1: IBank = {
   id: "bank1",
+  type: "bank",
   assets: { ...commercialAssets },
   liabilities: { ...commercialLiabilities },
   balances: { ...commercialBalances },
@@ -31,6 +32,7 @@ bankLookup[bank1.id] = JSON.parse(JSON.stringify(bank1));
 
 const bank2: IBank = {
   id: "bank2",
+  type: "bank",
   assets: { ...commercialAssets },
   liabilities: { ...commercialLiabilities },
   balances: { ...commercialBalances },
@@ -41,6 +43,7 @@ const bank2: IBank = {
 
 const customer1: IBank = {
   id: "customer1",
+  type: "customer",
   assets: { ...customerAssets },
   liabilities: { ...customerLiabilities },
   balances: { ...customerBalances },
@@ -51,6 +54,7 @@ const customer1: IBank = {
 
 const customer2: IBank = {
   id: "customer2",
+  type: "customer",
   assets: { ...customerAssets },
   liabilities: { ...customerLiabilities },
   balances: { ...customerBalances },
@@ -61,6 +65,7 @@ const customer2: IBank = {
 
 const clearinghouse: IBank = {
   id: "clearinghouse",
+  type: "clearinghouse",
   assets: { ...clearinghouseAssets },
   liabilities: { ...clearinghouseLiabilities },
   balances: { ...clearinghouseBalances },

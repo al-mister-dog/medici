@@ -10,8 +10,9 @@ import {
   bank2,
   clearinghouse,
 } from "./initialState";
-import { CustomerService } from "./program/services";
+import { ClearingHouseService, CustomerService } from "./program/services";
 import { customerAssets, customerBalances, customerLiabilities } from "./program/fixtures";
+import { BankService } from "./program/services";
 
 interface BankState {
   [index:string]: IBank
@@ -33,6 +34,7 @@ let bankCount = 3
 function createCustomer() {
   const newCustomer: IBank = {
     id: `customer${customerCount}`,
+    type: "customer",
     assets: { ...customerAssets },
     liabilities: { ...customerLiabilities },
     balances: { ...customerBalances },
@@ -81,6 +83,33 @@ export const clearinghouseSlice = createSlice({
       state.clearinghouse = bankLookup[clearinghouse.id];
       clearinghouseSlice.caseReducers.updateLookupState(state);
     },
+    netDues:(state, {payload}) => {
+      const {p1} = payload;
+      const key = p1.id as BankStateKey;
+      const p1Copy = JSON.parse(JSON.stringify(p1))
+      BankService.netDues(p1Copy);
+      state[key] = p1Copy
+    },
+    settleDues:(state) => {
+      ClearingHouseService.settleDues()
+      // bankLookup[bank1.id] = JSON.parse(JSON.stringify(state.bank1));
+      // bankLookup[bank2.id] = JSON.parse(JSON.stringify(state.bank2));
+      // customerLookup[customer1.id] = JSON.parse(
+      //   JSON.stringify(state.customer1)
+      // );
+      // customerLookup[customer2.id] = JSON.parse(
+      //   JSON.stringify(state.customer2)
+      // );
+      // bankLookup[clearinghouse.id] = JSON.parse(
+      //   JSON.stringify(state.clearinghouse)
+      // );
+
+      state.customer1 = customerLookup[state.customer1.id];
+      state.customer2 = customerLookup[state.customer2.id];
+      state.bank1 = bankLookup[state.bank1.id];
+      state.bank2 = bankLookup[state.bank2.id];
+      state.clearinghouse = bankLookup[state.clearinghouse.id]
+    },
     createNewCustomer: (state) => {
       const newCustomer = createCustomer()
       state[newCustomer.id] = newCustomer
@@ -108,7 +137,7 @@ export const clearinghouseSlice = createSlice({
   },
 });
 
-export const { deposit, withdraw, transfer, createNewCustomer, reset } = clearinghouseSlice.actions;
+export const { deposit, withdraw, transfer, netDues, settleDues, createNewCustomer, reset } = clearinghouseSlice.actions;
 
 export const selectParties = (state: RootState) => state.parties;
 
