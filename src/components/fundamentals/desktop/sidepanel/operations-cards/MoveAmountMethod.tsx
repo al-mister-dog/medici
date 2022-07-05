@@ -1,25 +1,23 @@
 import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectParties,
-  transfer,
+  withdraw,
 } from "../../../../../features/fundamentals/correspondentSlice";
-
+import { findByCustomersAccounts } from "./__filters";
 import { Box, Button, Typography } from "@mui/material";
 
 import { useState } from "react";
-import AmountDialog from "./dialogs/AmountDialog";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
-
-import { findAllCustomers } from "./__filters";
+import { IBank } from "../../../../../program/clearinghouse/types";
 import { Accordions } from "../../../../types";
-import { IBank } from "../../../../../features/clearinghouse/program/types";
 import Amount from "./buttons/Amount";
 
-const TransferCard: React.FunctionComponent<{
+const ImportCard: React.FunctionComponent<{
   selected: any;
   accordionExpanded: Accordions;
   setAccordionExpanded: (v: Accordions) => void;
-}> = ({ selected, accordionExpanded, setAccordionExpanded }) => {
+  filterMethod: (selected: IBank, partiesArray: IBank[]) => IBank[];
+}> = ({ selected, accordionExpanded, setAccordionExpanded, filterMethod }) => {
   const dispatch = useAppDispatch();
   const parties = useAppSelector(selectParties);
 
@@ -27,14 +25,13 @@ const TransferCard: React.FunctionComponent<{
   for (const key in parties) {
     partiesArray = [...partiesArray, parties[key]];
   }
-  const selectedBanks = findAllCustomers(selected, partiesArray);
-
+  // const bankParties = findByCustomersAccounts(selected, partiesArray);
+  const selectedParties = filterMethod(selected, partiesArray);
   const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
     null
   );
   const [openTo, setOpenTo] = useState(false);
   const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
-  const [openAmount, setOpenAmount] = useState(false);
 
   const handleClickOpenTo = () => {
     setOpenTo(true);
@@ -42,21 +39,17 @@ const TransferCard: React.FunctionComponent<{
   const handleCloseTo = () => {
     setOpenTo(false);
   };
-  const handleClickOpenAmount = () => {
-    setOpenAmount(true);
-  };
-  const handleCloseAmount = () => {
-    setOpenAmount(false);
-  };
 
   const onClickOk = () => {
     dispatch(
-      transfer({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
+      withdraw({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
     );
     setSelectedValueAmount(0);
     setSelectedValuePlayer(null);
-    setAccordionExpanded({ ...accordionExpanded, transfer: false });
+    setAccordionExpanded({ ...accordionExpanded, deposit: false });
   };
+
+  const [errorMessage, setErrorMessage] = useState(``);
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const amount = parseInt(event.target.value);
@@ -101,13 +94,13 @@ const TransferCard: React.FunctionComponent<{
             onClick={handleClickOpenTo}
             sx={{ width: "130px", marginBottom: "5px" }}
           >
-            Transfer To
+            Withdraw From
           </Button>
           <ChoosePlayer
             setSelectedValuePlayer={setSelectedValuePlayer}
             open={openTo}
             onClose={handleCloseTo}
-            selectedBankers={selectedBanks}
+            selectedBankers={selectedParties}
           />
 
           <Typography
@@ -128,6 +121,7 @@ const TransferCard: React.FunctionComponent<{
           <Typography sx={{ margin: 0.75 }}>
             {selectedValueTo ? `${selectedValueTo.id}` : ` `}
           </Typography>
+
           <Amount
             selectedValueAmount={selectedValueAmount}
             handleChangeAmount={handleChangeAmount}
@@ -143,7 +137,7 @@ const TransferCard: React.FunctionComponent<{
       >
         <Button
           variant="contained"
-          disabled={isNaN(selectedValueAmount) || selectedValueAmount <= 0}
+          disabled={selectedValueAmount < 1 || selectedValueTo === null}
           onClick={onClickOk}
         >
           Ok
@@ -153,4 +147,4 @@ const TransferCard: React.FunctionComponent<{
   );
 };
 
-export default TransferCard;
+export default ImportCard;

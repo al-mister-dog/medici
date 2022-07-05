@@ -5,7 +5,7 @@ export const textsIntro = {
     very confusing. Not only is banking and economics seemingly very complex (the Financial 
     Times is full of special jargon, charts and graphs), but most people base their understanding
     of this world from polemical news articles, social media, or the general public without 
-    ever having wondering how bankers themselves see it.`,
+    ever having wondered how bankers themselves see it.`,
     `To think like a banker is simply to think in terms of balance sheets, and making sure 
     the numbers on both sides amount to the same number. The banker is primarily concerned 
     with making sure that their ingoings match their outgoings. These balance sheets will 

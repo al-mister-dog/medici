@@ -4,11 +4,12 @@ import {
   deposit,
 } from "../../../../../features/fundamentals/correspondentSlice";
 
-import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
 import { IBank } from "../../../../../program/clearinghouse/types";
 import { Accordions } from "../../../../types";
+import Amount from "./buttons/Amount";
 
 const ImportCard: React.FunctionComponent<{
   selected: any;
@@ -43,7 +44,7 @@ const ImportCard: React.FunctionComponent<{
 
   const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
 
-  const onClickTrade = () => {
+  const onClickOk = () => {
     dispatch(
       deposit({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
     );
@@ -56,7 +57,7 @@ const ImportCard: React.FunctionComponent<{
   const [errorMessage, setErrorMessage] = useState(``);
   const [provisionalAmount, setProvisionalAmount] = useState<number>(0);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     const amount = parseInt(event.target.value);
     // if (selectedTrader !== null) {
     //   if (amount === 0) {
@@ -131,28 +132,10 @@ const ImportCard: React.FunctionComponent<{
           <Typography sx={{ margin: 0.75 }}>
             {selectedValueTo ? `${selectedValueTo.id}` : ` `}
           </Typography>
-
-          <Box sx={{ display: "flex" }}>
-            <TextField
-              sx={{
-                color: "#f2eecb",
-                input: { color: "#f2eecb" },
-                label: { color: "#f2eecb" },
-                "& label.Mui-focused": {
-                  color: "#f2eecb",
-                },
-              }}
-              id="standard-number"
-              label="dollars"
-              type="number"
-              value={selectedValueAmount}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              variant="standard"
-              onChange={handleChange}
-            />
-          </Box>
+          <Amount
+            selectedValueAmount={selectedValueAmount}
+            handleChangeAmount={handleChangeAmount}
+          />
         </div>
       </div>
       <div
@@ -165,7 +148,7 @@ const ImportCard: React.FunctionComponent<{
         <Button
           variant="contained"
           disabled={selectedValueAmount < 1 || selectedValueTo === null}
-          onClick={onClickTrade}
+          onClick={onClickOk}
         >
           Ok
         </Button>
