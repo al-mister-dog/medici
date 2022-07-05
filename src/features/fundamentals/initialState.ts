@@ -6,13 +6,9 @@ import {
   customerAssets,
   customerLiabilities,
   customerBalances,
-  clearinghouseAssets,
-  clearinghouseLiabilities,
-  clearinghouseBalances,
 } from "./program/fixtures";
 import { bankLookup, customerLookup } from "./program/lookupTables";
 import {
-  ClearingHouseService,
   CustomerService,
   BankService,
 } from "./program/services";
@@ -58,30 +54,25 @@ const customer2: IBank = {
   assets: { ...customerAssets },
   liabilities: { ...customerLiabilities },
   balances: { ...customerBalances },
-  reserves: 0,
+  reserves: 100,
+  records: [],
+};
+
+const customer3: IBank = {
+  id: "customer3",
+  type: "customer",
+  assets: { ...customerAssets },
+  liabilities: { ...customerLiabilities },
+  balances: { ...customerBalances },
+  reserves: 100,
   records: [],
 };
 
 
-const clearinghouse: IBank = {
-  id: "clearinghouse",
-  type: "clearinghouse",
-  assets: { ...clearinghouseAssets },
-  liabilities: { ...clearinghouseLiabilities },
-  balances: { ...clearinghouseBalances },
-  reserves: 0,
-  records: [],
-};
-
-function clearinghousePlusCertificates() {
-  System.setSystem("clearinghouse");
-  ClearingHouseService.openAccount(bank1, clearinghouse, 1000);
-  ClearingHouseService.openAccount(bank2, clearinghouse, 1000);
-}
-
-clearinghousePlusCertificates();
+System.setSystem("correspondent");
 CustomerService.openAccount(customer1, bank1);
-CustomerService.openAccount(customer2, bank2);
+CustomerService.openAccount(customer2, bank1);
+CustomerService.openAccount(customer3, bank2);
 BankService.openAccount(bank1, bank2);
 BankService.openAccount(bank2, bank1);
 
@@ -89,8 +80,7 @@ bankLookup[bank1.id] = JSON.parse(JSON.stringify(bank1));
 bankLookup[bank2.id] = JSON.parse(JSON.stringify(bank2));
 customerLookup[customer1.id] = JSON.parse(JSON.stringify(customer1));
 customerLookup[customer2.id] = JSON.parse(JSON.stringify(customer2));
-bankLookup[clearinghouse.id] = JSON.parse(JSON.stringify(clearinghouse))
-// CustomerService.deposit(customer1, bank1, 100);
-// CustomerService.transfer(customer1, customer2, 50);
+customerLookup[customer3.id] = JSON.parse(JSON.stringify(customer3));
 
-export { bank1, bank2, customer1, customer2, clearinghouse };
+
+export { bank1, bank2, customer1, customer2, customer3 };

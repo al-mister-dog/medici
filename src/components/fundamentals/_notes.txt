@@ -1,0 +1,10 @@
+TYPES OF OPERATIONS
+CUSTOMER:
+  transfer
+  deposit
+  withdraw
+  take out loan
+  repay loan
+BANK
+  
+CLEARINGHOUSE

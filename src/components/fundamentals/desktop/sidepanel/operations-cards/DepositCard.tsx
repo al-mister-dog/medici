@@ -2,13 +2,12 @@ import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectParties,
   deposit,
-} from "../../../../../features/clearinghouse/clearinghouseSlice";
+} from "../../../../../features/fundamentals/correspondentSlice";
 
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
 import { IBank } from "../../../../../program/clearinghouse/types";
-import DoneIcon from "@mui/icons-material/Done";
 import { Accordions } from "../../../../types";
 
 const ImportCard: React.FunctionComponent<{

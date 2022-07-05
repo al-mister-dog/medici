@@ -1,15 +1,18 @@
 import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
 import {
   selectParties,
-  deposit,
-} from "../../../../../features/clearinghouse/clearinghouseSlice";
-
+  withdraw,
+} from "../../../../../features/fundamentals/correspondentSlice";
+import { findByCustomersAccounts } from "./__filters";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
+
 import { useState } from "react";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
 import { IBank } from "../../../../../program/clearinghouse/types";
 import DoneIcon from "@mui/icons-material/Done";
 import { Accordions } from "../../../../types";
+
+
 
 const ImportCard: React.FunctionComponent<{
   selected: any;
@@ -22,19 +25,15 @@ const ImportCard: React.FunctionComponent<{
   for (const key in parties) {
     partiesArray = [...partiesArray, parties[key]];
   }
-  const bankParties = partiesArray.filter((party) =>
-    selected.assets.customerDeposits.find((acc: any) => acc.id === party.id)
-  );
-  // const selectedTraders = tradersArray.filter(
-  //   (t) =>
-  //     selected.id !== t.id && selected.city !== t.city && t.type === "exporter"
-  // );
-
+  const bankParties = findByCustomersAccounts(selected, partiesArray);
   const [selectAmount, setSelectAmount] = useState(false);
   const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
     null
   );
   const [openTo, setOpenTo] = useState(false);
+  const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
+  const [amountInputOpen, setAmountInputOpen] = useState(false);
+
   const handleClickOpenTo = () => {
     setOpenTo(true);
   };
@@ -42,16 +41,13 @@ const ImportCard: React.FunctionComponent<{
     setOpenTo(false);
   };
 
-  const [selectedValueAmount, setSelectedValueAmount] = useState<number>(0);
-
-  const onClickTrade = () => {
+  const onClickWithdraw = () => {
     dispatch(
-      deposit({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
+      withdraw({ p1: selected, p2: selectedValueTo, amt: selectedValueAmount })
     );
     setSelectedValueAmount(0);
     setSelectedValuePlayer(null);
     setAccordionExpanded({ ...accordionExpanded, deposit: false });
-    setSelectAmount(!selectAmount);
   };
 
   const [errorMessage, setErrorMessage] = useState(``);
@@ -105,7 +101,7 @@ const ImportCard: React.FunctionComponent<{
             onClick={handleClickOpenTo}
             sx={{ width: "130px", marginBottom: "5px" }}
           >
-            Deposit To
+            Withdraw From
           </Button>
           <ChoosePlayer
             setSelectedValuePlayer={setSelectedValuePlayer}
@@ -114,7 +110,7 @@ const ImportCard: React.FunctionComponent<{
             selectedBankers={bankParties}
           />
 
-          <Typography
+<Typography
             variant="h6"
             sx={{ color: "#f2eecb", paddingLeft: "7px" }}
           >
@@ -166,7 +162,7 @@ const ImportCard: React.FunctionComponent<{
         <Button
           variant="contained"
           disabled={selectedValueAmount < 1 || selectedValueTo === null}
-          onClick={onClickTrade}
+          onClick={onClickWithdraw}
         >
           Ok
         </Button>
