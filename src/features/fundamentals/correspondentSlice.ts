@@ -112,10 +112,23 @@ export const correspondentSlice = createSlice({
         JSON.stringify(state.customer2)
       );
     },
+    setupModule4: (state) => {
+      const customer1 = JSON.parse(JSON.stringify(state.customer1));
+      const customer2 = JSON.parse(JSON.stringify(state.customer2));
+      const bank1 = JSON.parse(JSON.stringify(state.bank1))
+      CustomerService.deposit(customer1, bank1, 50)
+      CustomerService.deposit(customer2, bank1, 50)
+      state.customer1 = customer1
+      state.customer2 = customer2
+      state.bank1 = bank1
+      state.customer1.reserves = 100
+      state.customer2.reserves = 100
+      correspondentSlice.caseReducers.updateLookupState(state);
+    }
   },
 });
 
-export const { deposit, withdraw, transfer, netDues, createNewCustomer, reset } = correspondentSlice.actions;
+export const { deposit, withdraw, transfer, netDues, createNewCustomer, reset, setupModule4 } = correspondentSlice.actions;
 
 export const selectParties = (state: RootState) => state.cParties;
 

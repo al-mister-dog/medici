@@ -1,11 +1,12 @@
 import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import SideBalance from "./SideBalance";
 import { capitalize } from "../../helpers";
-const toolbarTextColor = '#f2eecb'
+const toolbarTextColor = "#f2eecb";
 const BalanceSheetTrader: React.FunctionComponent<{
+  config?: any;
   bank: any;
   selectParty: (b: any) => void;
-}> = ({ bank, selectParty }) => {
+}> = ({ config, bank, selectParty }) => {
   return (
     <Card
       style={{
@@ -13,7 +14,7 @@ const BalanceSheetTrader: React.FunctionComponent<{
         minWidth: 300,
         textAlign: "center",
         margin: 25,
-        backgroundColor: "#62120E"
+        backgroundColor: "#62120E",
       }}
       sx={{
         "&:hover": {
@@ -32,8 +33,6 @@ const BalanceSheetTrader: React.FunctionComponent<{
             fontSize: 18,
             fontWeight: "bold",
             color: toolbarTextColor,
-            // marginTop: 8,
-            // marginBottom: 0,
           }}
         >
           {capitalize(bank.id)}
@@ -43,13 +42,17 @@ const BalanceSheetTrader: React.FunctionComponent<{
             fontSize: 14,
             color: toolbarTextColor,
           }}
-        >
-          {/* {capitalize(bank.city)} */}
-        </Typography>
+        ></Typography>
       </CardContent>
-      <Box display={"flex"} sx={{borderTop: `1px solid ${toolbarTextColor}`}}>
-        <SideBalance side="assets" instruments={bank.assets} />
+      <Box display={"flex"} sx={{ borderTop: `1px solid ${toolbarTextColor}` }}>
         <SideBalance
+          config={config}
+          side="assets"
+          instruments={bank.assets}
+          reserves={bank.reserves}
+        />
+        <SideBalance
+          config={config}
           side="liabilities"
           instruments={bank.liabilities}
         />

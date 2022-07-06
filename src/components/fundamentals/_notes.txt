@@ -8,3 +8,38 @@ CUSTOMER:
 BANK
   
 CLEARINGHOUSE
+
+
+Step Differences
+first has no logic
+second is bank1 customer1 no overdraft
+third is bank1 customer1 customer2 no overdraft
+fourth is bank1 customer1 customer2 overdraft credit
+fifth is bank1 bank2 customer1 customer2 overdraft credit
+
+modules: {
+fundamentals: {
+name: 'fundamentals'
+balanceSheetDisplay: (k === "customerDeposits" || k === "customerOverdrafts"),
+steps: {
+step1: {
+  overdraft: false,
+  credit: false,  
+}
+step2: {
+  overdraft: false,
+  credit: false,  
+},
+step5: {
+  overdraft: true,
+  credit: true,  
+},
+step4: {
+  overdraft: true,
+  credit: true,  
+}
+}
+
+}
+
+}

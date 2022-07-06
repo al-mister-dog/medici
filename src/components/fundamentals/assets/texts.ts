@@ -69,36 +69,39 @@ export const texts2 = {
 };
 
 export const texts3 = {
-  title: `Rechange: Part 1`,
+  title: `Credit and Overdrafts`,
   paragraphs: [
-    `Now that the bill of exchange has finally been redeemed where do we stand? As far 
-    as 'Me' and Salviati are concerned the transaction is over. 'Me' has received payment 
-    for goods shipped and Salviati has paid for goods received. But 'You' have negative 
-    equity and Tomasso has 1 gold marc that isn't really his. The gold marc that Tomasso has 
-    really belongs to 'You' and will have to pay it back somehow. So what is next for the 
-    exchange bankers? Some extra background will help to understand what is next.`,
-    `At the central fairs already discussed, exchange rates have been decided and published 
-    in what is called the 'conto'. The conto announces what 1 gold marc (the bankers unit of 
-    exchange) is worth in different currencies. In Florence, a bill for 1 gold marc drawn 
-    in Lyons is worth 64 ecus. This amount is known because it is Lyons who announces how much 
-    the gold marc is worth in ecus. This is known as 'quoting certain.`,
-    `However, the price of ecus in gold marcs is not known and depends on the state of the market. 
-    Other bankers in Lyons can bid for bills in ecus and pay the bearer in marcs. This is known as 
-    'quoting moveable'. The city that quotes moveable is lower in the hierarchy than the city that 
-    quotes certain. This means that 1 gold marc drawn on Lyons could be 64 ecus but the other way 
-    round it could be more, say 65.5 ecus. A banker in Lyons then may buy a bill for 65.5 ecus for 
-    1 gold marc. In our example, this price has already been decided. There will be a more complex 
-    board where multiple exchange bankers can quote different prices.`,
-    `There are two new players on the board; a new importer from Florence, Federigo and a new 
-    exporter in Lyons, Piero. In this sense they are the mirror image of 'Me' and Salviati. They 
-    will make a transaction that amounts to 65.5 ecus/ 1 gold marc. In Davanzati's example Piero 
-    exports goods worth 65.5 ecus to Federigo and presents his bill to Tomasso receiving 1 gold 
-    marc in return. Quotes and exchange rates have been added for reference.
+    `Credit is simply a promise to pay at a future date. I could write you an IOU on a piece
+    of paper in exchange for goods or services and that would count as credit. For banks, 
+    deposits are a form of credit. They are promises to pay cash on demand at a future date.
+    This is often forgotten as deposit transfers are the main form of retail purchase and 
+    most people are happy with receiving deposits in their accounts as payment. Cash and 
+    deposits are almost interchangeable`,
+    `If a customer at a bank withdraws more money than is in their account, or if they transfer
+    more than is in their account to someone else, they run a negative balance. This negative
+    balance is called an overdraft. In this case the customer now owes the bank. Because of this
+    a customer overdraft is an liability of the customer and an asset of the bank. For the bank,
+    an overdraft represents money that they will receive from the customer in the future. This 
+    can be paid back either in cash or through someone else transfering deposits into their account.`,
+    `Overdrafts are simply deposits, a promise to pay, except this time by the customer to the bank.
+    This means that overdrafts are also a form of credit. A promise to pay at a future date.
+    Because credit is just a promise to pay and not the final means of settlement, the amount 
+    of credit in a system expands much quicker than cash can (cash needs to be printed etc). 
+    It is up to the bank issuing the overdraft for how long credit can expand before the money
+    needs calling in.`,
+    `We now introduce a line chart below that represents the amount of credit is in a bank at 
+    any given moment. Lets say the bank starts with zero money. If a customer deposits $100 in 
+    the bank, the bank owes $100 in deposits and therefore the amount of credit in the system is
+    $100. If the customer withdraws $50, there is $50 of credit in the system. If a customer deposits
+    $100 in the bank and transfers it to another customer of the same bank, the credit stays at $100.
+    However if a customer transfers more money than is in their account, the credit expands further.
+    The only way to contract the amount of credit is for the customer to pay back their overdraft. 
+    We will be thinking about the expansion and contraction of credit much more as we go along, but
+    this is a good starting point.
     `,
   ],
-  assignment: `Assignment: Get Piero to ship 1 gold marcs worth of goods to Federigo and redeem the 
-  bill to Tomasso. Previous steps should have been completed. If they have not been 
-  completed then go back to the beginning of this module. Click refresh to reset the board.`,
+  assignment: `Assignment: There are two customers with the same bank, each with $100 in an account.
+  Expand the credit in the system by $50 and then contract it to $0`,
 };
 
 export const texts4 = {

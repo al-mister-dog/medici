@@ -3,7 +3,9 @@ import { Box, TextField } from "@mui/material";
 const Amount: React.FunctionComponent<{
   selectedValueAmount: number;
   handleChangeAmount: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}> = ({ selectedValueAmount, handleChangeAmount }) => {
+  error:  boolean
+  errorMessage: string
+}> = ({ selectedValueAmount, handleChangeAmount, error, errorMessage }) => {
   return (
     <Box sx={{ display: "flex" }}>
       <TextField
@@ -15,6 +17,8 @@ const Amount: React.FunctionComponent<{
             color: "#f2eecb",
           },
         }}
+        error={error}
+        helperText={errorMessage}
         id="standard-number"
         label="dollars"
         type="number"

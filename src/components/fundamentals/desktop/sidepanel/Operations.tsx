@@ -18,7 +18,8 @@ const resetAccordions = {
   settleDues: false,
 };
 
-const Operations: React.FunctionComponent<{ selected: any }> = ({
+const Operations: React.FunctionComponent<{ config: any; selected: any }> = ({
+  config,
   selected,
 }) => {
   const [accordionExpanded, setAccordionExpanded] = useState<Accordions>({
@@ -35,20 +36,20 @@ const Operations: React.FunctionComponent<{ selected: any }> = ({
       {
         accordionKey: "deposit",
         accordionTitle: "Deposit",
-        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+        component: cardData(selected, accordionExpanded, setAccordionExpanded, config)
           .deposit,
-      },
-      {
-        accordionKey: "transfer",
-        accordionTitle: "Transfer",
-        component: cardData(selected, accordionExpanded, setAccordionExpanded)
-          .transfer,
       },
       {
         accordionKey: "withdraw",
         accordionTitle: "Withdraw",
-        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+        component: cardData(selected, accordionExpanded, setAccordionExpanded, config)
           .withdraw,
+      },
+      {
+        accordionKey: "transfer",
+        accordionTitle: "Transfer",
+        component: cardData(selected, accordionExpanded, setAccordionExpanded, config)
+          .transfer,
       },
     ],
     bank: [

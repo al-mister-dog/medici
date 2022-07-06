@@ -1,5 +1,5 @@
-import { useAppSelector } from "../../../app/hooks";
-import { selectRecords } from "../../../features/players/playersSlice";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { reset } from "../../../features/fundamentals/correspondentSlice";
 import { useEffect, useState } from "react";
 import {
   Box,
@@ -20,7 +20,7 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import Introduction from "./1-introduction";
 import BalanceSheets from "./2-balancesheetsdeposits";
 import Transfers from "./3-transfers";
-// import RechangeOne from "./4-rechange1";
+import Overdrafts from "./4-overdrafts";
 // import RechangeTwo from "./5-rechange2";
 // import Playground from "./6-playground";
 
@@ -32,8 +32,8 @@ function getStepContent(step: number) {
       return <BalanceSheets />;
     case 2:
       return <Transfers />;
-    // case 3:
-    //   return <RechangeOne />;
+    case 3:
+      return <Overdrafts />;
     // case 4:
     //   return <RechangeTwo />;
     // case 5:
@@ -52,52 +52,8 @@ const steps = [
 ];
 
 const StepperIndex: React.FunctionComponent = () => {
-  const records = useAppSelector(selectRecords);
   const [activeStep, setActiveStep] = useState(0);
-  useEffect(() => {
-    
-    const record1 = "salviati imports 1 marc worth of goods from me";
-    const record2 = "me draws bill on you for 1 marc";
-    const record3 = "you remits bill to tomasso";
-    const record4 = "tomasso draws bill on salviati for 1";
-    const record5 = "federigo imports 1 marc worth of goods from piero";
-    const record6 = "piero draws bill on tomasso for 1 marc";
-    const record7 = "tomasso remits bill to you";
-    const record8 = "you draws bill on federigo for 1";
 
-    const step1Complete = () => {
-      return records[0] === record1 && records[1] === record2;
-    };
-    const step2Complete = () => {
-      return records[2] === record3 && records[3] === record4;
-    };
-    const step3Complete = () => {
-      return records[4] === record5 && records[5] === record6;
-    };
-    const step4Complete = () => {
-      return records[6] === record7 && records[7] === record8;
-    };
-    if (step1Complete()) {
-      const newCompleted = completed;
-      newCompleted[1] = true;
-      handleSetCompleted(newCompleted);
-    }
-    if (step1Complete() && step2Complete()) {
-      const newCompleted = completed;
-      newCompleted[2] = true;
-      handleSetCompleted(newCompleted);
-    }
-    if (step1Complete() && step2Complete() && step3Complete()) {
-      const newCompleted = completed;
-      newCompleted[3] = true;
-      handleSetCompleted(newCompleted);
-    }
-    if (step1Complete() && step2Complete() && step3Complete() && step4Complete()) {
-      const newCompleted = completed;
-      newCompleted[4] = true;
-      handleSetCompleted(newCompleted);
-    }
-  }, [records]);
   const [completed, setCompleted] = useState<{
     [k: number]: boolean;
   }>({});
@@ -163,6 +119,7 @@ const StepperDeskTop: React.FunctionComponent<{
   handleSetActiveStepBack,
   handleSetCompleted,
 }) => {
+  const dispatch = useAppDispatch()
   const totalSteps = () => {
     return steps.length;
   };
@@ -190,10 +147,12 @@ const StepperDeskTop: React.FunctionComponent<{
   };
 
   const handleBack = () => {
+    dispatch(reset());
     handleSetActiveStepBack();
   };
 
   const handleStep = (step: number) => () => {
+    dispatch(reset());
     handleSetActiveStep(step);
   };
 

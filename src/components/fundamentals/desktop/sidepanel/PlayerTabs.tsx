@@ -37,7 +37,7 @@ function a11yProps(index: number) {
   };
 }
 
-const PlayerTabs = ({ selected }: { selected: any }) => {
+const PlayerTabs: React.FunctionComponent<{config: any, selected: any}> = ({config, selected}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -60,7 +60,7 @@ const PlayerTabs = ({ selected }: { selected: any }) => {
 
       <TabPanel value={value} index={0}>
         {/* <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}> */}
-        <Operations selected={selected} />
+        <Operations config={config} selected={selected} />
         {/* </Box> */}
       </TabPanel>
       <TabPanel value={value} index={1}>

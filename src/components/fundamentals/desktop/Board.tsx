@@ -1,10 +1,12 @@
 import BalanceSheet from "../ui/desktop/BalanceSheet";
 
 const Board: React.FunctionComponent<{
+  config?: any
   customerParties: any;
   bankParties: any;
   selectParty: (a: any) => void;
-}> = ({ customerParties, bankParties, selectParty }) => {
+}> = ({ config, customerParties, bankParties, selectParty }) => {
+  
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -17,7 +19,7 @@ const Board: React.FunctionComponent<{
           }}
         >
           {customerParties.map((player: any, i: any) => (
-            <BalanceSheet key={i} bank={player} selectParty={selectParty} />
+            <BalanceSheet key={i} config={config} bank={player} selectParty={selectParty} />
           ))}
         </div>
         <div
@@ -29,7 +31,7 @@ const Board: React.FunctionComponent<{
           }}
         >
           {bankParties.map((player: any, i: any) => (
-            <BalanceSheet key={i} bank={player} selectParty={selectParty} />
+            <BalanceSheet key={i} config={config} bank={player} selectParty={selectParty} />
           ))}
         </div>
       </div>

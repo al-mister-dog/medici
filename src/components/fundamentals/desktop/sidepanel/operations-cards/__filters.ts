@@ -1,6 +1,6 @@
 import { IBank } from "../../../../../program/clearinghouse/types";
 
-export const findByCustomersAccounts = (
+export const findBankByCustomersAccounts = (
   selected: IBank,
   partiesArray: IBank[]
 ) => {

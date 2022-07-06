@@ -1,144 +1,92 @@
 //TODO
 //credit expansion graph
-import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
-import {
-  selectParties
-} from "../../../../features/fundamentals/correspondentSlice";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-  IconButton,
-  Box,
-  Toolbar,
-  Typography,
-  Tooltip,
-} from "@mui/material";
-import { capitalize } from "../../helpers";
+import { useAppSelector } from "../../../../app/hooks";
+import { selectParties } from "../../../../features/fundamentals/correspondentSlice";
+import { Box } from "@mui/material";
+
 import { useEffect, useState } from "react";
-
-// const toolbarTextColor = '#f2eecb'
-const toolbarTextColor = "black"
+import {
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Legend,
+  Line,
+  Tooltip,
+} from "recharts";
+import { IBank } from "../../../../features/fundamentals/program/types";
 export default function ButtonAppBar() {
-  const dispatch = useAppDispatch();
+  interface Obj {
+    [index: string]: any;
+  }
+  interface Account {
+    [index: string]: any;
+  }
+
   const parties = useAppSelector(selectParties);
-  // const { certaintyQuotes, exchangeRates } =
-  //   useAppSelector(selectConditions);
 
-  // const cities = Object.keys(certaintyQuotes).map((c) => ({
-  //   city: c,
-  //   certain: certaintyQuotes[c],
-  // }));
-  // const rates = Object.keys(exchangeRates).map((c) => ({
-  //   city: c,
-  //   price: exchangeRates[c],
-  // }));
-  const [total, setTotal] = useState<number>(0)
+  function getTotalCredit() {
+    let partiesArray: IBank[] = [];
 
-useEffect(() => {
-  let amount1 = parties.bank1.assets.customerOverdrafts[0].amount
-  let amount2 = parties.bank1.assets.customerOverdrafts[1].amount
-  let amount3 = parties.bank1.liabilities.customerDeposits[0].amount
-  let amount4 = parties.bank1.liabilities.customerDeposits[1].amount
-  setTotal(
-    amount1 + amount2 + amount3 + amount4)
-}, [parties])
+    for (const key in parties) {
+      partiesArray = [...partiesArray, parties[key]];
+    }
+
+    const allBanks = partiesArray.filter((party) => party.id.includes("bank"));
+
+    let bankAssetsAndLiabilities: Obj[] = [];
+
+    allBanks.forEach((bank) => {
+      for (const key in bank) {
+        if (key === "liabilities" || key === "assets") {
+          for (const k in bank[key]) {
+            bankAssetsAndLiabilities = [
+              ...bankAssetsAndLiabilities,
+              ...bank[key][k],
+            ];
+          }
+        }
+      }
+    });
+
+    const totalAssetsAndLiabilities = bankAssetsAndLiabilities.reduce(
+      (a: Account, c: Account) => {
+        return { amount: a.amount + c.amount };
+      },
+      { amount: 0 }
+    );
+
+    const totalCredit = totalAssetsAndLiabilities.amount
+
+    return totalCredit;
+  }
+
+  const [data, setData] = useState([
+    {
+      name: "",
+      credit: 0,
+    },
+  ]);
+
+  useEffect(() => {
+    const totalCredit = getTotalCredit();
+    setData([...data, { name: "", credit: totalCredit }]);
+  }, [parties]);
+  
   return (
     <Box>
-      <Toolbar
-        sx={{
-          // backgroundColor: "#735c51",
-          // backgroundColor: "#62120E",
-          backgroundColor: "#F2EECB",
-          // boxShadow: "0px 6px 10px -7px gray",
-          padding: "5px",
-        }}
+      <LineChart
+        width={450}
+        height={150}
+        data={data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 0 }}
       >
-        Credit: {total}
-        {/* <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            height: "60px"
-          }}
-        >
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
-            >
-              Quotes
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              {cities.map((city, i) => (
-                <Typography key={i} sx={{ color: toolbarTextColor, fontSize: 12 }}>
-                  {capitalize(city.city)}: {city.certain ? "Certain" : "Moveable"}
-                </Typography>
-              ))}
-            </Box>
-          </Box>
-
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
-            >
-              Rates (Ecus to Marc)
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              {rates.map((city, i) => (
-                <Typography key={i} sx={{ color: toolbarTextColor, fontSize: 12 }}>
-                  {capitalize(city.city)}: {city.price}
-                </Typography>
-              ))}
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ color: toolbarTextColor, fontSize: 15, fontWeight: "bold" }}
-            >
-              Records
-            </Typography>
-            <Box sx={{overflowX: "hidden", display: "flex", flexDirection: "column-reverse"}}>
-              {records.length > 0 ? (
-                records.map((record, i) => (
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    sx={{ color: toolbarTextColor, fontSize: 12 }}
-                    key={i}
-                  >
-                    {record}
-                  </Typography>
-                ))
-              ) : (
-                <Typography
-                  variant="body1"
-                  component="div"
-                  sx={{ color: toolbarTextColor, fontSize: 12 }}
-                >
-                  Trade to start
-                </Typography>
-              )}
-            </Box>
-          </Box>
-          <Tooltip title="refresh">
-            <IconButton onClick={() => dispatch(reset())}>
-              <RefreshIcon/>
-            </IconButton>
-          </Tooltip>
-        </Box> */}
-      </Toolbar>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="credit" stroke="#8884d8" />
+      </LineChart>
     </Box>
   );
 }

@@ -3,8 +3,11 @@ import { selectParties } from "../../../features/fundamentals/correspondentSlice
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
+import { modules } from "../config";
 import { texts2 } from "../assets/texts";
 import { IBank } from "../../../features/clearinghouse/program/types";
+
+const config = modules.fundamentals.steps.step2
 
 function App() {
   const parties = useAppSelector(selectParties);
@@ -38,6 +41,7 @@ function App() {
   if (width > breakpoint) {
     return (
       <IndexDesktop
+        config={config}
         texts={texts2}
         customerParties={customerParties}
         bankParties={bankParties}

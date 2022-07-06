@@ -1,36 +1,53 @@
 import { Accordions } from "../../../types";
-import DepositCard from "./operations-cards/DepositCard";
+import MoveAmountMethod from "./operations-cards/MoveAmountMethod";
 import NetDuesCard from "./operations-cards/NetDuesCard";
 import OpenAccountCard from "./operations-cards/OpenAccountCard";
 import SettleDuesCard from "./operations-cards/SettleDuesCard";
-import TransferCard from "./operations-cards/TransferCard";
-import WithdrawCard from "./operations-cards/WithdrawCard";
+
+import {
+  findBankByCustomersAccounts,
+  findAllCustomers,
+} from "./operations-cards/__filters";
 
 const cardData = (
   selected: any,
   accordionExpanded: Accordions,
-  setAccordionExpanded: (accs: Accordions) => void
+  setAccordionExpanded: (accs: Accordions) => void,
+  config?: any,
 ) => {
   return {
     deposit: (
-      <DepositCard
+      <MoveAmountMethod
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
+        filterMethod={findBankByCustomersAccounts}
+        methodText="Deposit To"
+        dispatchMethod="deposit"
+        config={config}
+
       />
     ),
     transfer: (
-      <TransferCard
+      <MoveAmountMethod
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
+        filterMethod={findAllCustomers}
+        methodText="Transfer To"
+        dispatchMethod="transfer"
+        config={config}
       />
     ),
     withdraw: (
-      <WithdrawCard
+      <MoveAmountMethod
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
+        filterMethod={findBankByCustomersAccounts}
+        methodText="Withdraw From"
+        dispatchMethod="withdraw"
+        config={config}
       />
     ),
     openAccount: (

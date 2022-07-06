@@ -1,37 +1,32 @@
-import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { useAppSelector } from "../../../app/hooks";
 import {
   selectParties,
   createNewCustomer,
 } from "../../../features/fundamentals/correspondentSlice";
 import Introduction from "../ui/Introduction";
 
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import Player from "./sidepanel/Player";
 import Board from "./Board";
 import Notifications from "./toolbars/NotificationsToolbar";
 import Refresh from "./toolbars/RefreshToolbar";
 
-const SelectedPlayer = ({ player }: { player: any }) => {
-  return <Player selected={player} />;
-};
-
 const Index: React.FunctionComponent<{
+  config?: any;
   texts: any;
   customerParties: any;
   bankParties: any;
   selected: string;
   selectParty: (v: any) => void;
-  notifications?: boolean;
 }> = ({
+  config,
   texts,
   customerParties,
   bankParties,
   selected,
   selectParty,
-  notifications,
 }) => {
   const parties = useAppSelector(selectParties);
-  const dispatch = useAppDispatch();
   return (
     <>
       <Box
@@ -39,8 +34,8 @@ const Index: React.FunctionComponent<{
       >
         <Introduction texts={texts} />
       </Box>
+      {config.credit && <Notifications />}
 
-      <Notifications />
       <Box
         style={{
           display: "flex",
@@ -56,18 +51,19 @@ const Index: React.FunctionComponent<{
           }}
         >
           <Board
+            config={config}
             customerParties={customerParties}
             bankParties={bankParties}
             selectParty={selectParty}
           />
         </Box>
         <Box sx={{ width: "40%", margin: "auto" }}>
-          <SelectedPlayer player={parties[selected]} />
+          <Player config={config} selected={parties[selected]} />
         </Box>
       </Box>
-      <Button onClick={() => dispatch(createNewCustomer())}>
+      {/* <Button onClick={() => dispatch(createNewCustomer())}>
         Create Customer
-      </Button>
+      </Button> */}
     </>
   );
 };

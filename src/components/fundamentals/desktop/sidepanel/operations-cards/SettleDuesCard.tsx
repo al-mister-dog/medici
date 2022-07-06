@@ -4,7 +4,7 @@ import {
   withdraw,
   
 } from "../../../../../features/fundamentals/correspondentSlice";
-import { findByCustomersAccounts } from "./__filters";
+import { findBankByCustomersAccounts } from "./__filters";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 
 import { useState } from "react";
@@ -26,7 +26,7 @@ const ImportCard: React.FunctionComponent<{
   // for (const key in parties) {
   //   partiesArray = [...partiesArray, parties[key]];
   // }
-  // const bankParties = findByCustomersAccounts(selected, partiesArray);
+  // const bankParties = findBankByCustomersAccounts(selected, partiesArray);
   // const [selectAmount, setSelectAmount] = useState(false);
   // const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
   //   null
