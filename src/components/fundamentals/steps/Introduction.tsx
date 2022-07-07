@@ -3,7 +3,7 @@ import { textsIntro } from "../assets/texts"
 import Introduction from "../ui/Introduction"
 import Box from "@mui/material/Box"
 
-export default function Intro() {
+const Intro = ({text}: {text: any}) => {
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 700;
   useEffect(() => {
@@ -29,3 +29,5 @@ export default function Intro() {
     
   )
 }
+
+export default Intro

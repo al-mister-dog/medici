@@ -1,6 +1,12 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { reset } from "../../../features/fundamentals/fundamentalsSlice";
+import {
+  reset,
+  setupModule4,
+} from "../../../features/fundamentals/fundamentalsSlice";
 import { useEffect, useState } from "react";
+import { fundamentals } from "../../../config/texts";
+import { modules, Steps } from "../../../config/config";
+
 import {
   Box,
   Stepper,
@@ -17,25 +23,24 @@ import MobileStepper from "@mui/material/MobileStepper";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-import Introduction from "./1-introduction";
-import BalanceSheets from "./2-balancesheetsdeposits";
-import Transfers from "./3-transfers";
-import Overdrafts from "./4-overdrafts";
-import Constraints from "./5-constraints";
+import Introduction from "./Introduction";
+import StepComponent from "./Step";
+
 // import Playground from "./6-playground";
+const config = modules.fundamentals.steps;
 
 function getStepContent(step: number) {
   switch (step) {
     case 0:
-      return <Introduction />;
+      return <Introduction text={config[1].text} />;
     case 1:
-      return <BalanceSheets />;
+      return <StepComponent text={fundamentals.step2} config={config[2]} />;
     case 2:
-      return <Transfers />;
+      return <StepComponent text={fundamentals.step3} config={config[3]} />;
     case 3:
-      return <Overdrafts />;
+      return <StepComponent text={fundamentals.step4} config={config[4]} />;
     case 4:
-      return <Constraints />;
+      return <StepComponent text={fundamentals.step5} config={config[5]} />;
     // case 5:
     //   return <Playground />;
     default:
@@ -119,7 +124,7 @@ const StepperDeskTop: React.FunctionComponent<{
   handleSetActiveStepBack,
   handleSetCompleted,
 }) => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const totalSteps = () => {
     return steps.length;
   };
@@ -153,6 +158,7 @@ const StepperDeskTop: React.FunctionComponent<{
 
   const handleStep = (step: number) => () => {
     dispatch(reset());
+
     handleSetActiveStep(step);
   };
 

@@ -1,8 +1,13 @@
 //TODO
 //credit expansion graph
 import { useAppSelector, useAppDispatch } from "../../../../app/hooks";
-import { selectParties } from "../../../../features/fundamentals/fundamentalsSlice";
-import { selectAuxilliary, setReservePercentage } from "../../../../features/auxilliary/auxilliarySlice";
+import {
+  selectParties,
+} from "../../../../features/fundamentals/fundamentalsSlice";
+import {
+  selectAuxilliary,
+  setReservePercentage,
+} from "../../../../features/auxilliary/auxilliarySlice";
 import { Box, Slider, Typography } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -16,8 +21,7 @@ import {
 } from "recharts";
 import { IBank } from "../../../../features/fundamentals/program/types";
 
-
-const ButtonAppBar: React.FunctionComponent<{ config?: any, }> = ({
+const ButtonAppBar: React.FunctionComponent<{ config?: any }> = ({
   config,
 }) => {
   interface Obj {
@@ -26,9 +30,9 @@ const ButtonAppBar: React.FunctionComponent<{ config?: any, }> = ({
   interface Account {
     [index: string]: any;
   }
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const parties = useAppSelector(selectParties);
-  const {reservePercentage} = useAppSelector(selectAuxilliary)
+  const { reservePercentage } = useAppSelector(selectAuxilliary);
   function getTotalCredit() {
     let partiesArray: IBank[] = [];
 
@@ -77,12 +81,12 @@ const ButtonAppBar: React.FunctionComponent<{ config?: any, }> = ({
     setData([...data, { name: "", credit: totalCredit }]);
   }, [parties]);
 
-  
+
   function handleChangeReserveRequirement(
     event: Event,
     newValue: number | number[]
   ) {
-    dispatch(setReservePercentage({percentage: newValue}))
+    dispatch(setReservePercentage({ percentage: newValue }));
   }
   return (
     <Box

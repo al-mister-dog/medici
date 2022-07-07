@@ -1,35 +1,52 @@
-import { useAppSelector } from "../../../app/hooks";
-import { selectParties } from "../../../features/fundamentals/fundamentalsSlice";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import {
+  selectParties,
+  setupModule4,
+} from "../../../features/fundamentals/fundamentalsSlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
 import { modules } from "../config";
-import { texts2 } from "../assets/texts";
 import { IBank } from "../../../features/clearinghouse/program/types";
 
-const config = modules.fundamentals.steps.step2
-
-function App() {
+const Step: React.FunctionComponent<{ text: any; config: any }> = ({
+  text,
+  config,
+}) => {
+  const dispatch = useAppDispatch();
   const parties = useAppSelector(selectParties);
+
+  const configCustomers = config.parties.filter((party: string) =>
+    party.includes("customer")
+  );
+  const configBanks = config.parties.filter((party: string) =>
+    party.includes("bank")
+  );
+
   const [selected, setSelected] = useState<string>("customer1");
 
   let partiesArray: IBank[] = [];
+
   for (const key in parties) {
     partiesArray = [...partiesArray, parties[key]];
   }
+
   const customerParties = partiesArray.filter((party) =>
-    party.id.includes("customer") && (party.id.includes("1") || party.id.includes("2"))
+    configCustomers.includes(party.id)
   );
-  const bankParties = partiesArray.filter(
-    (party) => party.id.includes("bank") && party.id.includes("1")
+
+  const bankParties = partiesArray.filter((party) =>
+    configBanks.includes(party.id)
   );
 
   function selectParty(player: any) {
     setSelected(player.id);
   }
-  
+
   const [width, setWidth] = useState(window.innerWidth);
+
   const breakpoint = 700;
+
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
     // subscribe to window resize event "onComponentDidMount"
@@ -38,11 +55,18 @@ function App() {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+
+  useEffect(() => {
+    if (config.title === "step4" || config.title === "step5") {
+      dispatch(setupModule4());
+    }
+  }, [config]);
+
   if (width > breakpoint) {
     return (
       <IndexDesktop
         config={config}
-        texts={texts2}
+        texts={text}
         customerParties={customerParties}
         bankParties={bankParties}
         selected={selected}
@@ -53,13 +77,13 @@ function App() {
   return (
     <></>
     // <IndexMobile
-    //   texts={texts2}
+    //   texts={texts1}
     //   customerParties={customerParties}
     //   bankParties={bankParties}
     //   selected={selected}
     //   selectPlayer={selectPlayer}
     // />
   );
-}
+};
 
-export default App;
+export default Step;
