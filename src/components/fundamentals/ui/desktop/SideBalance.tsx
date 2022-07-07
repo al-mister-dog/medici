@@ -13,7 +13,6 @@ const Side: React.FunctionComponent<{
   instruments: any;
   reserves?: number;
 }> = ({ config, side, instruments, reserves }) => {
-  console.log(side, reserves)
   return (
     <Box
       p={1}

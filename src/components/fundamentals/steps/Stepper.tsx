@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
-import { reset } from "../../../features/fundamentals/correspondentSlice";
+import { reset } from "../../../features/fundamentals/fundamentalsSlice";
 import { useEffect, useState } from "react";
 import {
   Box,
@@ -21,7 +21,7 @@ import Introduction from "./1-introduction";
 import BalanceSheets from "./2-balancesheetsdeposits";
 import Transfers from "./3-transfers";
 import Overdrafts from "./4-overdrafts";
-// import RechangeTwo from "./5-rechange2";
+import Constraints from "./5-constraints";
 // import Playground from "./6-playground";
 
 function getStepContent(step: number) {
@@ -34,8 +34,8 @@ function getStepContent(step: number) {
       return <Transfers />;
     case 3:
       return <Overdrafts />;
-    // case 4:
-    //   return <RechangeTwo />;
+    case 4:
+      return <Constraints />;
     // case 5:
     //   return <Playground />;
     default:
@@ -47,7 +47,7 @@ const steps = [
   "Balance Sheets and Deposits",
   "Deposit Transfers",
   "Overdrafts",
-  "Rechange Part 2",
+  "Constraints",
   "Playground",
 ];
 

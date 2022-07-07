@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   selectParties,
   createNewCustomer,
-} from "../../../features/fundamentals/correspondentSlice";
+} from "../../../features/fundamentals/fundamentalsSlice";
 import { Button } from "@mui/material";
 export default function SandBox() {
   const parties = useAppSelector(selectParties);

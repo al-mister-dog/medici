@@ -1,15 +1,16 @@
-import { useAppSelector } from "../../../app/hooks";
-import { selectParties } from "../../../features/fundamentals/fundamentalsSlice";
+import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import { selectParties, setupModule4 } from "../../../features/fundamentals/fundamentalsSlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
 import { modules } from "../config";
-import { texts2 } from "../assets/texts";
+import { texts4 } from "../assets/texts";
 import { IBank } from "../../../features/clearinghouse/program/types";
 
-const config = modules.fundamentals.steps.step2
+const config = modules.fundamentals.steps.step4
 
 function App() {
+  const dispatch = useAppDispatch()
   const parties = useAppSelector(selectParties);
   const [selected, setSelected] = useState<string>("customer1");
 
@@ -28,6 +29,10 @@ function App() {
     setSelected(player.id);
   }
   
+  useEffect(() => {
+    dispatch(setupModule4())
+  }, [])
+
   const [width, setWidth] = useState(window.innerWidth);
   const breakpoint = 700;
   useEffect(() => {
@@ -42,7 +47,7 @@ function App() {
     return (
       <IndexDesktop
         config={config}
-        texts={texts2}
+        texts={texts4}
         customerParties={customerParties}
         bankParties={bankParties}
         selected={selected}

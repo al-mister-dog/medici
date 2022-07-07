@@ -1,6 +1,6 @@
 import counterReducer, {
   reset
-} from './correspondentSlice';
+} from './fundamentalsSlice';
 
 // describe('counter reducer', () => {
 //   const initialState: CounterState = {

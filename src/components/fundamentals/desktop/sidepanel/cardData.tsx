@@ -15,6 +15,7 @@ const cardData = (
   setAccordionExpanded: (accs: Accordions) => void,
   config?: any,
 ) => {
+
   return {
     deposit: (
       <MoveAmountMethod
@@ -25,7 +26,6 @@ const cardData = (
         methodText="Deposit To"
         dispatchMethod="deposit"
         config={config}
-
       />
     ),
     transfer: (
@@ -48,6 +48,7 @@ const cardData = (
         methodText="Withdraw From"
         dispatchMethod="withdraw"
         config={config}
+
       />
     ),
     openAccount: (

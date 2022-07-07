@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../../../../app/hooks";
-import { netDues } from "../../../../../features/fundamentals/correspondentSlice";
+import { netDues } from "../../../../../features/fundamentals/fundamentalsSlice";
 import { findBankByCustomersAccounts } from "./__filters";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 

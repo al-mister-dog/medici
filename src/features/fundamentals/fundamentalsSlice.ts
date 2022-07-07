@@ -95,7 +95,7 @@ export const correspondentSlice = createSlice({
     reset: (state) => {
       state.customer1 = customer1;
       state.customer2 = customer2;
-      state.customer2 = customer3;
+      state.customer3 = customer3;
       state.bank1 = bank1;
       state.bank2 = bank2;
     },
@@ -123,6 +123,7 @@ export const correspondentSlice = createSlice({
       state.bank1 = bank1
       state.customer1.reserves = 100
       state.customer2.reserves = 100
+      state.bank1.reserves = 300
       correspondentSlice.caseReducers.updateLookupState(state);
     }
   },

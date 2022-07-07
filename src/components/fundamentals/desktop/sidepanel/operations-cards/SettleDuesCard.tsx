@@ -3,7 +3,7 @@ import {
   selectParties,
   withdraw,
   
-} from "../../../../../features/fundamentals/correspondentSlice";
+} from "../../../../../features/fundamentals/fundamentalsSlice";
 import { findBankByCustomersAccounts } from "./__filters";
 import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 

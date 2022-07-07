@@ -1,13 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import  playersReducer from '../features/players/playersSlice';
 import clearinghouseReducer from '../features/clearinghouse/clearinghouseSlice'
-import correspondentReducer from '../features/fundamentals/correspondentSlice'
+import fundamentalsReducer from '../features/fundamentals/fundamentalsSlice'
+import auxilliaryReducer from "../features/auxilliary/auxilliarySlice"
 
 export const store = configureStore({
   reducer: {
      players:  playersReducer,
      parties: clearinghouseReducer,
-     cParties: correspondentReducer
+     cParties: fundamentalsReducer,
+     auxilliary: auxilliaryReducer
   },
 });
 

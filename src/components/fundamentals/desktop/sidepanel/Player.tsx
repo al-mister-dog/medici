@@ -2,9 +2,10 @@ import { Box, Typography } from "@mui/material";
 import PlayerTabs from "./PlayerTabs";
 import { deCamelize } from "../../helpers";
 
-const Player: React.FunctionComponent<{ config?: any; selected: any }> = ({
+const Player: React.FunctionComponent<{ config?: any; selected: any,  }> = ({
   config,
   selected,
+  
 }) => {
   return (
     <Box

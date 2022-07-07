@@ -2,7 +2,7 @@ import { useAppSelector } from "../../../app/hooks";
 import {
   selectParties,
   createNewCustomer,
-} from "../../../features/fundamentals/correspondentSlice";
+} from "../../../features/fundamentals/fundamentalsSlice";
 import Introduction from "../ui/Introduction";
 
 import { Box } from "@mui/material";
@@ -10,6 +10,7 @@ import Player from "./sidepanel/Player";
 import Board from "./Board";
 import Notifications from "./toolbars/NotificationsToolbar";
 import Refresh from "./toolbars/RefreshToolbar";
+import { useState } from "react";
 
 const Index: React.FunctionComponent<{
   config?: any;
@@ -27,6 +28,7 @@ const Index: React.FunctionComponent<{
   selectParty,
 }) => {
   const parties = useAppSelector(selectParties);
+  
   return (
     <>
       <Box
@@ -34,7 +36,7 @@ const Index: React.FunctionComponent<{
       >
         <Introduction texts={texts} />
       </Box>
-      {config.credit && <Notifications />}
+      <Notifications config={config} />
 
       <Box
         style={{

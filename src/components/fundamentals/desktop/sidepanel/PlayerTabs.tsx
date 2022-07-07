@@ -60,7 +60,7 @@ const PlayerTabs: React.FunctionComponent<{config: any, selected: any}> = ({conf
 
       <TabPanel value={value} index={0}>
         {/* <Box sx={{ paddingLeft: "50px", paddingRight: "50px"}}> */}
-        <Operations config={config} selected={selected} />
+        <Operations config={config} selected={selected}/>
         {/* </Box> */}
       </TabPanel>
       <TabPanel value={value} index={1}>

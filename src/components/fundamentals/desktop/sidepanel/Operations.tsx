@@ -21,6 +21,7 @@ const resetAccordions = {
 const Operations: React.FunctionComponent<{ config: any; selected: any }> = ({
   config,
   selected,
+  
 }) => {
   const [accordionExpanded, setAccordionExpanded] = useState<Accordions>({
     ...resetAccordions,

@@ -105,17 +105,23 @@ export const texts3 = {
 };
 
 export const texts4 = {
-  title: `Rechange: Part 2`,
+  title: `Constraints`,
   paragraphs: [
-    `Tomasso now has a bill for 65.5 ecus in return for his gold marc. This is the first step of 
-   the rechange. To turn this bill into cash Tomasso must remit the bill to 'You' in Florence, 
-   who will draw the bill on Federigo for 65.5 ecus. The result of this is that 'You' will have
-   made back the 64 ecus from the bill bought from 'Me' as well as having made 1.5 ecus profit.`,
-    `In Catholic Europe, Usury laws prohibited making interest from loans. This also included 
-   selling money for more than its stated price. This transaction circumvates usury laws because 
-   in Lyons, the ecus were bought for the price stated in the conto. It just so happens that a 
-   gold marc in Lyons will fetch more ecus than a gold marc in Florence. The exchange bankers often
-   used this to their advantage using such transaction networks.`,
+    `Because cash is many ways seen as the final form of settlement, a bank must ensure that
+    it can redeem its customers on a day to day basis. The surest way of doing this would be
+    to keep all the cash deposited in a vault, in case all the customers decide to all take out
+    their money at the same time. Of course, this is unlikely and the bank would like to use 
+    these funds for investments elsewhere. But bank runs (the scenario illustrated in the previous
+    sentence) can and do happen.`,
+    `This then is one of many constraints a bank faces. Traditionally banks are required to keep
+    a fraction of total customer deposits as reserves. For example if total customer deposits were
+    $10000, a bank may be required by law to keep $2500 in reserve to meet its daily demands. This 
+    is called fractional reserve banking.`,
+    `We have seen by playing with overdrafts how credit can expand and contract. Credit expansion 
+    means there is lots of investment going on, and lots of payments being made. However this 
+    is a precarious position for a bank if suddenly everyone gets spooked and wants to redeem their
+    deposits as cash. On the other hand, if credit doesn't expand, growth becomes much slower or 
+    even impossible. The art of banking requires striking a balance between constraint and elasticity.`,
   ],
   assignment: `Assignment: Get Tomasso to remit the bill to 'You' and have 'You' draw the bill on
   Federigo in return for 65.5 ecus. Previous steps should have been completed. If they have not been 

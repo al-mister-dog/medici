@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../../app/hooks";
-import { selectParties } from "../../../features/fundamentals/correspondentSlice";
+import { selectParties } from "../../../features/fundamentals/fundamentalsSlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
