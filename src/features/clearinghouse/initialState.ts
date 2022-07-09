@@ -90,7 +90,6 @@ bankLookup[bank2.id] = JSON.parse(JSON.stringify(bank2));
 customerLookup[customer1.id] = JSON.parse(JSON.stringify(customer1));
 customerLookup[customer2.id] = JSON.parse(JSON.stringify(customer2));
 bankLookup[clearinghouse.id] = JSON.parse(JSON.stringify(clearinghouse))
-// CustomerService.deposit(customer1, bank1, 100);
-// CustomerService.transfer(customer1, customer2, 50);
+
 
 export { bank1, bank2, customer1, customer2, clearinghouse };

@@ -2,11 +2,14 @@ import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
   selectParties,
   setupModule4,
+  reset,
 } from "../../../features/fundamentals/fundamentalsSlice";
+import {
+  resetTotalCreditData
+} from "../../../features/auxilliary/auxilliarySlice"
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
-import { modules } from "../config";
 import { IBank } from "../../../features/clearinghouse/program/types";
 
 const Step: React.FunctionComponent<{ text: any; config: any }> = ({
@@ -14,6 +17,7 @@ const Step: React.FunctionComponent<{ text: any; config: any }> = ({
   config,
 }) => {
   const dispatch = useAppDispatch();
+  
   const parties = useAppSelector(selectParties);
 
   const configCustomers = config.parties.filter((party: string) =>
@@ -43,22 +47,24 @@ const Step: React.FunctionComponent<{ text: any; config: any }> = ({
     setSelected(player.id);
   }
 
+  //HANDLE BREAKPOINTS
   const [width, setWidth] = useState(window.innerWidth);
-
   const breakpoint = 700;
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    // subscribe to window resize event "onComponentDidMount"
     window.addEventListener("resize", handleResizeWindow);
     return () => {
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
 
+  
   useEffect(() => {
-    if (config.title === "step4" || config.title === "step5") {
+    if (config.credit) {
+      dispatch(reset())
       dispatch(setupModule4());
+      dispatch(resetTotalCreditData())
     }
   }, [config]);
 

@@ -139,6 +139,6 @@ export const clearinghouseSlice = createSlice({
 
 export const { deposit, withdraw, transfer, netDues, settleDues, createNewCustomer, reset } = clearinghouseSlice.actions;
 
-export const selectParties = (state: RootState) => state.parties;
+export const selectParties = (state: RootState) => state.partiesClearinghouse;
 
 export default clearinghouseSlice.reducer;

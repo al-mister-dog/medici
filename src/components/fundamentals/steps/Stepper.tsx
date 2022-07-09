@@ -1,11 +1,10 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import {
   reset,
-  setupModule4,
 } from "../../../features/fundamentals/fundamentalsSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fundamentals } from "../../../config/texts";
-import { modules, Steps } from "../../../config/config";
+import { modules } from "../../../config/config";
 
 import {
   Box,
@@ -142,6 +141,7 @@ const StepperDeskTop: React.FunctionComponent<{
   };
 
   const handleNext = () => {
+    dispatch(reset());
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
@@ -163,6 +163,7 @@ const StepperDeskTop: React.FunctionComponent<{
   };
 
   const handleComplete = () => {
+    dispatch(reset());
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     handleSetCompleted(newCompleted);
@@ -170,6 +171,7 @@ const StepperDeskTop: React.FunctionComponent<{
   };
 
   const handleReset = () => {
+    dispatch(reset());
     handleSetActiveStep(0);
     handleSetCompleted({});
   };

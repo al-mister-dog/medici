@@ -7,8 +7,8 @@ import auxilliaryReducer from "../features/auxilliary/auxilliarySlice"
 export const store = configureStore({
   reducer: {
      players:  playersReducer,
-     parties: clearinghouseReducer,
-     cParties: fundamentalsReducer,
+     partiesClearinghouse: clearinghouseReducer,
+     partiesFundamentals: fundamentalsReducer,
      auxilliary: auxilliaryReducer
   },
 });

@@ -7,10 +7,11 @@ import {
 import {
   selectAuxilliary,
   setReservePercentage,
+  setTotalCreditData,
 } from "../../../../features/auxilliary/auxilliarySlice";
 import { Box, Slider, Typography } from "@mui/material";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   LineChart,
   CartesianGrid,
@@ -19,66 +20,16 @@ import {
   Line,
   Tooltip,
 } from "recharts";
-import { IBank } from "../../../../features/fundamentals/program/types";
 
 const ButtonAppBar: React.FunctionComponent<{ config?: any }> = ({
   config,
 }) => {
-  interface Obj {
-    [index: string]: any;
-  }
-  interface Account {
-    [index: string]: any;
-  }
   const dispatch = useAppDispatch();
   const parties = useAppSelector(selectParties);
-  const { reservePercentage } = useAppSelector(selectAuxilliary);
-  function getTotalCredit() {
-    let partiesArray: IBank[] = [];
-
-    for (const key in parties) {
-      partiesArray = [...partiesArray, parties[key]];
-    }
-
-    const allBanks = partiesArray.filter((party) => party.id.includes("bank"));
-
-    let bankAssetsAndLiabilities: Obj[] = [];
-
-    allBanks.forEach((bank) => {
-      for (const key in bank) {
-        if (key === "liabilities" || key === "assets") {
-          for (const k in bank[key]) {
-            bankAssetsAndLiabilities = [
-              ...bankAssetsAndLiabilities,
-              ...bank[key][k],
-            ];
-          }
-        }
-      }
-    });
-
-    const totalAssetsAndLiabilities = bankAssetsAndLiabilities.reduce(
-      (a: Account, c: Account) => {
-        return { amount: a.amount + c.amount };
-      },
-      { amount: 0 }
-    );
-
-    const totalCredit = totalAssetsAndLiabilities.amount;
-
-    return totalCredit;
-  }
-
-  const [data, setData] = useState([
-    {
-      name: "",
-      credit: 0,
-    },
-  ]);
+  const { reservePercentage, totalCreditData, totalCredit } = useAppSelector(selectAuxilliary);
 
   useEffect(() => {
-    const totalCredit = getTotalCredit();
-    setData([...data, { name: "", credit: totalCredit }]);
+    dispatch(setTotalCreditData({parties}))
   }, [parties]);
 
 
@@ -116,12 +67,12 @@ const ButtonAppBar: React.FunctionComponent<{ config?: any }> = ({
           }}
         >
           <Typography style={{ margin: 0, padding: 0 }}>
-            Total System Credit: ${getTotalCredit()}
+            Total System Credit: ${totalCredit}
           </Typography>
           <LineChart
             width={450}
             height={150}
-            data={data}
+            data={totalCreditData}
             margin={{ top: 5, right: 30, left: 20, bottom: -10 }}
           >
             <CartesianGrid strokeDasharray="3 3" />

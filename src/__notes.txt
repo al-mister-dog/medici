@@ -1,0 +1,25 @@
+TODOS
+
+1
+USER STORY
+PERSONA: Lecture writer
+Writer wants to preload setup for their lesson. For example some customers will 
+have already deposited some money or made some transfers etc.
+
+    
+setup: {
+  system: "correspondent",
+  bank1: {
+    customers: 2,
+    reserves: 100
+  },
+  bank2: {
+    customers: 2,
+    reserves: 100
+  },
+  deposited: {
+    
+  },
+  transfered: {
+  }
+}

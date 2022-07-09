@@ -1,12 +1,6 @@
-//TODOS
-/**
- * A LOT OF THE COMPLICATED OBJECT KEY STUFF COULD BE SIMPLIFIED BY ADDING GOODS
- * TO BANKER OBJECTS
- */
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import helpers from "./helpers";
-// import { fetchCount } from "./ API";
 import { Quotes, Rates, Currencies } from "../../types";
 import {
   certaintyQuotes,
@@ -62,7 +56,6 @@ export interface PlayersState {
   };
   records: string[];
 }
-type Category = Pick<Banker | Trader, "assets" | "liabilities">;
 
 const initialState: PlayersState = {
   conditions: {

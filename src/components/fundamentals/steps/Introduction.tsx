@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { textsIntro } from "../assets/texts"
 import Introduction from "../ui/Introduction"
 import Box from "@mui/material/Box"
 
@@ -17,14 +16,14 @@ const Intro = ({text}: {text: any}) => {
   if (width > breakpoint) {
     return (
       <Box sx={{paddingLeft: "75px", paddingRight: "75px", marginTop: "50px"}}>
-      <Introduction texts={textsIntro}/>
+      <Introduction texts={text}/>
       </Box>
       
     )
   }
   return (
     <>
-    <Introduction texts={textsIntro}/>
+    <Introduction texts={text}/>
     </>
     
   )

@@ -52,7 +52,7 @@ function copyPayload(payload: { p1: any; p2: any; amt: number }) {
   return { copy1, copy2, key1, key2, amt };
 }
 
-export const correspondentSlice = createSlice({
+export const fundamentalsSlice = createSlice({
   name: "parties",
   initialState,
   reducers: {
@@ -61,14 +61,14 @@ export const correspondentSlice = createSlice({
       CustomerService.deposit(copy1, copy2, amt);
       state[key1] = copy1;
       state[key2] = copy2;
-      correspondentSlice.caseReducers.updateLookupState(state);
+      fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     withdraw: (state, { payload }) => {
       const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
       CustomerService.withdraw(copy1, copy2, amt);
       state[key1] = copy1;
       state[key2] = copy2;
-      correspondentSlice.caseReducers.updateLookupState(state);
+      fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     transfer: (state, { payload }) => {
       const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
@@ -77,7 +77,7 @@ export const correspondentSlice = createSlice({
       state[key2] = copy2;
       state.bank1 = bankLookup[bank1.id];
       state.bank2 = bankLookup[bank2.id];
-      correspondentSlice.caseReducers.updateLookupState(state);
+      fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     netDues: (state, { payload }) => {
       const { p1 } = payload;
@@ -111,7 +111,7 @@ export const correspondentSlice = createSlice({
       );
     },
     setupModule4: (state) => {
-      //loop through copies
+      
       const customer1 = JSON.parse(JSON.stringify(state.customer1));
       const customer2 = JSON.parse(JSON.stringify(state.customer2));
       const bank1 = JSON.parse(JSON.stringify(state.bank1));
@@ -123,7 +123,7 @@ export const correspondentSlice = createSlice({
       state.customer1.reserves = 100;
       state.customer2.reserves = 100;
       state.bank1.reserves = 300;
-      correspondentSlice.caseReducers.updateLookupState(state);
+      fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     // setupModule: (state, { payload }) => {
     //   const customerCopies = payload.parties.filter((party: string) =>
@@ -151,8 +151,8 @@ export const {
   createNewCustomer,
   reset,
   setupModule4,
-} = correspondentSlice.actions;
+} = fundamentalsSlice.actions;
 
-export const selectParties = (state: RootState) => state.cParties;
+export const selectParties = (state: RootState) => state.partiesFundamentals;
 
-export default correspondentSlice.reducer;
+export default fundamentalsSlice.reducer;

@@ -1,11 +1,6 @@
-//moduleFilters
 import { Box, Typography } from "@mui/material";
 import { deCamelize, capitalize } from "../../helpers";
 const toolbarTextColor = "#f2eecb";
-
-type Account = {
-  [index: string]: any;
-};
 
 const Side: React.FunctionComponent<{
   config?: any;
