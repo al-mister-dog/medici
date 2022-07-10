@@ -9,17 +9,16 @@ have already deposited some money or made some transfers etc.
     
 setup: {
   system: "correspondent",
-  bank1: {
-    customers: 2,
-    reserves: 100
-  },
-  bank2: {
-    customers: 2,
-    reserves: 100
-  },
-  deposited: {
-    
-  },
-  transfered: {
-  }
+  parties: [
+    {
+      bank: "bank1"
+      customers: [
+        {customer: "customer1"}, 
+        {customer: "customer2"}]
+    },
+    {
+      bank: "bank2"
+      customers: ["customer1", "customer4"]
+    }
+  ]
 }

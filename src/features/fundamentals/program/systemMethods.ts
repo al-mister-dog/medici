@@ -1,5 +1,5 @@
 import { partyFunctions } from "./instanceMethods";
-import { bankLookup } from "./lookupTables";
+import { lookup } from "./lookupTables";
 import { PaymentMethods } from "./methods";
 import { IBank } from "./types";
 
@@ -69,15 +69,15 @@ class CorrespondentSystem extends AbstractSystem {
     });
   }
   settleDues(): void {
-    for (const bank in bankLookup) {
-      bankLookup[bank].liabilities.dues.forEach((due) => {
+    for (const bank in lookup) {
+      lookup[bank].liabilities.dues.forEach((due) => {
         PaymentMethods.creditAccount(
-          bankLookup[due.id],
-          bankLookup[bank],
+          lookup[due.id],
+          lookup[bank],
           due.amount,
           ["bankDeposits", "bankOverdrafts"]
         );
-        PaymentMethods.clearDues(bankLookup[bank], bankLookup[due.id]);
+        PaymentMethods.clearDues(lookup[bank], lookup[due.id]);
       });
     }
   }
@@ -86,24 +86,24 @@ class CorrespondentSystem extends AbstractSystem {
 class ClearingHouseSystem extends AbstractSystem {
   increaseDues(bankA: IBank, bankB: IBank, amount: number) {
     partyFunctions(bankA).increaseInstrument(
-      bankLookup["clearinghouse"].id,
+      lookup["clearinghouse"].id,
       "liabilities",
       "dues",
       amount
     );
-    partyFunctions(bankLookup["clearinghouse"]).increaseInstrument(
+    partyFunctions(lookup["clearinghouse"]).increaseInstrument(
       bankA.id,
       "assets",
       "dues",
       amount
     );
     partyFunctions(bankB).increaseInstrument(
-      bankLookup["clearinghouse"].id,
+      lookup["clearinghouse"].id,
       "assets",
       "dues",
       amount
     );
-    partyFunctions(bankLookup["clearinghouse"]).increaseInstrument(
+    partyFunctions(lookup["clearinghouse"]).increaseInstrument(
       bankB.id,
       "liabilities",
       "dues",
@@ -133,9 +133,9 @@ class ClearingHouseSystem extends AbstractSystem {
     });
 
     let bankDueFrom = bank.assets.dues.find(
-      (due) => due.id === bankLookup["clearinghouse"].id
+      (due) => due.id === lookup["clearinghouse"].id
     );
-    let clearinghouseDueFrom = bankLookup[
+    let clearinghouseDueFrom = lookup[
       "clearinghouse"
     ].liabilities.dues.find((due) => due.id === bank.id);
 
@@ -143,9 +143,9 @@ class ClearingHouseSystem extends AbstractSystem {
       clearinghouseDueFrom.amount = bankDueFrom.amount;
     }
     let bankDueTo = bank.liabilities.dues.find(
-      (due) => due.id === bankLookup["clearinghouse"].id
+      (due) => due.id === lookup["clearinghouse"].id
     );
-    let clearinghouseDueTo = bankLookup["clearinghouse"].assets.dues.find(
+    let clearinghouseDueTo = lookup["clearinghouse"].assets.dues.find(
       (due) => due.id === bank.id
     );
     if (clearinghouseDueTo && bankDueTo) {
@@ -154,24 +154,24 @@ class ClearingHouseSystem extends AbstractSystem {
   }
 
   settleDues(): void {
-    for (const bank in bankLookup) {
-      bankLookup[bank].liabilities.dues.forEach((due) => {
-        if (due.amount > 0 && bankLookup[bank].id === "clearinghouse") {
+    for (const bank in lookup) {
+      lookup[bank].liabilities.dues.forEach((due) => {
+        if (due.amount > 0 && lookup[bank].id === "clearinghouse") {
           PaymentMethods.creditAccount(
-            bankLookup[due.id],
-            bankLookup[bank],
+            lookup[due.id],
+            lookup[bank],
             due.amount,
             ["chCertificates", "chOverdrafts"]
           );
-        } else if (due.amount > 0 && bankLookup[bank].id !== "clearinghouse") {
+        } else if (due.amount > 0 && lookup[bank].id !== "clearinghouse") {
           PaymentMethods.debitAccount(
-            bankLookup[bank],
-            bankLookup[due.id],
+            lookup[bank],
+            lookup[due.id],
             due.amount,
             ["chCertificates", "chOverdrafts"]
           );
         }
-        PaymentMethods.clearDues(bankLookup[bank], bankLookup[due.id]);
+        PaymentMethods.clearDues(lookup[bank], lookup[due.id]);
       });
     }
   }

@@ -1,5 +1,5 @@
 import { partyFunctions } from "./instanceMethods";
-import { bankLookup } from "./lookupTables";
+import { lookup } from "./lookupTables";
 import { PaymentMethods, AccountMethods } from "./methods";
 import { SystemMethods } from "./systemMethods";
 
@@ -85,7 +85,7 @@ export class CustomerService {
     )[0];
     
     const bankId = accountWithMostCash.id.split("-")[1].toString();
-    const customersBank = bankLookup[bankId]
+    const customersBank = lookup[bankId]
     return customersBank;
   }
   private static automateTransferToAccount(c: IBank) {
@@ -102,7 +102,7 @@ export class CustomerService {
       }
     )[0];
     const bankId = accountWithLeastCash.id.split("-")[1].toString();
-    const customersBank = bankLookup[bankId]
+    const customersBank = lookup[bankId]
     return customersBank;
   }
   static transfer(
@@ -190,32 +190,32 @@ export class CustomerService {
 
 export class ClearingHouseService {
   static settleDues() {
-    for (const bank in bankLookup) {
-      bankLookup[bank].liabilities.dues.forEach((due: any) => {
+    for (const bank in lookup) {
+      lookup[bank].liabilities.dues.forEach((due: any) => {
         const clearinghouseOwesBank =
           due.amount > 0 &&
-          bankLookup[bank].id === "clearinghouse" &&
+          lookup[bank].id === "clearinghouse" &&
           due.id !== "clearinghouse";
         const bankOwesClearinghouse =
           due.amount > 0 &&
-          bankLookup[bank].id !== "clearinghouse" &&
+          lookup[bank].id !== "clearinghouse" &&
           due.id === "clearinghouse";
         if (clearinghouseOwesBank) {
           PaymentMethods.creditAccount(
-            bankLookup[due.id],
-            bankLookup[bank],
+            lookup[due.id],
+            lookup[bank],
             due.amount,
             ["chCertificates", "chOverdrafts"]
           );
         } else if (bankOwesClearinghouse) {
           PaymentMethods.debitAccount(
-            bankLookup[bank],
-            bankLookup[due.id],
+            lookup[bank],
+            lookup[due.id],
             due.amount,
             ["chCertificates", "chOverdrafts"]
           );
         }
-        PaymentMethods.clearDues(bankLookup[bank], bankLookup[due.id]);
+        PaymentMethods.clearDues(lookup[bank], lookup[due.id]);
       });
     }
   }

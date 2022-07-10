@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { bankLookup, customerLookup } from "./program/lookupTables";
+import { lookup } from "./program/lookupTables";
 import { IBank } from "./program/types";
-import { customer1, customer2, customer3, bank1, bank2 } from "./initialState";
+import { creditSetup } from "./setupState";
+import { setupState, createBankingSystem, defaultSetup } from "./initialState";
 import { CustomerService } from "./program/services";
 import {
   customerAssets,
@@ -16,11 +17,7 @@ interface BankState {
 }
 
 const initialState: BankState = {
-  customer1,
-  customer2,
-  customer3,
-  bank1,
-  bank2,
+  ...setupState
 };
 
 type BankStateKey = keyof typeof initialState;
@@ -39,7 +36,7 @@ function createCustomer() {
     records: [],
   };
   customerCount = customerCount + 1;
-  customerLookup[newCustomer.id] = JSON.parse(JSON.stringify(newCustomer));
+  lookup[newCustomer.id] = JSON.parse(JSON.stringify(newCustomer));
   return newCustomer;
 }
 
@@ -75,8 +72,8 @@ export const fundamentalsSlice = createSlice({
       CustomerService.transfer(copy1, copy2, amt);
       state[key1] = copy1;
       state[key2] = copy2;
-      state.bank1 = bankLookup[bank1.id];
-      state.bank2 = bankLookup[bank2.id];
+      state.bank1 = lookup["bank1"];
+      state.bank2 = lookup["bank2"];
       fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     netDues: (state, { payload }) => {
@@ -91,39 +88,29 @@ export const fundamentalsSlice = createSlice({
       state[newCustomer.id] = newCustomer;
     },
     reset: (state) => {
-      state.customer1 = customer1;
-      state.customer2 = customer2;
-      state.customer3 = customer3;
-      state.bank1 = bank1;
-      state.bank2 = bank2;
+      for (const key in setupState) {
+        state[key] = JSON.parse(JSON.stringify(setupState[key]))
+      }
     },
     updateLookupState: (state) => {
-      bankLookup[bank1.id] = JSON.parse(JSON.stringify(state.bank1));
-      bankLookup[bank2.id] = JSON.parse(JSON.stringify(state.bank2));
-      customerLookup[customer1.id] = JSON.parse(
-        JSON.stringify(state.customer1)
-      );
-      customerLookup[customer2.id] = JSON.parse(
-        JSON.stringify(state.customer2)
-      );
-      customerLookup[customer3.id] = JSON.parse(
-        JSON.stringify(state.customer2)
-      );
+      for (const key in state) {
+        lookup[key] = JSON.parse(JSON.stringify(state[key]))
+      }
     },
     setupModule4: (state) => {
-      
-      const customer1 = JSON.parse(JSON.stringify(state.customer1));
-      const customer2 = JSON.parse(JSON.stringify(state.customer2));
-      const bank1 = JSON.parse(JSON.stringify(state.bank1));
-      CustomerService.deposit(customer1, bank1, 50);
-      CustomerService.deposit(customer2, bank1, 50);
-      state.customer1 = customer1;
-      state.customer2 = customer2;
-      state.bank1 = bank1;
-      state.customer1.reserves = 100;
-      state.customer2.reserves = 100;
-      state.bank1.reserves = 300;
-      fundamentalsSlice.caseReducers.updateLookupState(state);
+      createBankingSystem(creditSetup)
+      // const customer1 = JSON.parse(JSON.stringify(state.customer1));
+      // const customer2 = JSON.parse(JSON.stringify(state.customer2));
+      // const bank1 = JSON.parse(JSON.stringify(state.bank1));
+      // CustomerService.deposit(customer1, bank1, 50);
+      // CustomerService.deposit(customer2, bank1, 50);
+      // state.customer1 = customer1;
+      // state.customer2 = customer2;
+      // state.bank1 = bank1;
+      // state.customer1.reserves = 100;
+      // state.customer2.reserves = 100;
+      // state.bank1.reserves = 300;
+      // fundamentalsSlice.caseReducers.updateLookupState(state);
     },
     // setupModule: (state, { payload }) => {
     //   const customerCopies = payload.parties.filter((party: string) =>
