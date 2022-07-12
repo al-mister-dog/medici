@@ -1,12 +1,11 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
+import {defaultSetup, creditSetup} from "../../../features/fundamentals/setupConfig"
 import {
   selectParties,
-  setupModule4,
+  setupModule,
   reset,
 } from "../../../features/fundamentals/fundamentalsSlice";
-import {
-  resetTotalCreditData
-} from "../../../features/auxilliary/auxilliarySlice"
+import { resetTotalCreditData } from "../../../features/auxilliary/auxilliarySlice";
 import { useState, useEffect } from "react";
 import IndexMobile from "../mobile/Index";
 import IndexDesktop from "../desktop/Index";
@@ -17,7 +16,7 @@ const Step: React.FunctionComponent<{ text: any; config: any }> = ({
   config,
 }) => {
   const dispatch = useAppDispatch();
-  
+
   const parties = useAppSelector(selectParties);
 
   const configCustomers = config.parties.filter((party: string) =>
@@ -59,12 +58,21 @@ const Step: React.FunctionComponent<{ text: any; config: any }> = ({
     };
   }, []);
 
-  
   useEffect(() => {
-    if (config.credit) {
-      dispatch(reset())
-      dispatch(setupModule4());
-      dispatch(resetTotalCreditData())
+    if (config.state) {
+      dispatch(reset());
+      dispatch(setupModule({setup: config.state}));
+      dispatch(resetTotalCreditData());
+      return
+    }
+    else if (config.credit) {
+      dispatch(reset());
+      dispatch(setupModule({setup: creditSetup}));
+      dispatch(resetTotalCreditData());
+    } else {
+      dispatch(reset());
+      dispatch(setupModule({setup: defaultSetup}));
+      dispatch(resetTotalCreditData());
     }
   }, [config]);
 

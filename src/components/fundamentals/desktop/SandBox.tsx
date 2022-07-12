@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   selectParties,
-  createNewCustomer,
+  // createNewCustomer,
 } from "../../../features/fundamentals/fundamentalsSlice";
 import { Button } from "@mui/material";
 export default function SandBox() {
@@ -9,10 +9,10 @@ export default function SandBox() {
   const dispatch = useAppDispatch();
   return (
     <>
-      {JSON.stringify(parties)}
+      {/* {JSON.stringify(parties)}
       <Button onClick={() => dispatch(createNewCustomer())}>
         Create Customer
-      </Button>
+      </Button> */}
     </>
   );
 }

@@ -1,15 +1,11 @@
+//TODOS: UPDATERESTOFSTATE FUNCTION
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { lookup } from "./program/lookupTables";
 import { IBank } from "./program/types";
-import { creditSetup } from "./setupState";
-import { setupState, createBankingSystem, defaultSetup } from "./initialState";
+import { setupState } from "./initialState";
+import { newSetupState, createBankingSystem } from "./helpers";
 import { CustomerService } from "./program/services";
-import {
-  customerAssets,
-  customerBalances,
-  customerLiabilities,
-} from "./program/fixtures";
 import { BankService } from "./program/services";
 
 interface BankState {
@@ -17,116 +13,50 @@ interface BankState {
 }
 
 const initialState: BankState = {
-  ...setupState
+  ...setupState,
 };
-
-type BankStateKey = keyof typeof initialState;
-
-let customerCount = 3;
-let bankCount = 3;
-
-function createCustomer() {
-  const newCustomer: IBank = {
-    id: `customer${customerCount}`,
-    type: "customer",
-    assets: { ...customerAssets },
-    liabilities: { ...customerLiabilities },
-    balances: { ...customerBalances },
-    reserves: 0,
-    records: [],
-  };
-  customerCount = customerCount + 1;
-  lookup[newCustomer.id] = JSON.parse(JSON.stringify(newCustomer));
-  return newCustomer;
-}
-
-function copyPayload(payload: { p1: any; p2: any; amt: number }) {
-  const { p1, p2, amt } = payload;
-  const key1 = p1.id as BankStateKey;
-  const key2 = p2.id as BankStateKey;
-  const copy1 = JSON.parse(JSON.stringify(p1));
-  const copy2 = JSON.parse(JSON.stringify(p2));
-  return { copy1, copy2, key1, key2, amt };
-}
 
 export const fundamentalsSlice = createSlice({
   name: "parties",
   initialState,
   reducers: {
     deposit: (state, { payload }) => {
-      const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
-      CustomerService.deposit(copy1, copy2, amt);
-      state[key1] = copy1;
-      state[key2] = copy2;
-      fundamentalsSlice.caseReducers.updateLookupState(state);
+      const { p1, p2, amt } = payload;
+      CustomerService.deposit(lookup[p1.id], lookup[p2.id], amt);
+      fundamentalsSlice.caseReducers.updateState(state);
     },
     withdraw: (state, { payload }) => {
-      const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
-      CustomerService.withdraw(copy1, copy2, amt);
-      state[key1] = copy1;
-      state[key2] = copy2;
-      fundamentalsSlice.caseReducers.updateLookupState(state);
+      const { p1, p2, amt } = payload;
+      CustomerService.withdraw(lookup[p1.id], lookup[p2.id], amt);
+      fundamentalsSlice.caseReducers.updateState(state);
     },
     transfer: (state, { payload }) => {
-      const { copy1, copy2, key1, key2, amt } = copyPayload(payload);
-      CustomerService.transfer(copy1, copy2, amt);
-      state[key1] = copy1;
-      state[key2] = copy2;
-      state.bank1 = lookup["bank1"];
-      state.bank2 = lookup["bank2"];
-      fundamentalsSlice.caseReducers.updateLookupState(state);
+      const { p1, p2, amt } = payload;
+      CustomerService.transfer(lookup[p1.id], lookup[p2.id], amt);
+      fundamentalsSlice.caseReducers.updateState(state);
     },
     netDues: (state, { payload }) => {
       const { p1 } = payload;
-      const key = p1.id as BankStateKey;
-      const p1Copy = JSON.parse(JSON.stringify(p1));
-      BankService.netDues(p1Copy);
-      state[key] = p1Copy;
+      BankService.netDues(lookup[p1.id]);
+      fundamentalsSlice.caseReducers.updateState(state);
     },
-    createNewCustomer: (state) => {
-      const newCustomer = createCustomer();
-      state[newCustomer.id] = newCustomer;
+    updateState: (state) => {
+      for (const key in state) {
+        state[key] = JSON.parse(JSON.stringify(lookup[key]));
+      }
     },
     reset: (state) => {
       for (const key in setupState) {
-        state[key] = JSON.parse(JSON.stringify(setupState[key]))
+        state[key] = JSON.parse(JSON.stringify(setupState[key]));
+        // lookup[key] = JSON.parse(JSON.stringify(setupState[key])); incase of errors
       }
     },
-    updateLookupState: (state) => {
-      for (const key in state) {
-        lookup[key] = JSON.parse(JSON.stringify(state[key]))
+    setupModule: (state, { payload }) => {
+      createBankingSystem(payload.setup);
+      for (const key in newSetupState) {
+        state[key] = JSON.parse(JSON.stringify(newSetupState[key]));
       }
     },
-    setupModule4: (state) => {
-      createBankingSystem(creditSetup)
-      // const customer1 = JSON.parse(JSON.stringify(state.customer1));
-      // const customer2 = JSON.parse(JSON.stringify(state.customer2));
-      // const bank1 = JSON.parse(JSON.stringify(state.bank1));
-      // CustomerService.deposit(customer1, bank1, 50);
-      // CustomerService.deposit(customer2, bank1, 50);
-      // state.customer1 = customer1;
-      // state.customer2 = customer2;
-      // state.bank1 = bank1;
-      // state.customer1.reserves = 100;
-      // state.customer2.reserves = 100;
-      // state.bank1.reserves = 300;
-      // fundamentalsSlice.caseReducers.updateLookupState(state);
-    },
-    // setupModule: (state, { payload }) => {
-    //   const customerCopies = payload.parties.filter((party: string) =>
-    //     party.includes("customer")
-    //   );
-    //   const bankCopies = payload.parties.filter((party: string) =>
-    //     party.includes("bank")
-    //   );
-    //   const clearinghouseCopies = payload.parties.filter((party: string) =>
-    //     party.includes("clearinghouse")
-    //   );
-    //   customerCopies.forEach((copy: string) => {
-    //     const key = copy as BankStateKey;
-
-    //   })
-    // },
   },
 });
 
@@ -135,9 +65,8 @@ export const {
   withdraw,
   transfer,
   netDues,
-  createNewCustomer,
   reset,
-  setupModule4,
+  setupModule,
 } = fundamentalsSlice.actions;
 
 export const selectParties = (state: RootState) => state.partiesFundamentals;

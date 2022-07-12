@@ -1,7 +1,7 @@
 import { useAppSelector } from "../../../app/hooks";
 import {
   selectParties,
-  createNewCustomer,
+  // createNewCustomer,
 } from "../../../features/fundamentals/fundamentalsSlice";
 import Introduction from "../ui/Introduction";
 
@@ -9,8 +9,8 @@ import { Box } from "@mui/material";
 import Player from "./sidepanel/Player";
 import Board from "./Board";
 import Notifications from "./toolbars/NotificationsToolbar";
-import Refresh from "./toolbars/RefreshToolbar";
-import { useState } from "react";
+// import Refresh from "./toolbars/RefreshToolbar";
+// import { useState } from "react";
 
 const Index: React.FunctionComponent<{
   config?: any;
@@ -47,18 +47,14 @@ const Index: React.FunctionComponent<{
           borderRadius: "5px",
         }}
       >
-        <Box
-          style={{
-            overflowX: "hidden",
-          }}
-        >
+        
           <Board
             config={config}
             customerParties={customerParties}
             bankParties={bankParties}
             selectParty={selectParty}
           />
-        </Box>
+        
         <Box sx={{ width: "40%", margin: "auto" }}>
           <Player config={config} selected={parties[selected]} />
         </Box>

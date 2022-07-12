@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { reset } from "../../../features/fundamentals/fundamentalsSlice";
 import { useState } from "react";
-import { fundamentals } from "../../../config/texts";
+import { clearinghouse } from "../../../config/texts";
 import { modules } from "../../../config/config";
 
 import {
@@ -24,20 +24,20 @@ import Introduction from "./Introduction";
 import StepComponent from "./Step";
 
 // import Playground from "./6-playground";
-const config = modules.fundamentals.steps;
+const config = modules.clearinghouse.steps;
 
 function getStepContent(step: number) {
   switch (step) {
     case 0:
       return <Introduction text={config[1].text} />;
     case 1:
-      return <StepComponent text={fundamentals.step2} config={config[2]} />;
+      return <StepComponent text={config[2].text} config={config[2]} />;
     case 2:
-      return <StepComponent text={fundamentals.step3} config={config[3]} />;
-    case 3:
-      return <StepComponent text={fundamentals.step4} config={config[4]} />;
-    case 4:
-      return <StepComponent text={fundamentals.step5} config={config[5]} />;
+      return <StepComponent text={config[3].text} config={config[3]} />;
+    // case 3:
+    //   return <StepComponent text={fundamentals.step4} config={config[4]} />;
+    // case 4:
+    //   return <StepComponent text={fundamentals.step5} config={config[5]} />;
     // case 5:
     //   return <Playground />;
     default:
@@ -46,11 +46,11 @@ function getStepContent(step: number) {
 }
 const steps = [
   "Introduction",
-  "Balance Sheets and Deposits",
-  "Deposit Transfers",
-  "Overdrafts",
-  "Constraints",
-  "Playground",
+  "One Big Bank",
+  "Multiple Banks",
+  // "Overdrafts",
+  // "Constraints",
+  // "Playground",
 ];
 
 const StepperIndex: React.FunctionComponent = () => {

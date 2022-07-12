@@ -1,4 +1,5 @@
-import { fundamentals } from "./texts";
+import { fundamentals, clearinghouse } from "./texts";
+import { oneBigBank, module2 } from "../features/fundamentals/setupConfig";
 
 export interface Text {
   title: string;
@@ -21,16 +22,16 @@ export interface Step {
 }
 
 export interface Steps {
-  [key:number] : IntroStep | Step
+  [key: number]: IntroStep | Step;
 }
 
 interface Module {
-  name: "string",
-  steps: Steps  
+  name: "string";
+  steps: Steps;
 }
 
 interface ModuleObject {
-  [key: string]: Module
+  [key: string]: Module;
 }
 export const modules = {
   fundamentals: {
@@ -82,40 +83,26 @@ export const modules = {
     name: "clearinghouse",
     steps: {
       1: {
-        overdraft: true,
-        credit: true,
-        constraint: false,
-        balanceSheetDisplay: ["customerDeposits", "customerOverdrafts"],
+        title: "step1",
+        text: clearinghouse.step1,
       },
       2: {
-        system: "correspondent",
-        overdraft: false,
-        credit: false,
-        constraint: false,
-        balanceSheetDisplay: [
-          "customerDeposits",
-          "customerOverdrafts",
-          "bankDeposits",
-          "bankOverdrafts",
-        ],
-      },
-      3: {
-        system: "clearinghouse",
-        overdraft: false,
-        credit: false,
-        constraint: false,
-        balanceSheetDisplay: [
-          "customerDeposits",
-          "customerOverdrafts",
-          "bankDeposits",
-          "bankOverdrafts",
-        ],
-      },
-      4: {
         overdraft: true,
         credit: true,
-        constraint: true,
+        constraint: false,
+        parties: ["customer1", "customer2", "customer3", "customer4", "bank1"],
         balanceSheetDisplay: ["customerDeposits", "customerOverdrafts"],
+        text: clearinghouse.step2,
+        state: oneBigBank,
+      },
+      3: {
+        overdraft: true,
+        credit: true,
+        constraint: false,
+        parties: ["customer1", "customer2", "customer3", "customer4", "bank1", "bank2"],
+        balanceSheetDisplay: ["customerDeposits", "customerOverdrafts"],
+        text: clearinghouse.step3,
+        state: module2.multipleBanks,
       },
     },
   },

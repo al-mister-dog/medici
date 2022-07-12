@@ -169,50 +169,35 @@ export const clearinghouse = {
   },
 
   step2: {
-    title: `Balance Sheets and Bank Deposits`,
+    title: `One Big Bank`,
     paragraphs: [
-      `A balance sheet is a T shaped graph that has two sides. One side consists
-      of assets, and the other side consists of liabilities. Assets are things that
-      you own, like money or a car, and liabilities are things that you
-      owe to someone else, which could also be money or a mortgage etc.
-      Please note that in this example the bank's liabilities are 'deposits' and
-      the customer's assets are also 'deposits'. Both the bank and the customer have
-      cash as an assets, which counts towards their reserves, but the customer's cash 
-      is not shown here (maybe its in their back pocket).But what is the difference between cash 
-      and deposits? `,
-      `It seems like common sense to assume when we deposit cash at the bank, the money 
-      is waiting in a vault inside the bank for us somewhere as cash to withdraw. 
-      The truth is a little more complicated, but not too much. When a customer puts their 
-      money in a bank, they receive a deposit in return. A deposit is actually different 
-      to the cash that the customer puts in the bank. A deposit means money that the bank 
-      owes to its customer, and which the customer can demand at any point to be redeemed in cash.
-      In fact there are much more deposits than there is cash money. According to the 
-      Bank of England, only 4% of the money in the UK is cash; 96% is deposits. The same is true
-      in many countries in the world. The money is digital.`,
-      `In your local bank branch it is certain that there is more money in deposits (which are just 
-      numbers in a database) than there is cash in the vaults. Fortunately not everyone is going 
-      to go the bank to withdraw their money all at once, otherwise the bank would not be able 
-      to follow on their promise to redeem the customer's deposits on demand. During times of 
-      financial uncertainty there may be large queues outside banks, 
-      with people trying to withdraw their deposits as cash (try googling 'Northern Rock').
-      This illustrates the fact that there is in fact some uncertainty as to the status of deposits 
-      compared to cash. You could say that one money is better than the other. As will become clearer as you go
-      through each module in the course, there are many types of money, and they line up in a hierarchy!
-      Hopefuly this serves as a simple illustration of that fact.`,
+      `Suppose there was only one bank, and everyone in the economy had an account.
+      The bank would have reserves on the assets side of its balance sheet and each customer's
+      deposits on the liabilities side. In this world the 'quantity of money' would consist
+      of the amount of deposit accounts in the bank. Any payments made between customers would
+      simply add and subtract the same amount on the the liability side of the bank's balance
+      sheet. Reserves would never move.`,
+      `But what if this bank were to allow overdrafts, in which negative accounts show up on
+      the assets side of the bank's balance sheet. In this world, a customer with a negative
+      account making a payment to a customer with a positive account would end up expanding both 
+      sides of the bank's balance sheet. Likewise a customer with a positive account making a 
+      payment to a customer with a negative account would end up contracting both sides of the
+      balance sheet.`,
+      `The use of bank credit as a means of payment thus involves a certain elasticity in the 
+      quantity of money. This raises questions about how to properly measure the quantity of 
+      money. There are three possibilities. 1: The sum of deposits held in positive accounts. 
+      2: The sum of positive accounts subtracted by overdrafts. 3: All deposits, positive or
+      negative.`,
     ],
-    assignment: `Get Customer 1 to deposit and withdraw cash into and from their bank, and take notice 
-    of the difference in the customer's and the bank's balance sheets. Then click next `,
+    assignment: `Here are four customers belonging to the same bank. Make payments between customers
+    with both positive and negative accounts and see which transactions expand or contract the 
+    balance sheet. How many types of transactions exist in this system?`,
   },
   step3: {
-    title: `Deposit Transfers`,
+    title: `Multiple Banks`,
     paragraphs: [
-      `We have seen how a bank takes a customer's money and exchanges them for deposits. On the bank's balance sheet, the deposits are counted as liabilities and the cash is part of the reserves on the assets side of the balance sheet.
-      We will now look at bank transfers. We transfer money when we want or have to give someone money in payment.
-      Outside of the banking system we could do this by simply handing the other person cash. But inside of
-      the banking system this is done by online transfer, or by check. And in this case we are not transfering cash but instead
-      we are transfering the deposits from our account into their account.`,
-      `So what happens in the balance sheets when customers make transfers? If a bank has two customers, both depositing £100, the bank would have £200 in reserves and £200 of deposits, which the bank owes to its customers. If Customer One transfered some of their deposits to Customer Two, no change would occur in the bank's total assets or liabilities, even though a change between the accounts of customer One and customer Two has occured.
-      As we will see later, it is a different situation when customers transfer deposits to customers with a different bank account to their own.`,
+      `In reality there isn't just one bank but many banks.`,
+      `blablabla`,
     ],
     assignment: `Here we have a bank with two customers, who have 100 pounds in cash ready to be deposited at the bank. Watch what happens to the bank’s balance sheet and the customers' accounts when they transfer their money to eachother.`,
   },

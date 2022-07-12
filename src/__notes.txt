@@ -22,3 +22,26 @@ setup: {
     }
   ]
 }
+
+2
+each lecture has a series of illustrated examples called steps
+
+part 1: Balance Sheets (Fundamentals)
+  deposits
+  transfers
+  overdrafts
+  reserve requirement
+
+part 2: Credit and Constraint (Fundamentals)
+
+part 3: Towards a Central bank
+  one big bank (a primer)
+  the problem of reserves
+  correspondent banking
+  clearing house
+  failure and legality
+part 4: The Federal Reserve
+
+
+
+

@@ -1,29 +1,26 @@
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme"
+import theme from "./theme";
+import Home from "./Home"
+import Fundamentals from "./components/fundamentals/steps/Stepper";
+import Clearinghouse from "./components/fundamentals/steps/Stepper2";
 import Medici from "./components/medici/steps/Stepper";
-import Clearinghouse from "./components/clearinghouse/steps/Stepper"
-import Fundamentals from "./components/fundamentals/steps/Stepper"
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Overflow from "./Overflow";
+
 function App() {
-  const [module, setModule] = useState(0)
   return (
     <ThemeProvider theme={theme}>
-      <div>
-      <button onClick={() => setModule(0)}>Fundamentals</button>
-        <button onClick={() => setModule(1)}>Clearinghouse</button>
-        <button onClick={() => setModule(2)}>Medici</button>
-      </div>
-      {module === 2 &&
-      <Medici/>
-      }
-      {module === 1 &&
-      <Clearinghouse />
-      }
-      {module === 0 &&
-      <Fundamentals />
-      }
-      
-      </ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/fundamentals" element={<Fundamentals />}/>
+          <Route path="/clearinghouse" element={<Clearinghouse/>}/>
+          <Route path="/medici" element={<Medici/>}/>
+          
+        </Routes>
+      </Router>
+      {/* <Overflow /> */}
+    </ThemeProvider>
   );
 }
 
