@@ -1,5 +1,5 @@
 import { fundamentals, clearinghouse } from "./texts";
-import { oneBigBank, module2 } from "../features/fundamentals/setupConfig";
+import { oneBigBank, module2 } from "../features/moduleState/setupConfig";
 
 export interface Text {
   title: string;
