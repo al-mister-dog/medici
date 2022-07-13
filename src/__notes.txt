@@ -45,3 +45,12 @@ part 4: The Federal Reserve
 
 
 
+
+
+SETTLE A PAYMENT
+Bank can receive payment from another bank
+Receive Bank Payment
+Send Bank Payment
+
+Two buttons
+disabled if not applicable... seesh

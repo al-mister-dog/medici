@@ -16,6 +16,8 @@ const resetAccordions = {
   openAccount: false,
   netDues: false,
   settleDues: false,
+  receiveBankPayment: false,
+  sendBankPayment: false,
 };
 
 const Operations: React.FunctionComponent<{ config: any; selected: any }> = ({
@@ -59,6 +61,18 @@ const Operations: React.FunctionComponent<{ config: any; selected: any }> = ({
         accordionTitle: "Net Dues",
         component: cardData(selected, accordionExpanded, setAccordionExpanded)
           .netDues,
+      },
+      {
+        accordionKey: "receiveBankPayment",
+        accordionTitle: "Receive Bank Payment",
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .receiveBankPayment,
+      },
+      {
+        accordionKey: "sendBankPayment",
+        accordionTitle: "Send Bank Payment",
+        component: cardData(selected, accordionExpanded, setAccordionExpanded)
+          .sendBankPayment,
       },
     ],
     clearinghouse: [

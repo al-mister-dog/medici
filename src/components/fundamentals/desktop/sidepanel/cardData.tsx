@@ -1,5 +1,6 @@
 import { Accordions } from "../../../types";
-import MoveAmountMethod from "./operations-cards/MoveAmountMethod";
+import MoveVariableAmount from "./operations-cards/MoveVariableAmount";
+import MoveFixedAmount from "./operations-cards/MoveFixedAmount";
 import NetDuesCard from "./operations-cards/NetDuesCard";
 import OpenAccountCard from "./operations-cards/OpenAccountCard";
 import SettleDuesCard from "./operations-cards/SettleDuesCard";
@@ -7,6 +8,9 @@ import SettleDuesCard from "./operations-cards/SettleDuesCard";
 import {
   findBankByCustomersAccounts,
   findAllCustomers,
+  findAllBanks,
+  findOweingBanks,
+  findOwedBanks,
 } from "./operations-cards/__filters";
 
 const cardData = (
@@ -18,33 +22,36 @@ const cardData = (
 
   return {
     deposit: (
-      <MoveAmountMethod
+      <MoveVariableAmount
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
         filterMethod={findBankByCustomersAccounts}
+        operationText="Deposit To"
         methodText="Deposit To"
         dispatchMethod="deposit"
         config={config}
       />
     ),
     transfer: (
-      <MoveAmountMethod
+      <MoveVariableAmount
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
         filterMethod={findAllCustomers}
+        operationText="Transfer To"
         methodText="Transfer To"
         dispatchMethod="transfer"
         config={config}
       />
     ),
     withdraw: (
-      <MoveAmountMethod
+      <MoveVariableAmount
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
         filterMethod={findBankByCustomersAccounts}
+        operationText="Withdraw From"
         methodText="Withdraw From"
         dispatchMethod="withdraw"
         config={config}
@@ -70,6 +77,31 @@ const cardData = (
         selected={selected}
         accordionExpanded={accordionExpanded}
         setAccordionExpanded={setAccordionExpanded}
+      />
+    ),
+    receiveBankPayment: (
+      <MoveFixedAmount
+        selected={selected}
+        accordionExpanded={accordionExpanded}
+        setAccordionExpanded={setAccordionExpanded}
+        filterMethod={findOweingBanks}
+        operationText="Receive Bank Payment"
+        methodText="Find Bank"
+        dispatchMethod="payBank"
+        config={config}
+
+      />
+    ),
+    sendBankPayment: (
+      <MoveFixedAmount
+        selected={selected}
+        accordionExpanded={accordionExpanded}
+        setAccordionExpanded={setAccordionExpanded}
+        filterMethod={findOwedBanks}
+        operationText="Send Bank Payment"
+        methodText="Find Bank"
+        dispatchMethod="payBank"
+        config={config}
       />
     ),
   };

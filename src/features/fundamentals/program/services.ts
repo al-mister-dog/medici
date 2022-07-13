@@ -6,6 +6,19 @@ import { SystemMethods } from "./systemMethods";
 import { IBank } from "./types";
 
 export class BankService {
+  static payBank(a: IBank, b: IBank) {
+    const amountDue = b.liabilities.dues.find(
+      (account: { id: string }) => account.id === a.id
+    );
+    let amount: number;
+    if (amountDue) {
+      amount = amountDue.amount
+      partyFunctions(a).increaseReserves(amount);
+      partyFunctions(b).decreaseReserves(amount);
+      PaymentMethods.clearDues(a, b)
+      PaymentMethods.clearDues(b, a)
+    }
+  }
   static deposit(a: IBank, b: IBank, amount: number) {
     PaymentMethods.creditAccount(a, b, amount, [
       "bankDeposits",
@@ -83,9 +96,9 @@ export class CustomerService {
         return 0;
       }
     )[0];
-    
+
     const bankId = accountWithMostCash.id.split("-")[1].toString();
-    const customersBank = lookup[bankId]
+    const customersBank = lookup[bankId];
     return customersBank;
   }
   private static automateTransferToAccount(c: IBank) {
@@ -102,7 +115,7 @@ export class CustomerService {
       }
     )[0];
     const bankId = accountWithLeastCash.id.split("-")[1].toString();
-    const customersBank = lookup[bankId]
+    const customersBank = lookup[bankId];
     return customersBank;
   }
   static transfer(
@@ -146,12 +159,7 @@ export class CustomerService {
       "customerOverdrafts"
     );
   }
-  static createLoan(
-    a: IBank,
-    b: IBank,
-    amount: number,
-    rate: number = 10
-  ) {
+  static createLoan(a: IBank, b: IBank, amount: number, rate: number = 10) {
     const interest = (amount * rate) / 100;
     const amountPlusInterest = amount + interest;
     partyFunctions(a).createInstrument(
@@ -160,7 +168,12 @@ export class CustomerService {
       "customerLoans",
       amountPlusInterest
     );
-    partyFunctions(b).createInstrument(a.id, "assets", "customerLoans", amountPlusInterest);
+    partyFunctions(b).createInstrument(
+      a.id,
+      "assets",
+      "customerLoans",
+      amountPlusInterest
+    );
     PaymentMethods.creditAccount(a, b, amount, [
       "customerDeposits",
       "customerOverdrafts",
@@ -176,15 +189,35 @@ export class CustomerService {
       if (amount > loanAmount.amount) {
         amount = loanAmount.amount;
       }
-      partyFunctions(a).decreaseInstrument(b.id, "liabilities", "customerLoans", amount);
-      partyFunctions(b).decreaseInstrument(a.id, "assets", "customerLoans", amount);
+      partyFunctions(a).decreaseInstrument(
+        b.id,
+        "liabilities",
+        "customerLoans",
+        amount
+      );
+      partyFunctions(b).decreaseInstrument(
+        a.id,
+        "assets",
+        "customerLoans",
+        amount
+      );
     }
   }
   static repayLoanReserves(a: IBank, b: IBank, amount: number) {
     partyFunctions(a).decreaseReserves(amount);
     partyFunctions(b).increaseReserves(amount);
-    partyFunctions(a).decreaseInstrument(b.id, "liabilities", "customerLoans", amount);
-    partyFunctions(b).decreaseInstrument(a.id, "assets", "customerLoans", amount);
+    partyFunctions(a).decreaseInstrument(
+      b.id,
+      "liabilities",
+      "customerLoans",
+      amount
+    );
+    partyFunctions(b).decreaseInstrument(
+      a.id,
+      "assets",
+      "customerLoans",
+      amount
+    );
   }
 }
 
@@ -230,4 +263,3 @@ export class ClearingHouseService {
     partyFunctions(bankB).increaseReserves(amount);
   }
 }
-

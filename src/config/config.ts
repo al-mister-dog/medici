@@ -100,7 +100,7 @@ export const modules = {
         credit: true,
         constraint: false,
         parties: ["customer1", "customer2", "customer3", "customer4", "bank1", "bank2"],
-        balanceSheetDisplay: ["customerDeposits", "customerOverdrafts"],
+        balanceSheetDisplay: ["customerDeposits", "customerOverdrafts", "dues"],
         text: clearinghouse.step3,
         state: module2.multipleBanks,
       },

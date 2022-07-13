@@ -169,6 +169,7 @@ export const module2 = {
             customer: "customer1",
             reserves: 100,
             initialDeposit: 50,
+            transfers: [{ customer: "customer4", amount: 40 }]
           },
           {
             customer: "customer2",

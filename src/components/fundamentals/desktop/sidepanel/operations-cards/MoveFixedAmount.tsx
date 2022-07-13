@@ -4,15 +4,14 @@ import {
   withdraw,
   deposit,
   transfer,
+  payBank,
 } from "../../../../../features/fundamentals/fundamentalsSlice";
-import { selectAuxilliary } from "../../../../../features/auxilliary/auxilliarySlice";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChoosePlayer from "./dialogs/ChoosePlayerDialog";
 import { IBank } from "../../../../../program/clearinghouse/types";
 import { Accordions } from "../../../../types";
 import { Box, Button, Typography } from "@mui/material";
-import Amount from "./buttons/Amount";
 
 type DispatchFunctionSig = (
   selected: IBank,
@@ -24,31 +23,28 @@ interface Dispatches {
   withdraw: DispatchFunctionSig;
   deposit: DispatchFunctionSig;
   transfer: DispatchFunctionSig;
+  payBank: DispatchFunctionSig;
 }
 
-const MoveAmountMethod: React.FunctionComponent<{
-  
+const MoveFixedAmount: React.FunctionComponent<{
   selected: any;
   accordionExpanded: Accordions;
   setAccordionExpanded: (v: Accordions) => void;
   filterMethod: (selected: IBank, partiesArray: IBank[]) => IBank[];
+  operationText: string;
   methodText: string;
   dispatchMethod: keyof Dispatches;
   config?: any;
-  
 }> = ({
   config,
   selected,
   accordionExpanded,
   setAccordionExpanded,
   filterMethod,
+  operationText,
   methodText,
   dispatchMethod,
-  
 }) => {
-  
-  
-  const {reservePercentage} = useAppSelector(selectAuxilliary)
   const [selectedValueTo, setSelectedValuePlayer] = useState<IBank | null>(
     null
   );
@@ -97,6 +93,19 @@ const MoveAmountMethod: React.FunctionComponent<{
         })
       );
     },
+    payBank(
+      selected: IBank,
+      selectedValueTo: IBank,
+      selectedValueAmount: number
+    ) {
+      dispatch(
+        payBank({
+          p1: selected,
+          p2: selectedValueTo,
+          amt: selectedValueAmount,
+        })
+      );
+    },
   };
   const parties = useAppSelector(selectParties);
   let partiesArray: IBank[] = [];
@@ -124,52 +133,17 @@ const MoveAmountMethod: React.FunctionComponent<{
       setAccordionExpanded({ ...accordionExpanded, deposit: false });
     }
   };
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(``);
 
-  const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const amount = parseInt(event.target.value);
+  useEffect(() => {
     if (selectedValueTo) {
-      console.log(selectedValueTo.reserves)
+      const selectedAmount = selectedValueTo.liabilities.dues.find(
+        (account) => account.id === selected.id
+      );
+      if (selectedAmount) {
+        setSelectedValueAmount(selectedAmount.amount);
+      }
     }
-    if (amount <= 0) {
-      setError(true);
-      setErrorMessage(``);
-    } else if (
-      dispatchMethod === "transfer" &&
-      !config.credit &&
-      amount > selected.assets.customerDeposits[0].amount
-    ) {
-      setError(true);
-      setErrorMessage(`Your bank does not allow overdrafts`);
-    }
-    else if (
-      selectedValueTo &&
-      dispatchMethod === "withdraw" &&
-      config.constraint &&
-      selectedValueTo.reserves - amount <= selectedValueTo.reserves / 100 * reservePercentage
-      // config.constraint &&
-      // dispatchMethod === "withdraw" &&
-      // selectedValueTo !== null &&
-      // (selected.valueTo.reserves - amount) <= (selected.valueTo.reserves / 100 * 25)
-    ) {
-      setError(true);
-      setErrorMessage(`Your bank has insufficent reserve requirements`);
-    }
-    else if (
-      dispatchMethod === "withdraw" &&
-      selectedValueTo !== null &&
-      amount > selectedValueTo.reserves
-    ) {
-      setError(true);
-      setErrorMessage(`Your bank has insufficent reserves`);
-    } 
-    else {
-      setError(false);
-      setErrorMessage(``);
-    }
-    setSelectedValueAmount(amount);
-  };
+  }, [selectedValueTo]);
 
   return (
     <Box>
@@ -199,6 +173,7 @@ const MoveAmountMethod: React.FunctionComponent<{
             open={openTo}
             onClose={handleCloseTo}
             selectedBankers={selectedParties}
+            methodText={operationText}
           />
 
           <Typography
@@ -219,13 +194,9 @@ const MoveAmountMethod: React.FunctionComponent<{
           <Typography sx={{ margin: 0.75 }}>
             {selectedValueTo ? `${selectedValueTo.id}` : ` `}
           </Typography>
-
-          <Amount
-            selectedValueAmount={selectedValueAmount}
-            handleChangeAmount={handleChangeAmount}
-            error={error}
-            errorMessage={errorMessage}
-          />
+          <Typography sx={{ margin: 0.75 }}>
+            ${selectedValueAmount ? `${selectedValueAmount}` : `0`}
+          </Typography>
         </div>
       </div>
       <div
@@ -240,7 +211,6 @@ const MoveAmountMethod: React.FunctionComponent<{
           disabled={
             selectedValueAmount < 1 ||
             selectedValueTo === null ||
-            error ||
             !selectedValueAmount
           }
           onClick={onClickOk}
@@ -252,4 +222,4 @@ const MoveAmountMethod: React.FunctionComponent<{
   );
 };
 
-export default MoveAmountMethod;
+export default MoveFixedAmount;

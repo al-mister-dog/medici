@@ -196,13 +196,32 @@ export const clearinghouse = {
   step3: {
     title: `Multiple Banks`,
     paragraphs: [
-      `In reality there isn't just one bank but many banks.`,
-      `blablabla`,
+      `In reality there isn't just one bank but many banks. If a customer from Bank 1 pays a
+      customer from Bank 2, the liabilities of Bank 1 decreases but the liabilities of Bank2 
+      increases. However Bank 2 has not received any cash in return for this increase in its
+      deposit liabilities; Bank 2 is in effect owed money by Bank 1. This raises the problem
+      of how to settle payments between banks.`,
+      `In America during the first half of the 19th century, a cheque received by one bank 
+      would have the name of the bank from which the customer belonging to some other bank 
+      had made a payment. These cheques would be tallied up at the end of the day or week 
+      and then a bill demanding payment from that bank would be issued. Likewise, this same 
+      bank will receive bills demanding payments to other banks from which customers from 
+      this bank have made transfers to customers to those other banks. Each bank would have 
+      a porter who would shift reserves from bank to bank, carrying the risk of making 
+      mistakes in payments, honest or dishonest.`,
+      `We introduce in this step 'dues'. These dues represent money owed to or from a bank and 
+      appear on both sides of a bank's balance sheet. They are not really any different to 
+      deposits or overdrafts, representing payments the banks will make to eachother at a future
+      date. When payments are settled these dues are wiped off the balance sheets and end up in
+      each banks' reserves. In the next step we will look at an improved way of dealing with payments between banks.`
     ],
-    assignment: `Here we have a bank with two customers, who have 100 pounds in cash ready to be deposited at the bank. Watch what happens to the bank’s balance sheet and the customers' accounts when they transfer their money to eachother.`,
+    assignment: `Here we have a twos banks each with two customers, who have 50 dollars in their
+    accounts. Make payments between customers and note how 'due tos' and 'due froms' get added to
+    each bank's balance sheet. Note where this money goes once payments between banks have been
+    settled.`,
   },
   step4: {
-    title: `Credit and Overdrafts`,
+    title: `Correspondent Banking`,
     paragraphs: [
       `Credit is simply a promise to pay at a future date. I could write you an IOU on a piece
       of paper in exchange for goods or services and that would count as credit. For banks, 

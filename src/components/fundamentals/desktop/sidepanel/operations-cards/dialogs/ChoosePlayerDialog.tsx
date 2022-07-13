@@ -11,70 +11,44 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import { blue } from "@mui/material/colors";
 
-// interface Banker {
-//   id: string;
-//   city: string;
-//   type: string;
-//   assets: any;
-//   liabilities: any;
-//   coins: any;
-//   goods: number;
-//   coinAsset: any;
-//   coinLiability: any;
-// }
-
-interface All {
-  exporter: {
-    action: {
-      [key: string]: string;
-    };
-  };
-  importer: {
-    action: {
-      [key: string]: string;
-    };
-  };
-  banker: {
-    action: {
-      [key: string]: string;
-    };
-  };
+interface Operation {
+  [index: string]: any;
 }
 
-interface Action {
-  remitBill?: string;
-  drawBill?: string;
-  trade?: string;
-}
-interface Type {
-  exporter: string;
-  banker: string;
-}
-interface Info {
-  type: keyof Type;
-  action: keyof Action;
-}
-
-const text: All = {
-  exporter: {
-    action: {
-      trade: "Find an importer willing to buy your goods",
-      drawBill:
-        "Draw a bill on an local exchange banker, or a merchant if they are living in the same city",
+const operationsText: Operation = {
+  "Receive Bank Payment": {
+    moreThanOne(arr: any[]) {
+      return arr.length > 0
+        ? `Find a Debtor Bank`
+        : `You are not owed anything at the moment`;
     },
   },
-  importer: {
-    action: {
-      trade: "Find an exporter willing to ship goods",
-      drawBill:
-        "Draw a bill on an local exchange banker, or a merchant if they are living in the same city",
+  "Send Bank Payment": {
+    moreThanOne(arr: any[]) {
+      return arr.length > 0
+        ? `Find a Creditor Bank`
+        : `You do not owe anyone at the moment`;
     },
   },
-  banker: {
-    action: {
-      remitBill: "Find a banker willing to take your bill",
-      drawBill:
-        "Draw a bill on an local exchange banker, or a merchant if they are living in the same city",
+  "Withdraw From": {
+    moreThanOne(arr: any[]) {
+      return arr.length > 0
+        ? `Find a Bank to withdraw your funds`
+        : `You need to open an accuont`;
+    },
+  },
+  "Transfer To": {
+    moreThanOne(arr: any[]) {
+      return arr.length > 0
+        ? `Find a Payee`
+        : `There are no other customers`;
+    },
+  },
+  "Deposit To": {
+    moreThanOne(arr: any[]) {
+      return arr.length > 0
+        ? `Make a deposit`
+        : `You need to open an account`;
     },
   },
 };
@@ -84,10 +58,11 @@ export interface ChoosePlayerProps {
   setSelectedValuePlayer: (v: any) => void;
   onClose: () => void;
   selectedBankers: any[];
+  methodText: string;
 }
 
 export default function ChoosePlayer(props: ChoosePlayerProps) {
-  const { onClose, setSelectedValuePlayer, open, selectedBankers } =
+  const { onClose, setSelectedValuePlayer, open, selectedBankers, methodText } =
     props;
 
   const handleClose = () => {
@@ -103,11 +78,10 @@ export default function ChoosePlayer(props: ChoosePlayerProps) {
     <Dialog onClose={handleClose} open={open}>
       <Box sx={{ padding: "20px" }}>
         <Typography variant="h6" sx={{ marginBottom: 0 }}>
-          Money Placeholder
+          {methodText}
         </Typography>
         <Typography variant="subtitle1">
-          {/* {text[info.type].action[info.action]} */}
-          Choose a party
+          {operationsText[methodText].moreThanOne(selectedBankers)}
         </Typography>
         <List sx={{ pt: 0 }}>
           {selectedBankers.map((banker, i) => (
