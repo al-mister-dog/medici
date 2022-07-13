@@ -179,7 +179,7 @@ const StepperDeskTop: React.FunctionComponent<{
         margin: "auto",
         borderRadius: "15px",
         background: "#F2EECB",
-        marginTop: "50px",
+        marginTop: "150px",
         paddingTop: "20px",
       }}
     >
